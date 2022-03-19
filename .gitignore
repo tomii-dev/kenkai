@@ -5,3 +5,7 @@ x64/
 *.opensdf
 *.sdf
 *.cachefile
+.vs/
+lib/
+
+Kenkai/x64/
