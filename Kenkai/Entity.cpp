@@ -3,9 +3,6 @@
 #include "Entity.hpp"
 
 Entity::Entity() {
-	if (!texture.loadFromFile("assets/link.png")) 
-		std::cout << "failed to load sprite" << std::endl;
-	sprite.setTexture(texture);
 	up = false;
 	down = false;
 	left = false;

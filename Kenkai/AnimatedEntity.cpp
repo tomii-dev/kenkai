@@ -6,8 +6,8 @@
 
 AnimatedEntity::AnimatedEntity(float x, float y) {
 	frame = 0;
-	frameCount = 0;
 	animFrame = 0;
+	frameGap = floor(Properties::frameRate / 4);
 	up = false;
 	down = false;
 	left = false;
@@ -20,15 +20,8 @@ void AnimatedEntity::ResetValues() {
 	animFrame = 0;
 }
 
-void AnimatedEntity::setTextures(sf::Texture* textures){
-	for (int i = 0; i < Properties::frameRate; i++) {
-		if (textures[i].getSize().x == 0) break;
-
-		frames[i] = textures[i];
-		frameCount++;
-	}
-	frameGap = floor(Properties::frameRate / frameCount);
-	nextAnimFrame = frameGap;
+void AnimatedEntity::setAnims(Tools::AnimationInfo _anims){
+	anims = _anims;
 }
 
 void AnimatedEntity::AnimUpdate(){
@@ -37,6 +30,6 @@ void AnimatedEntity::AnimUpdate(){
 		nextAnimFrame += frameGap;
 		animFrame++;
 	}
-	sprite.setTexture(frames[animFrame]);
+	sprite.setTexture(anims.idleAnim[animFrame]);
 	if (frame == Properties::frameRate - 1) ResetValues();
 }

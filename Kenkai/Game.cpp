@@ -1,8 +1,10 @@
 #include <iostream>
+#include <vector>
 
 #include "Game.hpp"
 #include "Control.hpp"
 #include "Properties.hpp"
+#include "Tools.hpp"
 
 #include "SFML/Graphics.hpp"
 
@@ -13,17 +15,8 @@ void Game::RunGame() {
 	window.setFramerateLimit(144);
 	sf::Event e;
 
-	sf::Texture texture1;
-	texture1.loadFromFile("assets/link.png");
-	sf::Texture texture2;
-	texture2.loadFromFile("assets/link2.png");
-	sf::Texture texture3;
-	texture3.loadFromFile("assets/link3.png");
-	sf::Texture playerTextures[10];
-	playerTextures[0] = texture1;
-	playerTextures[1] = texture2;
-	playerTextures[2] = texture3;
-	player.setTextures(playerTextures);
+	// set up player animations
+	player.setAnims(Tools::GetAnimsById("player"));
 
 	// main loop
 	while (window.isOpen()) {

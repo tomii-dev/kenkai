@@ -5,7 +5,7 @@
 namespace Game {
 
 	int frame;
-	AnimatedEntity player(50, 50);
+	AnimatedEntity player(1200, 1200);
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "balls");
 

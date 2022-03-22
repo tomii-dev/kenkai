@@ -169,6 +169,7 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="Properties.hpp" />
+    <ClInclude Include="Tools.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Pictures\link.png" />
