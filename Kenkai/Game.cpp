@@ -2,43 +2,69 @@
 #include <vector>
 
 #include "Game.hpp"
+#include "GameWorld.hpp"
 #include "Control.hpp"
 #include "Properties.hpp"
 #include "Tools.hpp"
+#include "Entity.hpp"
+#include "Player.hpp"
+#include "AnimatedEntity.hpp"
 
 #include "SFML/Graphics.hpp"
 
-using namespace Game;
 using namespace Control;
 
-void Game::RunGame() {
-	window.setFramerateLimit(144);
-	sf::Event e;
+namespace Game {
+	int frame = 0;
+	Player player(Tools::PlayerConfig("balls"));
+	Entity link;
+	sf::RenderWindow window(sf::VideoMode(800, 600), "balls", sf::Style::Close);
 
-	// set up player animations
-	player.setAnims(Tools::GetAnimsById("player"));
+	void RunGame() {
 
-	// main loop
-	while (window.isOpen()) {
-		while (window.pollEvent(e)) {
-			switch (e.type) {
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::KeyPressed:
-				HandleControl(e.key.code, true);
-				break;
-			case sf::Event::KeyReleased:
-				HandleControl(e.key.code, false);
-				break;
+		GameWorld world;
+
+		sf::RectangleShape background(sf::Vector2f(800, 600));
+		sf::Texture backgroundTexture;
+		backgroundTexture.loadFromFile("assets/textures/environment/background.png");
+		background.setTexture(&backgroundTexture);
+
+		window.setFramerateLimit(144);
+		sf::Event e;
+
+		sf::Texture linkTexture;
+		linkTexture.loadFromFile("assets/animations/1.png");
+
+		link.setTexture(linkTexture);
+
+		// set up player animations
+		player.setAnims(Tools::GetAnimsById("player"));
+
+		// main loop
+		while (window.isOpen()) {
+			while (window.pollEvent(e)) {
+				switch (e.type) {
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::KeyPressed:
+					HandleControl(e.key.code, true);
+					break;
+				case sf::Event::KeyReleased:
+					HandleControl(e.key.code, false);
+					break;
+				}
 			}
+			window.clear(sf::Color::Blue);
+			window.draw(background);
+			//link.Update();
+			//link.DrawTo(window);
+			player.Update();
+			player.DrawTo(window);
+			window.display();
+			frame++;
+			if (frame == Properties::frameRate) frame = 0;
 		}
-		window.clear(sf::Color::Blue);
-		player.Update();
-		player.DrawTo(window);
-		window.display();
-		frame++;
-		if (frame == Properties::frameRate) frame = 0;
 	}
 }
 

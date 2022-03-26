@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Entity.hpp"
 #include "Tools.hpp"
 
@@ -12,6 +14,6 @@ class AnimatedEntity : public Entity {
 	int animFrame;
 	int nextAnimFrame;
 public:
-	AnimatedEntity(float x, float y);
+	AnimatedEntity();
 	void setAnims(Tools::AnimationInfo anims);
 };

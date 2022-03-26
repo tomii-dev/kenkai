@@ -7,15 +7,22 @@
 namespace Tools {
 
 	struct AnimationInfo {
-		sf::Texture idleAnim[4];
-		sf::Texture leftAnim[4];
-		sf::Texture rightAnim[4];
+		sf::Texture idleAnim[7];
+		sf::Texture leftAnim[6];
+		sf::Texture rightAnim[6];
+	};
+
+	struct PlayerConfig {
+		std::string username;
+		PlayerConfig(std::string _username) {
+			username = _username;
+		}
 	};
 
 	static AnimationInfo GetAnimsById(std::string id) {
 		AnimationInfo anims;
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 7; i++) {
 			sf::Texture texture;
 			texture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
 			anims.idleAnim[i] = texture;

@@ -4,10 +4,10 @@
 #include "Properties.hpp"
 #include "AnimatedEntity.hpp"
 
-AnimatedEntity::AnimatedEntity(float x, float y) {
+AnimatedEntity::AnimatedEntity() {
 	frame = 0;
 	animFrame = 0;
-	frameGap = floor(Properties::frameRate / 4);
+	frameGap = floor(Properties::frameRate / 6);
 	up = false;
 	down = false;
 	left = false;

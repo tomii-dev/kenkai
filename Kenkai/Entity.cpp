@@ -1,6 +1,9 @@
 #include <iostream>
 
 #include "Entity.hpp"
+#include "Collision.hpp"
+#include "Game.hpp"
+#include "Player.hpp"
 
 Entity::Entity() {
 	up = false;
@@ -9,9 +12,15 @@ Entity::Entity() {
 	right = false;
 }
 
-void Entity::AnimUpdate() {
-	;
+sf::Sprite Entity::getSprite() {
+	return sprite;
 }
+
+void Entity::setTexture(sf::Texture& texture) {
+	sprite.setTexture(texture);
+}
+
+void Entity::AnimUpdate() {}
 
 void Entity::Update() {
 	sf::Vector2f movement;
@@ -23,6 +32,12 @@ void Entity::Update() {
 
 	sprite.move(movement);
 	AnimUpdate();
+
+	if (name == "player") return;
+
+	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) {
+		std::cout << "BRO THEY TOUCHIN" << std::endl;
+	}
 }
 
 void Entity::DrawTo(sf::RenderWindow& window) {

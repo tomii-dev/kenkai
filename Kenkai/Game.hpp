@@ -1,13 +1,17 @@
 #pragma once
+
 #include "SFML/Graphics.hpp"
-#include "AnimatedEntity.hpp"
+
+class Player;
+class Entity;
 
 namespace Game {
 
-	int frame;
-	AnimatedEntity player(1200, 1200);
+	extern int frame;
+	extern Player player;
+	extern Entity link;
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "balls");
+	extern sf::RenderWindow window;
 
 	void RunGame();
 }
