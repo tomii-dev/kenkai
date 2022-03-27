@@ -9,6 +9,7 @@ protected:
 	sf::Texture texture;
 public:
 	std::string name;
+	sf::Vector2f position;
 	bool up;
 	bool down;
 	bool left;

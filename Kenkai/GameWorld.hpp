@@ -8,4 +8,5 @@ class GameWorld {
 	std::list <Entity> entities;
 public:
 	GameWorld();
+	void RenderEntities();
 };

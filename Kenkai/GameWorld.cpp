@@ -5,7 +5,13 @@
 #include "AnimatedEntity.hpp"
 
 GameWorld::GameWorld() {
-	AnimatedEntity balls;
-	entities.push_back(balls);
-	std::cout << "BALLS" << std::endl;
+	std::cout << "world created" << std::endl;
+;
+}
+
+void GameWorld::RenderEntities() {
+	std::list<Entity>::iterator it;
+	for (it = entities.begin(); it != entities.end(); it++){
+		std::cout << it->name << std::endl;
+	}
 }
