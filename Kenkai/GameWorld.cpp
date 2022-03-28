@@ -4,14 +4,19 @@
 #include "Entity.hpp"
 #include "AnimatedEntity.hpp"
 
-GameWorld::GameWorld() {
-	std::cout << "world created" << std::endl;
-;
+GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {}
+
+void GameWorld::Render() {
+	RenderEntities();
 }
 
 void GameWorld::RenderEntities() {
-	std::list<Entity>::iterator it;
-	for (it = entities.begin(); it != entities.end(); it++){
-		std::cout << it->name << std::endl;
+	for (Entity& entity : entities) {
+		entity.Update();
+		entity.DrawTo(window);
 	}
+}
+
+void GameWorld::AddEntity(Entity entity) {
+	entities.push_back(entity);
 }

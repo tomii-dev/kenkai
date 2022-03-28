@@ -22,7 +22,7 @@ namespace Game {
 
 	void RunGame() {
 
-		GameWorld world;
+		GameWorld world(window);
 
 		sf::RectangleShape background(sf::Vector2f(800, 600));
 		sf::Texture backgroundTexture;
@@ -39,6 +39,9 @@ namespace Game {
 
 		// set up player animations
 		player.setAnims(Tools::GetAnimsById("player"));
+		
+		world.AddEntity(player);
+		world.AddEntity(link);
 
 		// main loop
 		while (window.isOpen()) {
@@ -56,14 +59,8 @@ namespace Game {
 				}
 			}
 			window.clear(sf::Color::Blue);
-			window.draw(background);
-			//link.Update();
-			//link.DrawTo(window);
-			player.Update();
-			player.DrawTo(window);
+			world.Render();
 			window.display();
-			frame++;
-			if (frame == Properties::frameRate) frame = 0;
 		}
 	}
 }

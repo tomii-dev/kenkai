@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Entity.hpp"
-#include "Collision.hpp"
+//#include "Collision.hpp"
 #include "Game.hpp"
 #include "Player.hpp"
 
@@ -35,9 +35,9 @@ void Entity::Update() {
 
 	if (name == "player") return;
 
-	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) {
-		std::cout << "BRO THEY TOUCHIN" << std::endl;
-	}
+	//if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) {
+		//std::cout << "BRO THEY TOUCHIN" << std::endl;
+	//}
 }
 
 void Entity::DrawTo(sf::RenderWindow& window) {
