@@ -1,11 +1,4 @@
+Kenkai.vcxproj
+Kenkai.vcxproj.filters
+Kenkai.vcxproj.user
 x64/
-*.aps
-*.ncb
-*.opendb
-*.opensdf
-*.sdf
-*.cachefile
-.vs/
-lib/
-
-Kenkai/x64/
