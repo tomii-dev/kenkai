@@ -17,31 +17,19 @@ using namespace Control;
 namespace Game {
 	int frame = 0;
 	Player player(Tools::PlayerConfig("balls"));
-	Entity link;
 	sf::RenderWindow window(sf::VideoMode(800, 600), "balls", sf::Style::Close);
 
 	void RunGame() {
 
 		GameWorld world(window);
 
-		sf::RectangleShape background(sf::Vector2f(800, 600));
-		sf::Texture backgroundTexture;
-		backgroundTexture.loadFromFile("assets/textures/environment/background.png");
-		background.setTexture(&backgroundTexture);
-
 		window.setFramerateLimit(144);
 		sf::Event e;
-
-		sf::Texture linkTexture;
-		linkTexture.loadFromFile("assets/animations/1.png");
-
-		link.setTexture(linkTexture);
 
 		// set up player animations
 		player.setAnims(Tools::GetAnimsById("player"));
 		
-		world.AddEntity(player);
-		world.AddEntity(link);
+		world.AddEntity(&player);
 
 		// main loop
 		while (window.isOpen()) {

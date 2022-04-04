@@ -7,10 +7,13 @@ class Entity;
 
 class GameWorld {
 	sf::RenderWindow& window;
-	std::list <Entity> entities;
+	sf::Texture backgroundTex;
+	sf::Sprite worldBackground;
+	std::list<Entity*> entities;
 public:
 	GameWorld(sf::RenderWindow& _window);
 	void Render();
 	void RenderEntities();
-	void AddEntity(Entity entity);
+	void AddEntity(Entity *entity);
+	void RemoveEntity(Entity* entity);
 };

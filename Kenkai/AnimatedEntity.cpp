@@ -30,6 +30,9 @@ void AnimatedEntity::AnimUpdate(){
 		nextAnimFrame += frameGap;
 		animFrame++;
 	}
-	sprite.setTexture(anims.idleAnim[animFrame]);
+	if (m_movement == sf::Vector2f()) sprite.setTexture(anims.idleAnim[animFrame]);
+	if (m_movement == sf::Vector2f(-1, 0)) sprite.setTexture(anims.leftAnim[animFrame]);
+	if (m_movement == sf::Vector2f(1, 0)) sprite.setTexture(anims.rightAnim[animFrame]);
+ 	
 	if (frame == Properties::frameRate - 1) ResetValues();
 }

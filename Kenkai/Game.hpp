@@ -9,7 +9,6 @@ namespace Game {
 
 	extern int frame;
 	extern Player player;
-	extern Entity link;
 
 	extern sf::RenderWindow window;
 

@@ -160,6 +160,7 @@
     <ClCompile Include="AnimatedEntity.cpp" />
     <ClCompile Include="AnimatedEntity.hpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Control.hpp" />
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameWorld.hpp" />
