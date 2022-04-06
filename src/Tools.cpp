@@ -31,7 +31,7 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	return anims;
 }
 
-void Tools::Wait(int ms, std::function<void()> func) {
+void Tools::ExecuteFor(int ms, std::function<void()> func) {
 	if (!waiting) {
 		waiting = true;
 		waitUntil = Game::totalFrame + floor(ms * ((float)Properties::frameRate / 1000.0));
@@ -42,10 +42,9 @@ void Tools::Wait(int ms, std::function<void()> func) {
 	if (Game::totalFrame > waitUntil) {
 		waiting = false;
 		waitUntil = 0;
-		std::cout << "waited 2000ms" << std::endl;
 	}
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) Wait(0, exec);
+	if (waiting) ExecuteFor(0, exec);
 }

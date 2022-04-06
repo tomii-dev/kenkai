@@ -22,9 +22,10 @@ void Entity::setTexture(sf::Texture& texture) {
 void Entity::AnimUpdate() {}
 void Entity::OnPlayerCollision() {}
 
-void Entity::Move(sf::Vector2f vec) { movement = vec; }
+void Entity::Move(sf::Vector2f vec) { sprite.move(vec); }
 
 void Entity::Update() {
+	std::cout << "movement: " << movement.x << ", " << movement.y << std::endl;
 	movement = sf::Vector2f();
 
 	if (left) movement.x -= 1.0;

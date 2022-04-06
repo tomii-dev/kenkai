@@ -27,7 +27,7 @@ public:
 
 	static AnimationInfo GetAnimsById(std::string id);
 
-	static void Wait(int ms, std::function<void()> func);
+	static void ExecuteFor(int ms, std::function<void()> func);
 
 	static void LogicUpdate();
 };

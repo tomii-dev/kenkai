@@ -9,7 +9,7 @@ Player::Player(Tools::PlayerConfig config) {
 }
 
 void Player::Jump() {
-	Tools::Wait(2000, [this]() -> void {
-		movement = sf::Vector2f(0, -0.5);
+	Tools::ExecuteFor(200, [this]() -> void {
+		Move(sf::Vector2f(0, -0.5));
 		});
 }

@@ -24,7 +24,6 @@ void AnimatedEntity::setAnims(Tools::AnimationInfo _anims){
 }
 
 void AnimatedEntity::AnimUpdate(){
-	if (movement == sf::Vector2f(0, -0.5)) std::cout << "yep" << std::endl;
 	if(Game::frame == nextAnimFrame){
 		nextAnimFrame += frameGap;
 		animFrame++;
