@@ -25,7 +25,6 @@ void Entity::OnPlayerCollision() {}
 void Entity::Move(sf::Vector2f vec) { sprite.move(vec); }
 
 void Entity::Update() {
-	std::cout << "movement: " << movement.x << ", " << movement.y << std::endl;
 	movement = sf::Vector2f();
 
 	if (left) movement.x -= 1.0;
@@ -36,9 +35,7 @@ void Entity::Update() {
 
 	if (name == "player") return;
 
-	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) {
-		std::cout << "BRO THEY TOUCHIN" << std::endl;
-	}
+	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) OnPlayerCollision();
 }
 
 void Entity::DrawTo(sf::RenderWindow& window) {

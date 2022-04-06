@@ -1,15 +1,13 @@
 #pragma once
 
-#include <iostream>
-#include <math.h>
 #include <functional>
+#include <queue>
 
 #include "SFML/Graphics.hpp"
 
 class Tools {
 	static bool waiting;
 	static int waitUntil;
-	static std::function<void()> exec;
 
 public:
 	struct AnimationInfo {
@@ -18,6 +16,7 @@ public:
 		sf::Texture rightAnim[6];
 		sf::Texture fallAnim[7];
 	};
+
 	struct PlayerConfig {
 		std::string username;
 		PlayerConfig(std::string _username) {
@@ -25,9 +24,16 @@ public:
 		}
 	};
 
+	struct Task {
+		int endFrame;
+		std::function<void()> exec;
+	};
 	static AnimationInfo GetAnimsById(std::string id);
 
 	static void ExecuteFor(int ms, std::function<void()> func);
 
 	static void LogicUpdate();
+
+private:
+	static std::queue<Task> tasks;
 };

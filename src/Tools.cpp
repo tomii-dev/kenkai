@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <functional>
+#include <queue>
 
 #include "SFML/Graphics.hpp"
 #include "Properties.hpp"
@@ -10,7 +11,7 @@
 
 bool Tools::waiting = false;
 int Tools::waitUntil = 0;
-std::function<void()> Tools::exec;
+std::queue<Tools::Task> Tools::tasks;
 
 Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	AnimationInfo anims;
@@ -32,19 +33,20 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 }
 
 void Tools::ExecuteFor(int ms, std::function<void()> func) {
-	if (!waiting) {
+	if (waitUntil != tasks.front().endFrame) {
 		waiting = true;
 		waitUntil = Game::totalFrame + floor(ms * ((float)Properties::frameRate / 1000.0));
-		exec = func;
+		Task task;
+		task.endFrame = waitUntil;
+		task.exec = func;
+		tasks.push(task);
 		return;
 	}
-	func();
-	if (Game::totalFrame > waitUntil) {
-		waiting = false;
-		waitUntil = 0;
-	}
+	tasks.front().exec();
+	if (Game::totalFrame > waitUntil) tasks.pop();
+	if (tasks.empty()) waiting = false;
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) ExecuteFor(0, exec);
+	if (waiting) ExecuteFor(NULL, NULL);
 }
