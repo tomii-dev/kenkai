@@ -3,11 +3,8 @@
 #include <iostream>
 #include "Entity.hpp"
 
-void Engine::ApplyGravity(std::list<Entity *> entities)
+void Engine::ApplyGravity(Entity *entity)
 {
-	std::list<Entity *>::iterator it;
-	for (it = entities.begin(); it != entities.end(); it++)
-	{
-		(*it)->Move(sf::Vector2f(0, 3));
-	}
+	int force = entity->weight * 0.2;
+	entity->Move(sf::Vector2f(0, force));
 }

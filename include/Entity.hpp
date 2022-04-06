@@ -7,10 +7,11 @@ class Entity {
 protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-	sf::Vector2f m_movement;
+	sf::Vector2f movement;
 public:
 	std::string name;
 	sf::Vector2f position;
+	int weight;
 	bool up;
 	bool down;
 	bool left;

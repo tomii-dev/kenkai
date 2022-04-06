@@ -6,4 +6,5 @@ class Player : public AnimatedEntity {
 	std::string username;
 public:
 	Player(Tools::PlayerConfig config);
-};
+	void Jump();
+}; 

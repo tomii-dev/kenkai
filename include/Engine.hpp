@@ -6,5 +6,5 @@ class Entity;
 
 class Engine {
 public:
-	static void ApplyGravity(std::list<Entity*> entities);
+	static void ApplyGravity(Entity* entity);
 };

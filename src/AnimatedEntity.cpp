@@ -1,11 +1,11 @@
 #include <iostream>
 #include <math.h>
 
+#include "Tools.hpp"
 #include "Properties.hpp"
 #include "AnimatedEntity.hpp"
 
 AnimatedEntity::AnimatedEntity() {
-	frame = 0;
 	animFrame = 0;
 	frameGap = floor(Properties::frameRate / 6);
 	up = false;
@@ -15,7 +15,6 @@ AnimatedEntity::AnimatedEntity() {
 }
 
 void AnimatedEntity::ResetValues() {
-	frame = 0;
 	nextAnimFrame = frameGap;
 	animFrame = 0;
 }
@@ -25,14 +24,15 @@ void AnimatedEntity::setAnims(Tools::AnimationInfo _anims){
 }
 
 void AnimatedEntity::AnimUpdate(){
-	frame++;
-	if(frame == nextAnimFrame){
+	if (movement == sf::Vector2f(0, -0.5)) std::cout << "yep" << std::endl;
+	if(Game::frame == nextAnimFrame){
 		nextAnimFrame += frameGap;
 		animFrame++;
 	}
-	if (m_movement == sf::Vector2f()) sprite.setTexture(anims.idleAnim[animFrame]);
-	if (m_movement == sf::Vector2f(-1, 0)) sprite.setTexture(anims.leftAnim[animFrame]);
-	if (m_movement == sf::Vector2f(1, 0)) sprite.setTexture(anims.rightAnim[animFrame]);
- 	
-	if (frame == Properties::frameRate - 1) ResetValues();
+	if (movement == sf::Vector2f()) sprite.setTexture(anims.idleAnim[animFrame]);
+	if (movement == sf::Vector2f(-1, 0)) sprite.setTexture(anims.leftAnim[animFrame]);
+	if (movement == sf::Vector2f(1, 0)) sprite.setTexture(anims.rightAnim[animFrame]);
+	if (movement.y > 0) sprite.setTexture(anims.fallAnim[animFrame]);
+	if (movement.y < 0) sprite.setTexture(anims.fallAnim[animFrame]);
+	if (Game::frame == 0) ResetValues();
 }

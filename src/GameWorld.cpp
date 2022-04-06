@@ -9,10 +9,16 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
 }
 
+void GameWorld::WorldPhysics() {
+	std::list<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); it++) {
+		Engine::ApplyGravity(*it);
+	}
+}
+
 void GameWorld::Render() {
 	// render world background first
 	worldBackground.setTexture(backgroundTex);
-	Engine::ApplyGravity(entities);
 	window.draw(worldBackground);
 
 	RenderEntities();

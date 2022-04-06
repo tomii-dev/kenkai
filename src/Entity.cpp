@@ -6,8 +6,7 @@
 #include "Entities/Player.hpp"
 
 Entity::Entity() {
-	up = false;
-	down = false;
+	movement = sf::Vector2f();
 	left = false;
 	right = false;
 }
@@ -23,17 +22,13 @@ void Entity::setTexture(sf::Texture& texture) {
 void Entity::AnimUpdate() {}
 void Entity::OnPlayerCollision() {}
 
-void Entity::Move(sf::Vector2f vec) { sprite.move(vec); }
+void Entity::Move(sf::Vector2f vec) { movement = vec; }
 
 void Entity::Update() {
-	sf::Vector2f movement;
+	movement = sf::Vector2f();
 
-	if (up) movement.y -= 1.0;
-	if (down) movement.y += 1.0;
 	if (left) movement.x -= 1.0;
 	if (right) movement.x += 1.0;
-
-	m_movement = movement;
 
 	sprite.move(movement);
 	AnimUpdate();

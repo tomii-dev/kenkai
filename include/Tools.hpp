@@ -1,17 +1,23 @@
 #pragma once
 
 #include <iostream>
+#include <math.h>
+#include <functional>
+
 #include "SFML/Graphics.hpp"
-#include "Properties.hpp"
 
-namespace Tools {
+class Tools {
+	static bool waiting;
+	static int waitUntil;
+	static std::function<void()> exec;
 
+public:
 	struct AnimationInfo {
 		sf::Texture idleAnim[7];
 		sf::Texture leftAnim[6];
 		sf::Texture rightAnim[6];
+		sf::Texture fallAnim[7];
 	};
-
 	struct PlayerConfig {
 		std::string username;
 		PlayerConfig(std::string _username) {
@@ -19,19 +25,9 @@ namespace Tools {
 		}
 	};
 
-	static AnimationInfo GetAnimsById(std::string id) {
-		AnimationInfo anims;
+	static AnimationInfo GetAnimsById(std::string id);
 
-		for (int i = 0; i < 7; i++) {
-			sf::Texture texture;
-			texture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
-			anims.idleAnim[i] = texture;
-			//texture.loadFromFile("assets/animations/" + id + "/left/" + std::to_string(i + 1) + ".png");
-			//anims.leftAnim[i] = texture;
-			//texture.loadFromFile("assets/animations/" + id + "/right/" + std::to_string(i + 1) + ".png");
-			//anims.rightAnim[i] = texture;
-		}
+	static void Wait(int ms, std::function<void()> func);
 
-		return anims;
-	}
-}
+	static void LogicUpdate();
+};

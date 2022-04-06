@@ -21,6 +21,8 @@ namespace Control {
 			case sf::Keyboard::D:
 				Game::player.right = pressed;
 				break;
+			case sf::Keyboard::Space:
+				if (pressed) Game::player.Jump();
 		}
 	}
 }

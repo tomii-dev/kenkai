@@ -9,7 +9,6 @@ class AnimatedEntity : public Entity {
 	Tools::AnimationInfo anims;
 	void AnimUpdate() override;
 	void ResetValues();
-	int frame;
 	int frameGap;
 	int animFrame;
 	int nextAnimFrame;

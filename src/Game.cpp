@@ -16,6 +16,7 @@ using namespace Control;
 
 namespace Game {
 	int frame = 0;
+	int totalFrame = 0;
 	Player player(Tools::PlayerConfig("balls"));
 	sf::RenderWindow window(sf::VideoMode(800, 600), "balls", sf::Style::Close);
 
@@ -47,8 +48,13 @@ namespace Game {
 				}
 			}
 			window.clear(sf::Color::Blue);
+			//world.WorldPhysics();
+			Tools::LogicUpdate();
 			world.Render();
 			window.display();
+			++frame;
+			++totalFrame;
+			if (frame == Properties::frameRate - 1) frame = 0;
 		}
 	}
 }
