@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Entities/Player.hpp"
 #include "Game.hpp"
 #include "Tools.hpp"
@@ -9,10 +11,10 @@ Player::Player(Tools::PlayerConfig config) {
 }
 
 void Player::Jump() {
-	Tools::ExecuteFor(100, [this]() -> void {
-		Move(sf::Vector2f(0, -0.5));
+	Tools::ExecuteFor(200, [this]() -> void {
+		Move(sf::Vector2f(0, -0.2));
 		});
-	Tools::ExecuteFor(100, [this]() -> void {
-		Move(sf::Vector2f(0, 0.5));
+	Tools::ExecuteFor(200, [this]() -> void {
+		Move(sf::Vector2f(0, 0.2));
 		});
 }

@@ -33,20 +33,22 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 }
 
 void Tools::ExecuteFor(int ms, std::function<void()> func) {
-	if (waitUntil != tasks.front().endFrame) {
+	if (ms != NULL) {
+		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
+		if (!tasks.empty()) endFrame += tasks.front().endFrame;
+		else endFrame += Game::totalFrame;
 		waiting = true;
-		waitUntil = Game::totalFrame + floor(ms * ((float)Properties::frameRate / 1000.0));
 		Task task;
-		task.endFrame = waitUntil;
+		task.endFrame = endFrame;
 		task.exec = func;
 		tasks.push(task);
 		return;
 	}
-	tasks.front().exec();
-	if (Game::totalFrame > waitUntil) tasks.pop();
+	func();
+	if (Game::totalFrame > tasks.front().endFrame) tasks.pop();
 	if (tasks.empty()) waiting = false;
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) ExecuteFor(NULL, NULL);
+	if (waiting) ExecuteFor(NULL, tasks.front().exec);
 }

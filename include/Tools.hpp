@@ -28,6 +28,7 @@ public:
 		int endFrame;
 		std::function<void()> exec;
 	};
+
 	static AnimationInfo GetAnimsById(std::string id);
 
 	static void ExecuteFor(int ms, std::function<void()> func);
