@@ -25,6 +25,7 @@ void Entity::setTexture(sf::Texture& texture) {
 
 void Entity::AnimUpdate() {}
 void Entity::OnPlayerCollision() {}
+void Entity::Die(){}
 
 void Entity::Move(float x, float y) { movement = sf::Vector2f(x, y); }
 

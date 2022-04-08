@@ -8,6 +8,7 @@ protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::Vector2f movement;
+	virtual void Die();
 public:
 	std::string name;
 	int weight;
