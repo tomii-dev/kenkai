@@ -10,7 +10,9 @@ Entity::Entity() {
 	left = false;
 	right = false;
 	jumping = false;
+	canJump = true;
 	inAir = false;
+	weight = 30;
 }
 
 sf::Sprite Entity::getSprite() {
@@ -38,12 +40,13 @@ void Entity::Update() {
 
 	if (!inAir) movement = sf::Vector2f();
 
-	if (left) movement.x -= 2.0;
-	if (right) movement.x += 2.0;
+	if (left) movement.x -= moveSpeed;
+	if (right) movement.x += moveSpeed;
 
 	sprite.move(movement);
 	AnimUpdate();
 
+	std::cout << name << " health: " << health << std::endl;
 	if (name == "player") return;
 
 	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) OnPlayerCollision();

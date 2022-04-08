@@ -18,6 +18,7 @@ void GameWorld::WorldPhysics() {
 			(*it)->inAir = false;
 			continue;
 		}
+		else (*it)->inAir = true;
 		Engine::ApplyGravity(*it);
 	}
 }

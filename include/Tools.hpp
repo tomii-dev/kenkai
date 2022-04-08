@@ -11,10 +11,10 @@ class Tools {
 
 public:
 	struct AnimationInfo {
-		sf::Texture idleAnim[7];
-		sf::Texture leftAnim[6];
-		sf::Texture rightAnim[6];
-		sf::Texture fallAnim[7];
+		sf::Texture idleAnim[4];
+		sf::Texture leftAnim[4];
+		sf::Texture rightAnim[4];
+		sf::Texture fallAnim[4];
 	};
 
 	struct PlayerConfig {

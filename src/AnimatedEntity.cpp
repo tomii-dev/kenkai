@@ -7,7 +7,7 @@
 
 AnimatedEntity::AnimatedEntity() {
 	animFrame = 0;
-	frameGap = floor(Properties::frameRate / 6);
+	frameGap = floor(Properties::frameRate / 4);
 	up = false;
 	down = false;
 	left = false;
@@ -31,7 +31,5 @@ void AnimatedEntity::AnimUpdate(){
 	if (movement == sf::Vector2f()) sprite.setTexture(anims.idleAnim[animFrame]);
 	if (movement.x < 0) sprite.setTexture(anims.leftAnim[animFrame]);
 	if (movement.x > 0) sprite.setTexture(anims.rightAnim[animFrame]);
-	if (movement.y > 0) sprite.setTexture(anims.fallAnim[animFrame]);
-	if (movement.y < 0) sprite.setTexture(anims.fallAnim[animFrame]);
 	if (Game::frame == 0) ResetValues();
 }

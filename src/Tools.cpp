@@ -16,14 +16,16 @@ std::queue<Tools::Task> Tools::tasks;
 Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	AnimationInfo anims;
 
-	for (int i = 0; i < 7; i++) {
-		sf::Texture texture;
-		texture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
-		anims.idleAnim[i] = texture;
-		//texture.loadFromFile("assets/animations/" + id + "/left/" + std::to_string(i + 1) + ".png");
-		//anims.leftAnim[i] = texture;
-		//texture.loadFromFile("assets/animations/" + id + "/right/" + std::to_string(i + 1) + ".png");
-		//anims.rightAnim[i] = texture;
+	for (int i = 0; i < 4; i++) {
+		sf::Texture idleTexture;
+		idleTexture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
+		anims.idleAnim[i] = idleTexture;
+		sf::Texture leftTexture;
+		leftTexture.loadFromFile("assets/animations/" + id + "/left/" + std::to_string(i + 1) + ".png");
+		anims.leftAnim[i] = leftTexture;
+		sf::Texture rightTexture;
+		rightTexture.loadFromFile("assets/animations/" + id + "/right/" + std::to_string(i + 1) + ".png");
+		anims.rightAnim[i] = rightTexture;
 		sf::Texture fallTexture;
 		fallTexture.loadFromFile("assets/animations/" + id + "/idle/1.png");
 		anims.fallAnim[i] = fallTexture;

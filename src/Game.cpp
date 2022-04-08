@@ -8,6 +8,7 @@
 #include "Tools.hpp"
 #include "Entity.hpp"
 #include "Entities/Player.hpp"
+#include "Entities/Enemy.hpp"
 #include "AnimatedEntity.hpp"
 
 #include "SFML/Graphics.hpp"
@@ -17,20 +18,22 @@ using namespace Control;
 namespace Game {
 	int frame = 0;
 	int totalFrame = 0;
-	Player player(Tools::PlayerConfig("balls"));
-	sf::RenderWindow window(sf::VideoMode(800, 600), "balls", sf::Style::Close);
+	Player player(Tools::PlayerConfig("player"));
+	sf::RenderWindow window(sf::VideoMode(800, 600), "kenkai", sf::Style::Close);
+	GameWorld world(window);
 
 	void RunGame() {
-
-		GameWorld world(window);
-
 		window.setFramerateLimit(144);
 		sf::Event e;
 
+		Enemy bad;
+
 		// set up player animations
 		player.setAnims(Tools::GetAnimsById("player"));
-		
+		bad.setAnims(Tools::GetAnimsById("enemy"));
+
 		world.AddEntity(&player);
+		world.AddEntity(&bad);
 
 		// main loop
 		while (window.isOpen()) {
@@ -55,6 +58,7 @@ namespace Game {
 			++frame;
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) frame = 0;
+			if (totalFrame == Properties::frameRate * 10) totalFrame = 0;
 		}
 	}
 }

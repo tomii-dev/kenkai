@@ -10,14 +10,16 @@ protected:
 	sf::Vector2f movement;
 public:
 	std::string name;
-	sf::Vector2f position;
 	int weight;
 	bool up;
 	bool down;
 	bool left;
 	bool right;
+	bool canJump;
 	bool jumping;
 	bool inAir;
+	int moveSpeed;
+	int health;
 
 	Entity();
 	virtual ~Entity() {}
