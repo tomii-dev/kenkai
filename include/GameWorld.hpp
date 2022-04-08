@@ -12,6 +12,7 @@ class GameWorld {
 	sf::Sprite ground;
 	sf::Sprite worldBackground;
 	std::list<Entity*> entities;
+	float groundHeight;
 public:
 	GameWorld(sf::RenderWindow& _window);
 	void WorldPhysics();

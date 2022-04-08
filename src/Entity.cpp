@@ -9,6 +9,8 @@ Entity::Entity() {
 	movement = sf::Vector2f();
 	left = false;
 	right = false;
+	jumping = false;
+	inAir = false;
 }
 
 sf::Sprite Entity::getSprite() {
@@ -22,13 +24,22 @@ void Entity::setTexture(sf::Texture& texture) {
 void Entity::AnimUpdate() {}
 void Entity::OnPlayerCollision() {}
 
-void Entity::Move(sf::Vector2f vec) { sprite.move(vec); }
+void Entity::Move(float x, float y) { movement = sf::Vector2f(x, y); }
+
+float Entity::getX() {
+	return sprite.getPosition().x;
+}
+
+float Entity::getY() {
+	return sprite.getPosition().y;
+}
 
 void Entity::Update() {
-	movement = sf::Vector2f();
 
-	if (left) movement.x -= 1.0;
-	if (right) movement.x += 1.0;
+	if (!inAir) movement = sf::Vector2f();
+
+	if (left) movement.x -= 2.0;
+	if (right) movement.x += 2.0;
 
 	sprite.move(movement);
 	AnimUpdate();

@@ -48,7 +48,7 @@ namespace Game {
 				}
 			}
 			window.clear(sf::Color::Blue);
-			//world.WorldPhysics();
+			world.WorldPhysics();
 			Tools::LogicUpdate();
 			world.Render();
 			window.display();

@@ -29,8 +29,8 @@ void AnimatedEntity::AnimUpdate(){
 		animFrame++;
 	}
 	if (movement == sf::Vector2f()) sprite.setTexture(anims.idleAnim[animFrame]);
-	if (movement == sf::Vector2f(-1, 0)) sprite.setTexture(anims.leftAnim[animFrame]);
-	if (movement == sf::Vector2f(1, 0)) sprite.setTexture(anims.rightAnim[animFrame]);
+	if (movement.x < 0) sprite.setTexture(anims.leftAnim[animFrame]);
+	if (movement.x > 0) sprite.setTexture(anims.rightAnim[animFrame]);
 	if (movement.y > 0) sprite.setTexture(anims.fallAnim[animFrame]);
 	if (movement.y < 0) sprite.setTexture(anims.fallAnim[animFrame]);
 	if (Game::frame == 0) ResetValues();

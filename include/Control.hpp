@@ -23,6 +23,7 @@ namespace Control {
 				break;
 			case sf::Keyboard::Space:
 				if (pressed) Game::player.Jump();
+				break;
 		}
 	}
 }

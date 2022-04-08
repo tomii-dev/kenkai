@@ -7,11 +7,17 @@
 
 GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
+	groundHeight = 500;
 }
 
 void GameWorld::WorldPhysics() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
+		if ((*it)->jumping) continue;
+		if ((*it)->getY() >= groundHeight) {
+			(*it)->inAir = false;
+			continue;
+		}
 		Engine::ApplyGravity(*it);
 	}
 }

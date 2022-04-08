@@ -32,7 +32,7 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	return anims;
 }
 
-void Tools::ExecuteFor(int ms, std::function<void()> func) {
+void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc) {
 	if (ms != NULL) {
 		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
 		if (!tasks.empty()) endFrame += tasks.front().endFrame;
@@ -41,14 +41,18 @@ void Tools::ExecuteFor(int ms, std::function<void()> func) {
 		Task task;
 		task.endFrame = endFrame;
 		task.exec = func;
+		task.endExec = endFunc;
 		tasks.push(task);
 		return;
 	}
 	func();
-	if (Game::totalFrame > tasks.front().endFrame) tasks.pop();
+	if (Game::totalFrame > tasks.front().endFrame) {
+		tasks.pop();
+		endFunc();
+	}
 	if (tasks.empty()) waiting = false;
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) ExecuteFor(NULL, tasks.front().exec);
+	if (waiting) ExecuteFor(NULL, tasks.front().exec, tasks.front().endExec);
 }

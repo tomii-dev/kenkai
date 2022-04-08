@@ -5,16 +5,15 @@
 #include "Tools.hpp"
 
 Player::Player(Tools::PlayerConfig config) {
-	weight = 50;
+	weight = 30;
 	name = "player";
 	username = config.username;
 }
 
 void Player::Jump() {
+	jumping = true;
+	inAir = true;
 	Tools::ExecuteFor(200, [this]() -> void {
-		Move(sf::Vector2f(0, -0.2));
-		});
-	Tools::ExecuteFor(200, [this]() -> void {
-		Move(sf::Vector2f(0, 0.2));
-		});
+		Move(0, -2);
+		}, [this]() ->void {jumping = false; });
 }
