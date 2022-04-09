@@ -37,7 +37,7 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc) {
 	if (ms != NULL) {
 		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
-		if (!tasks.empty()) endFrame += tasks.front().endFrame;
+		if (!tasks.empty()) endFrame += tasks.back().endFrame;
 		else endFrame += Game::totalFrame;
 		waiting = true;
 		Task task;

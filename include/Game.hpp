@@ -12,6 +12,7 @@ namespace Game {
 	extern int totalFrame;
 	extern Player player;
 	extern GameWorld world;
+	extern sf::Text msg;
 
 	extern sf::RenderWindow window;
 

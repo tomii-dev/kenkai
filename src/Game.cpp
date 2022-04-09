@@ -21,6 +21,7 @@ namespace Game {
 	Player player(Tools::PlayerConfig("player"));
 	sf::RenderWindow window(sf::VideoMode(800, 600), "kenkai", sf::Style::Close);
 	GameWorld world(window);
+	sf::Text msg;
 
 	void RunGame() {
 		window.setFramerateLimit(144);

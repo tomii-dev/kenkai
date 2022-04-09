@@ -12,6 +12,20 @@ Player::Player(Tools::PlayerConfig config) {
 	health = 100;
 }
 
+void Player::UniqueUpdate() {
+
+}
+
+void Player::Die() {
+	sf::Font font;
+	font.loadFromFile("assets/fonts/dosis.ttf");
+	Game::msg.setString("bruh");
+	Game::msg.setFont(font);
+	Game::msg.setCharacterSize(50);
+	Game::msg.setPosition(400, 300);
+	std::cout << "HE DEAD" << std::endl;
+}
+
 void Player::Jump() {
 	if (!canJump) return;
 	canJump = false;

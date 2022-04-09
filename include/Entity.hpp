@@ -30,6 +30,7 @@ public:
 	void Update();
 	virtual void AnimUpdate();
 	virtual void OnPlayerCollision();
+	virtual void UniqueUpdate();
 	void setTexture(sf::Texture& texture);
 	float getX();
 	float getY();

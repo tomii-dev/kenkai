@@ -24,6 +24,7 @@ void Entity::setTexture(sf::Texture& texture) {
 }
 
 void Entity::AnimUpdate() {}
+void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() {}
 void Entity::Die(){}
 
@@ -46,8 +47,9 @@ void Entity::Update() {
 
 	sprite.move(movement);
 	AnimUpdate();
+	UniqueUpdate();
 
-	std::cout << name << " health: " << health << std::endl;
+	if (health <= 0) Die();
 	if (name == "player") return;
 
 	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) OnPlayerCollision();
