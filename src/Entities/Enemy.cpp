@@ -7,6 +7,7 @@
 Enemy::Enemy() {
 	std::cout << "enemy instantiated" << std::endl;
 	moveSpeed = 1;
+	name = "enemy";
 }
 
 void Enemy::UniqueUpdate() {

@@ -1,14 +1,13 @@
 #pragma once
 
 #include <functional>
-#include <queue>
+#include <list>
 
 #include "SFML/Graphics.hpp"
 
 class Tools {
 	static bool waiting;
 	static int waitUntil;
-	static void SortTasks();
 
 public:
 	struct AnimationInfo {
@@ -42,5 +41,5 @@ public:
 	static void LogicUpdate();
 
 private:
-	static std::queue<Task> tasks;
+	static std::list<Task> tasks;
 };

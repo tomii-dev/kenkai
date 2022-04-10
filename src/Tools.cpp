@@ -11,7 +11,7 @@
 
 bool Tools::waiting = false;
 int Tools::waitUntil = 0;
-std::queue<Tools::Task> Tools::tasks;
+std::list<Tools::Task> Tools::tasks;
 
 Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	AnimationInfo anims;
@@ -34,53 +34,43 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	return anims;
 }
 
-void Tools::SortTasks() {
-	int i = 0;
-	int* frameArr = new int[tasks.size()];
-	std::array<Task, tasks.size()> 
-	while (!tasks.empty()) {
-		taskArr[i] = tasks.front();
-		frameArr[i] = tasks.front().endFrame;
-		tasks.pop();
-		i++;
-	}
-	std::sort(frameArr.begin())
-}
-
 void Tools::WaitAndExec(int ms, std::function<void()> func, std::string id) { ExecuteFor(ms, []()->void {; }, func, id); }
 
 void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc, std::string id) {
 	if (ms != NULL) {
+		int inc = Game::totalFrame;
 		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
 		if (!tasks.empty()) {
-			std::queue<Tools::Task> tmpQ = tasks;
-			Task prevTask;
-			while (!tmpQ.empty()) {
-				Task cTask = tmpQ.front();
-				if (cTask.id == id) prevTask = cTask;
-				tmpQ.pop();
+			std::list<Task>::iterator it;
+			int prevTaskEnd = 0;
+			for (it = tasks.begin(); it != tasks.end(); it++) {
+				if ((*it).id == id) prevTaskEnd = (*it).endFrame;
 			}
-			if (prevTask.endFrame < 0) endFrame += tasks.front().endFrame;
-			else endFrame += prevTask.endFrame;
+			if (prevTaskEnd > 0) inc = prevTaskEnd;
 		}
-		else endFrame += Game::totalFrame;
+		endFrame += inc;
 		waiting = true;
 		Task task;
 		task.endFrame = endFrame;
 		task.exec = func;
 		task.endExec = endFunc;
-		tasks.push(task);
-		SortTasks();
+		task.id = id;
+		tasks.push_back(task);
 		return;
 	}
-	func();
-	if (Game::totalFrame > tasks.front().endFrame) {
-		tasks.pop();
-		endFunc();
+	std::list<Task>::iterator it;
+	for (it = tasks.begin(); it != tasks.end();) {
+		(*it).exec();
+		if ((*it).endFrame <= Game::totalFrame) {
+			(*it).endExec();
+			it = tasks.erase(it);
+		}
+		else it++;
 	}
+	std::cout << tasks.size() << std::endl;
 	if (tasks.empty()) waiting = false;
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) ExecuteFor(NULL, tasks.front().exec, tasks.front().endExec, "");
+	if (waiting) ExecuteFor(NULL, NULL, NULL, "");
 }
