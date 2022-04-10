@@ -12,13 +12,10 @@ Enemy::Enemy() {
 void Enemy::UniqueUpdate() {
 	Tools::ExecuteFor(1000, [this]() -> void {
 		left = true;
-		}, [this]() -> void { left = false; });
+		}, [this]() -> void { left = false; }, name);
 	Tools::ExecuteFor(1000, [this]() -> void {
 		right = true;
-		}, [this]() -> void { right = false; });
-
-	std::cout << "left: " << left << std::endl;
-	std::cout << "right: " << right << std::endl;
+		}, [this]() -> void { right = false; }, name);
 }
 
 void Enemy::OnPlayerCollision() {

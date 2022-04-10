@@ -33,6 +33,6 @@ void Player::Jump() {
 	inAir = true;
 	Tools::ExecuteFor(200, [this]() -> void {
 		Move(0, -3);
-		}, [this]() ->void {jumping = false; });
-	Tools::ExecuteFor(200, []() -> void {; }, [this]()->void {canJump = true; });
+		}, [this]() ->void {jumping = false; }, name);
+	Tools::WaitAndExec(200, [this]()->void {canJump = true; }, name);
 }

@@ -34,10 +34,35 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	return anims;
 }
 
-void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc) {
+void Tools::SortTasks() {
+	int i = 0;
+	int* frameArr = new int[tasks.size()];
+	std::array<Task, tasks.size()> 
+	while (!tasks.empty()) {
+		taskArr[i] = tasks.front();
+		frameArr[i] = tasks.front().endFrame;
+		tasks.pop();
+		i++;
+	}
+	std::sort(frameArr.begin())
+}
+
+void Tools::WaitAndExec(int ms, std::function<void()> func, std::string id) { ExecuteFor(ms, []()->void {; }, func, id); }
+
+void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc, std::string id) {
 	if (ms != NULL) {
 		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
-		if (!tasks.empty()) endFrame += tasks.back().endFrame;
+		if (!tasks.empty()) {
+			std::queue<Tools::Task> tmpQ = tasks;
+			Task prevTask;
+			while (!tmpQ.empty()) {
+				Task cTask = tmpQ.front();
+				if (cTask.id == id) prevTask = cTask;
+				tmpQ.pop();
+			}
+			if (prevTask.endFrame < 0) endFrame += tasks.front().endFrame;
+			else endFrame += prevTask.endFrame;
+		}
 		else endFrame += Game::totalFrame;
 		waiting = true;
 		Task task;
@@ -45,6 +70,7 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 		task.exec = func;
 		task.endExec = endFunc;
 		tasks.push(task);
+		SortTasks();
 		return;
 	}
 	func();
@@ -56,5 +82,5 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 }
 
 void Tools::LogicUpdate() {
-	if (waiting) ExecuteFor(NULL, tasks.front().exec, tasks.front().endExec);
+	if (waiting) ExecuteFor(NULL, tasks.front().exec, tasks.front().endExec, "");
 }

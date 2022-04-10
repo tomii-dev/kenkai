@@ -8,6 +8,7 @@
 class Tools {
 	static bool waiting;
 	static int waitUntil;
+	static void SortTasks();
 
 public:
 	struct AnimationInfo {
@@ -26,6 +27,7 @@ public:
 
 	struct Task {
 		int endFrame;
+		std::string id;
 		std::function<void()> exec;
 		std::function<void()> endExec;
 	};
@@ -33,7 +35,9 @@ public:
 	static AnimationInfo GetAnimsById(std::string id);
 
 	static void ExecuteFor(int ms, std::function<void()> func, 
-		std::function<void()> endfunc);
+		std::function<void()> endfunc, std::string id);
+
+	static void WaitAndExec(int ms, std::function<void()> func, std::string id);
 
 	static void LogicUpdate();
 
