@@ -32,7 +32,7 @@ namespace Game {
 
 		// set up player animations
 		player.setAnims(Tools::GetAnimsById("player"));
-		bad.setAnims(Tools::GetAnimsById("enemy"));
+		bad.setAnims(Tools::GetAnimsById("player"));
 
 		world.AddEntity(&player);
 		world.AddEntity(&bad);

@@ -5,25 +5,29 @@
 #include "Entities/Player.hpp"
 
 Enemy::Enemy() {
-	std::cout << "enemy instantiated" << std::endl;
 	moveSpeed = 1;
 	name = "enemy";
+	jumpSpeed = 5;
+	weight = 50;
 }
 
-void Enemy::JumpLoop() {
-	jumping = true;
-	Tools::ExecuteFor(200, [this]() -> void {
-		Move(0, -2);
-		}, [this]() ->void {jumping = false; }, name);
-	Tools::WaitAndExec(200, [this]()->void { JumpLoop(); }, name);
-}
 void Enemy::UniqueUpdate() {
-	if (canJump && !inAir) {
-		canJump = false;
-		JumpLoop();
-	}
+	int playerX = Game::player.getX();
+	sf::Vector2f movement;
+	if (playerX > getX()) 
+		movement = sf::Vector2f(moveSpeed, 0);
+	if (playerX < getX())
+		movement = sf::Vector2f(-moveSpeed, 0);
+	Move(movement);
 }
 
 void Enemy::OnPlayerCollision() {
-	Game::player.health -= 1;
+	int x = 5;
+	int playerX = Game::player.getX();
+	if (playerX > getX()) x = -x;
+	jumping = true;
+	registerColl = false;
+	Tools::ExecuteFor(200, [this, x]() -> void{
+		Move(x, -2.5);
+		}, [this]()->void {jumping = false; registerColl = true; }, name);
 }

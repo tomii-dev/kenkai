@@ -26,7 +26,7 @@ void GameWorld::WorldPhysics() {
 void GameWorld::Render() {
 	// render world background first
 	worldBackground.setTexture(backgroundTex);
-	//window.draw(worldBackground);
+	window.draw(worldBackground);
 
 	RenderEntities();
 }

@@ -7,7 +7,9 @@ class Entity {
 protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-	sf::Vector2f movement;
+	sf::Vector2f movementVec;
+	bool registerColl;
+	int jumpSpeed;
 	virtual void Die();
 public:
 	std::string name;
@@ -27,6 +29,7 @@ public:
 
 	sf::Sprite getSprite();
 	void Move(float x, float y);
+	void Move(sf::Vector2f vec);
 	void Update();
 	virtual void AnimUpdate();
 	virtual void OnPlayerCollision();

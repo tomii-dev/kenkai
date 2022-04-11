@@ -6,13 +6,13 @@
 #include "Entities/Player.hpp"
 
 Entity::Entity() {
-	movement = sf::Vector2f();
+	movementVec = sf::Vector2f();
 	left = false;
 	right = false;
 	jumping = false;
 	canJump = true;
 	inAir = false;
-	weight = 30;
+	registerColl = true;
 }
 
 sf::Sprite Entity::getSprite() {
@@ -28,7 +28,8 @@ void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() {}
 void Entity::Die(){}
 
-void Entity::Move(float x, float y) { sprite.move(x, y); }
+void Entity::Move(float x, float y) { sprite.move(x, y); movementVec = sf::Vector2f(x, y); }
+void Entity::Move(sf::Vector2f vec) { sprite.move(vec); movementVec = vec; }
 
 float Entity::getX() {
 	return sprite.getPosition().x;
@@ -42,17 +43,21 @@ void Entity::Update() {
 
 	if (!Game::ready) return;
 
-	movement = sf::Vector2f();
+	sf::Vector2f movement;
 
 	if (left) movement.x -= moveSpeed;
 	if (right) movement.x += moveSpeed;
 
+	movementVec = movement;
+
 	sprite.move(movement);
-	AnimUpdate();
 	UniqueUpdate();
+	AnimUpdate();
 
 	if (health <= 0) Die();
 	if (name == "player") return;
+
+	if (!registerColl) return;
 
 	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) OnPlayerCollision();
 }
