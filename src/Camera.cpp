@@ -9,16 +9,20 @@ Camera::Camera(sf::RenderWindow& _window, int _mode) : window(_window), mode(_mo
 	viewRange = getSize();
 }
 
-void Camera::PanTo(sf::Vector2f pos, int ms) {
+void Camera::PanTo(sf::Vector2f pos, int ms, bool stay = true, int returnAfter = 0) {
 	int orgMode = mode;
 	mode = OVERRIDE_MODE;
 	sf::Vector2f dist =
 		sf::Vector2f(std::abs(pos.x - getCenter().x), std::abs(pos.y - getCenter().y));
 	int incX = dist.x / Tools::getFrames(ms);
 	int incY = dist.y / Tools::getFrames(ms);
+	std::function<void()> endFunc;
+	if (!stay) endFunc = [this, orgMode, returnAfter]()->void {
+		Tools::WaitAndExec(returnAfter, [this, orgMode]()->void {mode = orgMode; }, "camera");
+	};
 	Tools::ExecuteFor(ms, [this, incX, incY]()->void {
 		setCenter(getCenter().x + incX, getCenter().y + incY);
-		}, [this, orgMode]()->void {}, "camera");
+		}, endFunc, "camera");
 }
 
 void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
