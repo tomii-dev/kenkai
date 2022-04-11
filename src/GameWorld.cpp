@@ -29,7 +29,7 @@ void GameWorld::Render() {
 	worldBackground.setTexture(backgroundTex);
 	window.draw(worldBackground);
 
-	camera.Update(Game::player.getPosition(), sf::Vector2f());
+	camera.Update(Game::player.getPosition(), sf::Vector2f(0, -210));
 
 	RenderEntities();
 }

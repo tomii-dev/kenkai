@@ -8,7 +8,7 @@ class Entity;
 
 class GameWorld {
 	sf::RenderWindow& window;
-	Camera camera = Camera(window);
+	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Texture backgroundTex;
 	sf::Texture groundTex;
 	sf::Sprite ground;
