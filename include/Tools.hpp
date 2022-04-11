@@ -33,6 +33,8 @@ public:
 
 	static AnimationInfo GetAnimsById(std::string id);
 
+	static int getFrames(int ms);
+
 	static void ExecuteFor(int ms, std::function<void()> func, 
 		std::function<void()> endfunc, std::string id);
 

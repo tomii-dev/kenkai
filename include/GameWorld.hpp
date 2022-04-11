@@ -8,12 +8,12 @@ class Entity;
 
 class GameWorld {
 	sf::RenderWindow& window;
-	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Texture backgroundTex;
 	sf::Texture groundTex;
 	sf::Sprite ground;
 	sf::Sprite worldBackground;
 	std::list<Entity*> entities;
+	Camera camera = Camera(window, DIRECT_FOLLOW_MODE);
 	float groundHeight;
 public:
 	GameWorld(sf::RenderWindow& _window);

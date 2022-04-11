@@ -1,10 +1,24 @@
 #include <iostream>
+#include <cstdlib>
 #include "Camera.hpp"
+#include "Tools.hpp"
 
 Camera::Camera(sf::RenderWindow& _window, int _mode) : window(_window), mode(_mode) {
 	setCenter(window.getSize().x / 2, window.getSize().y / 2);
 	setSize(window.getSize().x, window.getSize().y);
 	viewRange = getSize();
+}
+
+void Camera::PanTo(sf::Vector2f pos, int ms) {
+	int orgMode = mode;
+	mode = OVERRIDE_MODE;
+	sf::Vector2f dist =
+		sf::Vector2f(std::abs(pos.x - getCenter().x), std::abs(pos.y - getCenter().y));
+	int incX = dist.x / Tools::getFrames(ms);
+	int incY = dist.y / Tools::getFrames(ms);
+	Tools::ExecuteFor(ms, [this, incX, incY]()->void {
+		setCenter(getCenter().x + incX, getCenter().y + incY);
+		}, [this, orgMode]()->void {}, "camera");
 }
 
 void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
@@ -24,6 +38,8 @@ void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
 		break;
 	case DIRECT_FOLLOW_MODE:
 		setCenter(targetPos + offset);
+		break;
+	case OVERRIDE_MODE:
 		break;
 	}
 	window.setView(*this);

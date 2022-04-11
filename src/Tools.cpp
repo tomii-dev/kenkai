@@ -34,6 +34,8 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	return anims;
 }
 
+int Tools::getFrames(int ms) { return floor(ms * ((float)Properties::frameRate / 1000.0)); }
+
 void Tools::WaitAndExec(int ms, std::function<void()> func, std::string id) { ExecuteFor(ms, []()->void {; }, func, id); }
 
 void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc, std::string id) {
