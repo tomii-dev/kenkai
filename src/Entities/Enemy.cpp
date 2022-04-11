@@ -10,13 +10,18 @@ Enemy::Enemy() {
 	name = "enemy";
 }
 
+void Enemy::JumpLoop() {
+	jumping = true;
+	Tools::ExecuteFor(200, [this]() -> void {
+		Move(0, -2);
+		}, [this]() ->void {jumping = false; }, name);
+	Tools::WaitAndExec(200, [this]()->void { JumpLoop(); }, name);
+}
 void Enemy::UniqueUpdate() {
-	Tools::ExecuteFor(1000, [this]() -> void {
-		left = true;
-		}, [this]() -> void { left = false; }, name);
-	Tools::ExecuteFor(1000, [this]() -> void {
-		right = true;
-		}, [this]() -> void { right = false; }, name);
+	if (canJump && !inAir) {
+		canJump = false;
+		JumpLoop();
+	}
 }
 
 void Enemy::OnPlayerCollision() {

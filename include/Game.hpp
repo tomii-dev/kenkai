@@ -7,7 +7,7 @@ class Entity;
 class GameWorld;
 
 namespace Game {
-
+	extern bool ready;
 	extern int frame;
 	extern int totalFrame;
 	extern Player player;

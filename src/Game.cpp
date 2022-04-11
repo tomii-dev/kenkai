@@ -16,6 +16,7 @@
 using namespace Control;
 
 namespace Game {
+	bool ready = false;
 	int frame = 0;
 	int totalFrame = 0;
 	Player player(Tools::PlayerConfig("player"));
@@ -35,6 +36,8 @@ namespace Game {
 
 		world.AddEntity(&player);
 		world.AddEntity(&bad);
+
+		ready = true;
 
 		// main loop
 		while (window.isOpen()) {
@@ -59,7 +62,6 @@ namespace Game {
 			++frame;
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) frame = 0;
-			if (totalFrame == Properties::frameRate * 10) totalFrame = 0;
 		}
 	}
 }

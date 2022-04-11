@@ -67,7 +67,6 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 		}
 		else it++;
 	}
-	std::cout << tasks.size() << std::endl;
 	if (tasks.empty()) waiting = false;
 }
 

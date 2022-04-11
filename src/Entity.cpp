@@ -28,7 +28,7 @@ void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() {}
 void Entity::Die(){}
 
-void Entity::Move(float x, float y) { movement = sf::Vector2f(x, y); }
+void Entity::Move(float x, float y) { sprite.move(x, y); }
 
 float Entity::getX() {
 	return sprite.getPosition().x;
@@ -40,7 +40,9 @@ float Entity::getY() {
 
 void Entity::Update() {
 
-	if (!inAir) movement = sf::Vector2f();
+	if (!Game::ready) return;
+
+	movement = sf::Vector2f();
 
 	if (left) movement.x -= moveSpeed;
 	if (right) movement.x += moveSpeed;
