@@ -7,12 +7,12 @@ class Entity {
 protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-	sf::Vector2f movementVec;
 	bool registerColl;
 	int jumpSpeed;
 	virtual void Die();
 public:
 	std::string name;
+	sf::Vector2f velocity;
 	int weight;
 	bool up;
 	bool down;
@@ -28,6 +28,8 @@ public:
 	virtual ~Entity() {}
 
 	sf::Sprite getSprite();
+	sf::Vector2f getPosition();
+	void SetPosition(float x, float y);
 	void Move(float x, float y);
 	void Move(sf::Vector2f vec);
 	void Update();

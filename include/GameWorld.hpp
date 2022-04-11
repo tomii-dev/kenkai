@@ -2,11 +2,13 @@
 
 #include "SFML/Graphics.hpp"
 #include <list>
+#include "Camera.hpp"
 
 class Entity;
 
 class GameWorld {
 	sf::RenderWindow& window;
+	Camera camera = Camera(window);
 	sf::Texture backgroundTex;
 	sf::Texture groundTex;
 	sf::Sprite ground;

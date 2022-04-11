@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "GameWorld.hpp"
+#include "Entities/Player.hpp"
 #include "Entity.hpp"
 #include "Engine.hpp"
 #include "AnimatedEntity.hpp"
@@ -27,6 +28,8 @@ void GameWorld::Render() {
 	// render world background first
 	worldBackground.setTexture(backgroundTex);
 	window.draw(worldBackground);
+
+	camera.Update(Game::player.getPosition(), sf::Vector2f());
 
 	RenderEntities();
 }

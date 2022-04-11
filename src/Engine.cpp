@@ -7,5 +7,5 @@
 void Engine::ApplyGravity(Entity *entity)
 {
 	int force = entity->weight * 0.2;
-	entity->Move(0, force);
+	entity->Move(entity->velocity.x, force);
 }

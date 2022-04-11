@@ -6,7 +6,7 @@
 #include "Entities/Player.hpp"
 
 Entity::Entity() {
-	movementVec = sf::Vector2f();
+	velocity = sf::Vector2f();
 	left = false;
 	right = false;
 	jumping = false;
@@ -19,6 +19,10 @@ sf::Sprite Entity::getSprite() {
 	return sprite;
 }
 
+sf::Vector2f Entity::getPosition() {
+	return sprite.getPosition();
+}
+
 void Entity::setTexture(sf::Texture& texture) {
 	sprite.setTexture(texture);
 }
@@ -28,8 +32,12 @@ void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() {}
 void Entity::Die(){}
 
-void Entity::Move(float x, float y) { sprite.move(x, y); movementVec = sf::Vector2f(x, y); }
-void Entity::Move(sf::Vector2f vec) { sprite.move(vec); movementVec = vec; }
+void Entity::SetPosition(float x, float y) {
+	sprite.setPosition(sf::Vector2f(x, y));
+}
+
+void Entity::Move(float x, float y) { sprite.move(x, y); velocity = sf::Vector2f(x, y); }
+void Entity::Move(sf::Vector2f vec) { sprite.move(vec); velocity = vec; }
 
 float Entity::getX() {
 	return sprite.getPosition().x;
@@ -48,7 +56,7 @@ void Entity::Update() {
 	if (left) movement.x -= moveSpeed;
 	if (right) movement.x += moveSpeed;
 
-	movementVec = movement;
+	velocity = movement;
 
 	sprite.move(movement);
 	UniqueUpdate();
