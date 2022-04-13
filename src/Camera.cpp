@@ -13,7 +13,6 @@ void Camera::PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter) {
 	int orgMode = mode;
 	mode = OVERRIDE_MODE;
 	sf::Vector2f dist = pos - getCenter();
-	std::cout << "dist " << dist.x << ", " << dist.y << std::endl;
 	int incX = dist.x / Tools::getFrames(ms);
 	int incY = dist.y / Tools::getFrames(ms);
 	std::function<void()> endFunc;
