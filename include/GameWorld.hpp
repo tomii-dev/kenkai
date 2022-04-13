@@ -11,7 +11,6 @@ class GameWorld {
 	sf::Texture backgroundTex;
 	sf::Texture groundTex;
 	sf::Sprite ground;
-	sf::Sprite worldBackground;
 	std::list<Entity*> entities;
 	float groundHeight;
 public:

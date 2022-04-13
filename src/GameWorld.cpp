@@ -26,8 +26,12 @@ void GameWorld::WorldPhysics() {
 
 void GameWorld::Render() {
 	// render world background first
-	worldBackground.setTexture(backgroundTex);
-	window.draw(worldBackground);
+	for (int i = 0; i < 4; i++) {
+		sf::Sprite worldBackground;
+		worldBackground.setTexture(backgroundTex);
+		worldBackground.setPosition(sf::Vector2f(i * 800, 0));
+		window.draw(worldBackground);
+	}
 
 	RenderEntities();
 }

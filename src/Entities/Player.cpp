@@ -13,7 +13,6 @@ Player::Player(Tools::PlayerConfig config) {
 }
 
 void Player::UniqueUpdate() {
-	std::cout << "player position: " << getX() << ", " << getY() << std::endl;
 }
 
 void Player::Die() {

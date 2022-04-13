@@ -6,6 +6,7 @@
 #include "Control.hpp"
 #include "Properties.hpp"
 #include "Tools.hpp"
+#include "Events.hpp"
 #include "Entity.hpp"
 #include "Entities/Player.hpp"
 #include "Entities/Enemy.hpp"
@@ -26,6 +27,9 @@ namespace Game {
 	sf::Text msg;
 
 	void RunGame() {
+
+		Events::RegisterEvents();
+
 		window.setFramerateLimit(144);
 
 		sf::View view(sf::FloatRect(0, 0, 800.f, 600.f));
@@ -53,6 +57,7 @@ namespace Game {
 					break;
 				case sf::Event::KeyPressed:
 					HandleControl(e.key.code, true);
+					Events::Fire("PlayerMoved");
 					break;
 				case sf::Event::KeyReleased:
 					HandleControl(e.key.code, false);
