@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "Camera.hpp"
 
 class Player;
 class Entity;

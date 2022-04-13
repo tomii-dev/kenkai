@@ -13,6 +13,6 @@ class Camera : public sf::View {
 	int mode;
 public:
 	void Update(sf::Vector2f targetPos, sf::Vector2f offset);
-	void PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter);
+	void PanTo(sf::Vector2f pos, int ms, bool stay = true, int returnAfter = 0);
 	Camera(sf::RenderWindow& _window, int mode);
 };

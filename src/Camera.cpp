@@ -9,11 +9,11 @@ Camera::Camera(sf::RenderWindow& _window, int _mode) : window(_window), mode(_mo
 	viewRange = getSize();
 }
 
-void Camera::PanTo(sf::Vector2f pos, int ms, bool stay = true, int returnAfter = 0) {
+void Camera::PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter) {
 	int orgMode = mode;
 	mode = OVERRIDE_MODE;
-	sf::Vector2f dist =
-		sf::Vector2f(std::abs(pos.x - getCenter().x), std::abs(pos.y - getCenter().y));
+	sf::Vector2f dist = pos - getCenter();
+	std::cout << "dist " << dist.x << ", " << dist.y << std::endl;
 	int incX = dist.x / Tools::getFrames(ms);
 	int incY = dist.y / Tools::getFrames(ms);
 	std::function<void()> endFunc;
@@ -28,7 +28,6 @@ void Camera::PanTo(sf::Vector2f pos, int ms, bool stay = true, int returnAfter =
 void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
 	switch (mode) {
 	case DEFAULT_MODE:
-		std::cout << targetPos.x << ", " << targetPos.y << std::endl;
 		if (targetPos.x >= (viewRange.x * 0.8)) {
 			setCenter(getCenter().x + 2, getCenter().y);
 			viewRange.x += 2;
