@@ -22,7 +22,7 @@ namespace Game {
 	Player player(Tools::PlayerConfig("player"));
 	sf::RenderWindow window(sf::VideoMode(800, 600), "kenkai", sf::Style::Close);
 	GameWorld world(window);
-	Camera camera = Camera(window, DIRECT_FOLLOW_MODE);
+	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
 
 	void RunGame() {
@@ -67,9 +67,6 @@ namespace Game {
 			window.display();
 			++frame;
 			++totalFrame;
-			if (totalFrame == 288) {
-				camera.PanTo(bad.getPosition(), 500);
-			}
 			if (frame == Properties::frameRate - 1) frame = 0;
 		}
 	}

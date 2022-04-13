@@ -6,7 +6,6 @@
 Camera::Camera(sf::RenderWindow& _window, int _mode) : window(_window), mode(_mode) {
 	setCenter(window.getSize().x / 2, window.getSize().y / 2);
 	setSize(window.getSize().x, window.getSize().y);
-	viewRange = getSize();
 }
 
 void Camera::PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter) {
@@ -25,15 +24,14 @@ void Camera::PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter) {
 }
 
 void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
+	sf::Vector2f viewStart = getCenter() - (getSize() / 2.f);
 	switch (mode) {
 	case DEFAULT_MODE:
-		if (targetPos.x >= (viewRange.x * 0.8)) {
+		if (targetPos.x >= 0.75 * getSize().x + viewStart.x) {
 			setCenter(getCenter().x + 2, getCenter().y);
-			viewRange.x += 2;
 		}
-		if (targetPos.x <= (viewRange.x * 0.8)) {
+		if (targetPos.x <= 0.25 * getSize().x + viewStart.x) {
 			setCenter(getCenter().x - 2, getCenter().y);
-			viewRange.x -= 2;
 		}
 		break;
 	case SLOW_FOLLOW_MODE:

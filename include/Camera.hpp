@@ -9,7 +9,6 @@
 
 class Camera : public sf::View {
 	sf::RenderWindow& window;
-	sf::Vector2f viewRange;
 	int mode;
 public:
 	void Update(sf::Vector2f targetPos, sf::Vector2f offset);
