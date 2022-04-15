@@ -1,8 +1,9 @@
+#include <iostream>
 #include "Events.hpp"
 
 std::list<Events::Event> Events::events;
 std::string Events::_events[] = {
-	"PlayerMoved"
+	"TestEvent"
 };
 
 void Events::RegisterEvents() {
@@ -16,11 +17,13 @@ void Events::RegisterEvents() {
 void Events::HookTo(std::string id, void(f)()) {
 	std::list<Event>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
-		if ((*it).id == id) (*it).Hook(*f);
+		if ((*it).id == id)
+			(*it).Hook(*f);
 }
 
 void Events::Fire(std::string id){
 	std::list<Event>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
-		if ((*it).id == id) (*it).Fire();
+		if ((*it).id == id) 
+			(*it).Fire();
 }

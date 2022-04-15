@@ -5,10 +5,12 @@
 #include "Entity.hpp"
 #include "Engine.hpp"
 #include "AnimatedEntity.hpp"
+#include "Events.hpp"
 
 GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
 	groundHeight = 500;
+	Events::RegisterEvents();
 }
 
 void GameWorld::WorldPhysics() {
@@ -25,13 +27,9 @@ void GameWorld::WorldPhysics() {
 }
 
 void GameWorld::Render() {
-	// render world background first
-	for (int i = 0; i < 4; i++) {
-		sf::Sprite worldBackground;
-		worldBackground.setTexture(backgroundTex);
-		worldBackground.setPosition(sf::Vector2f(i * 800, 0));
-		window.draw(worldBackground);
-	}
+	sf::Sprite worldBackground;
+	worldBackground.setTexture(backgroundTex);
+	window.draw(worldBackground);
 
 	RenderEntities();
 }

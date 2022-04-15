@@ -28,8 +28,6 @@ namespace Game {
 
 	void RunGame() {
 
-		Events::RegisterEvents();
-
 		window.setFramerateLimit(144);
 
 		sf::View view(sf::FloatRect(0, 0, 800.f, 600.f));
