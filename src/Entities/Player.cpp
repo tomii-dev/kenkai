@@ -3,6 +3,7 @@
 #include "Entities/Player.hpp"
 #include "Game.hpp"
 #include "Tools.hpp"
+#include "Events.hpp"
 
 Player::Player(Tools::PlayerConfig config) {
 	weight = 50;
@@ -10,6 +11,11 @@ Player::Player(Tools::PlayerConfig config) {
 	username = config.username;
 	moveSpeed = 2.5;
 	health = 100;
+	Events::HookTo("MousePressed", [this]() {Attack(); });
+}
+
+void Player::Attack() {
+	std::cout << "player attacked" << std::endl;
 }
 
 void Player::UniqueUpdate() {

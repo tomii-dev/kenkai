@@ -20,7 +20,7 @@ Entity::Entity() {
 	inAir = false;
 	registerColl = true;
 	Events::HookTo("GameReady", [this]() { Setup(); });
-}
+} 
 
 sf::Sprite Entity::getSprite() {
 	return sprite;

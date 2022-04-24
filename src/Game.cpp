@@ -37,7 +37,7 @@ namespace Game {
 
 		sf::Event e;
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10; i++) {
 			Enemy *bad = new Enemy();
 			bad->SetPosition(i * 30, 200);
 			world.AddEntity(bad);
@@ -61,6 +61,9 @@ namespace Game {
 					break;
 				case sf::Event::KeyReleased:
 					HandleControl(e.key.code, false);
+					break;
+				case sf::Event::MouseButtonPressed:
+					Events::Fire("MousePressed");
 					break;
 				}
 			}

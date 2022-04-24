@@ -3,7 +3,8 @@
 
 std::list<Events::Event> Events::events;
 std::string Events::_events[] = {
-	"GameReady"
+	"GameReady",
+	"MousePressed"
 };
 
 void Events::RegisterEvents() {
