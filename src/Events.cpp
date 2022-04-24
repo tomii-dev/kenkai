@@ -3,7 +3,7 @@
 
 std::list<Events::Event> Events::events;
 std::string Events::_events[] = {
-	"TestEvent"
+	"GameReady"
 };
 
 void Events::RegisterEvents() {
@@ -14,11 +14,11 @@ void Events::RegisterEvents() {
 	}
 }
 
-void Events::HookTo(std::string id, void(f)()) {
+void Events::HookTo(std::string id, std::function<void()> f) {
 	std::list<Event>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
 		if ((*it).id == id)
-			(*it).Hook(*f);
+			(*it).Hook(f);
 }
 
 void Events::Fire(std::string id){

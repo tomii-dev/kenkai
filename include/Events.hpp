@@ -2,18 +2,17 @@
 
 #include <string>
 #include <list>
-
-typedef void (*fp)();
+#include <functional>
 
 class Events {
 	struct Event {
 		std::string id;
-		std::list<fp> hookedFuncs;
-		void Hook(void(&f)()) {
+		std::list<std::function<void()>> hookedFuncs;
+		void Hook(std::function<void()> f) {
 			hookedFuncs.push_back(f);
 		}
 		void Fire() {
-			std::list<fp>::iterator it;
+			std::list<std::function<void()>>::iterator it;
 			for (it = hookedFuncs.begin(); it != hookedFuncs.end(); it++)
 				(*it)();
 		}
@@ -22,6 +21,6 @@ class Events {
 	static std::list<Event> events;
 public:
 	static void RegisterEvents();
-	static void HookTo(std::string id, void(f)());
+	static void HookTo(std::string id, std::function<void()> f);
 	static void Fire(std::string id);
 };
