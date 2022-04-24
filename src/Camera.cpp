@@ -30,11 +30,9 @@ void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
 	case DEFAULT_MODE:
 		if (targetPos.x >= 0.75 * getSize().x + viewStart.x) {
 			setCenter(getCenter().x + 2, getCenter().y);
-			Events::Fire("PlayerRightCamera");
 		}
-		if (targetPos.x <= 0.25 * getSize().x + viewStart.x) {
+		if (targetPos.x <= 0.20 * getSize().x + viewStart.x) {
 			setCenter(getCenter().x - 2, getCenter().y);
-			Events::Fire("PlayerLeftCamera");
 		}
 		break;
 	case SLOW_FOLLOW_MODE:

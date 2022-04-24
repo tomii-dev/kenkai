@@ -13,6 +13,7 @@ protected:
 	virtual void Setup();
 public:
 	std::string name;
+	std::string id;
 	sf::Vector2f velocity;
 	int weight;
 	bool up;

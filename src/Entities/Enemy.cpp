@@ -29,5 +29,5 @@ void Enemy::OnPlayerCollision() {
 	registerColl = false;
 	Tools::ExecuteFor(200, [this, x]() -> void{
 		Move(x, -2.5);
-		}, [this]()->void {jumping = false; registerColl = true; }, name);
+		}, [this]()->void {jumping = false; registerColl = true; }, id);
 }

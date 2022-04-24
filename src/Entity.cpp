@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "Entity.hpp"
 #include "Collision.hpp"
@@ -7,6 +8,10 @@
 #include "Entities/Player.hpp"
 
 Entity::Entity() {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(0, 999999);
+	id = std::to_string(dist(gen));
 	velocity = sf::Vector2f();
 	left = false;
 	right = false;
@@ -31,7 +36,7 @@ void Entity::setTexture(sf::Texture& texture) {
 
 void Entity::AnimUpdate() {}
 void Entity::UniqueUpdate(){}
-void Entity::OnPlayerCollision() {}
+void Entity::OnPlayerCollision() { registerColl = false; }
 void Entity::Die(){}
 
 void Entity::SetPosition(float x, float y) {

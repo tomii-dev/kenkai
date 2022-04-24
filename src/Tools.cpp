@@ -65,7 +65,7 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 		(*it).exec();
 		if ((*it).endFrame <= Game::totalFrame) {
 			if((*it).endExec != NULL) 
-				(*it).endExec();
+				(*it).endExec();  
 			it = tasks.erase(it);
 		}
 		else it++;
