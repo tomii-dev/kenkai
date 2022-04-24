@@ -28,6 +28,14 @@ namespace Game {
 	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
 
+	void SpawnEnemies() {
+		for (int i = 0; i < 30; i++) {
+			Enemy* bad = new Enemy();
+			bad->SetPosition(i * 30, 200);
+			world.AddEntity(bad);
+		}
+	}
+
 	void RunGame() {
 
 		window.setFramerateLimit(144);
@@ -37,11 +45,7 @@ namespace Game {
 
 		sf::Event e;
 
-		for (int i = 0; i < 10; i++) {
-			Enemy *bad = new Enemy();
-			bad->SetPosition(i * 30, 200);
-			world.AddEntity(bad);
-		}
+		SpawnEnemies();
 
 		world.AddEntity(&player);
 

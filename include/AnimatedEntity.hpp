@@ -10,6 +10,7 @@ class AnimatedEntity : public Entity {
 	void AnimUpdate() override;
 	void Setup() override;
 	void ResetValues();
+	void PlayAnim();
 	int frameGap;
 	int animFrame;
 	int nextAnimFrame;

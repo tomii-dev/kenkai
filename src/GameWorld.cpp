@@ -36,6 +36,7 @@ void GameWorld::Render() {
 void GameWorld::RenderEntities() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
+		if ((*it)->dead) continue;
 		(*it)->Update();
 		(*it)->DrawTo(window);
 	}

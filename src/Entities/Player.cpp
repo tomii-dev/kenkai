@@ -11,12 +11,15 @@ Player::Player(Tools::PlayerConfig config) {
 	username = config.username;
 	moveSpeed = 2.5;
 	health = 100;
+	currentWeapon.setDamage(10);
 	Events::HookTo("MousePressed", [this]() {Attack(); });
 }
 
 void Player::Attack() {
-	std::cout << "player attacked" << std::endl;
+	Events::Fire("PlayerAttacked");
 }
+
+Weapon Player::getCurrentWeapon() { return currentWeapon; }
 
 void Player::UniqueUpdate() {
 }

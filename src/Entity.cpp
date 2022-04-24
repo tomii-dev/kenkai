@@ -19,6 +19,7 @@ Entity::Entity() {
 	canJump = true;
 	inAir = false;
 	registerColl = true;
+	dead = false;
 	Events::HookTo("GameReady", [this]() { Setup(); });
 } 
 
@@ -38,6 +39,11 @@ void Entity::AnimUpdate() {}
 void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() { registerColl = false; }
 void Entity::Die(){}
+
+bool Entity::inXRangeOf(Entity entity, float offset) {
+	float entX = entity.getX();
+	return getX() >= (entX - offset) && getX() <= (entX + offset);
+}
 
 void Entity::SetPosition(float x, float y) {
 	sprite.setPosition(sf::Vector2f(x, y));

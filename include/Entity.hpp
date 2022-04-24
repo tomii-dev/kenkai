@@ -25,6 +25,7 @@ public:
 	bool inAir;
 	int moveSpeed;
 	int health;
+	bool dead;
 
 	Entity();
 	virtual ~Entity() {}
@@ -41,6 +42,7 @@ public:
 	void setTexture(sf::Texture& texture);
 	float getX();
 	float getY();
+	bool inXRangeOf(Entity entity, float offset);
 
 	void DrawTo(sf::RenderWindow& window);
 };

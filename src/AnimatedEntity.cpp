@@ -14,6 +14,10 @@ AnimatedEntity::AnimatedEntity() {
 	right = false;
 }
 
+void AnimatedEntity::PlayAnim() {
+	
+}
+
 void AnimatedEntity::Setup() {
 	Entity::Setup();
 	setAnims(Tools::GetAnimsById(name));
