@@ -14,6 +14,11 @@ AnimatedEntity::AnimatedEntity() {
 	right = false;
 }
 
+void AnimatedEntity::Setup() {
+	Entity::Setup();
+	setAnims(Tools::GetAnimsById(name));
+}
+
 void AnimatedEntity::ResetValues() {
 	nextAnimFrame = frameGap;
 	animFrame = 0;

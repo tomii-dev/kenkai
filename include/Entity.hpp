@@ -10,6 +10,7 @@ protected:
 	bool registerColl;
 	int jumpSpeed;
 	virtual void Die();
+	virtual void Setup();
 public:
 	std::string name;
 	sf::Vector2f velocity;

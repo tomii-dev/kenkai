@@ -3,6 +3,7 @@
 #include "Entity.hpp"
 #include "Collision.hpp"
 #include "Game.hpp"
+#include "Events.hpp"
 #include "Entities/Player.hpp"
 
 Entity::Entity() {
@@ -13,6 +14,7 @@ Entity::Entity() {
 	canJump = true;
 	inAir = false;
 	registerColl = true;
+	Events::HookTo("GameReady", [this]() { Setup(); });
 }
 
 sf::Sprite Entity::getSprite() {
@@ -34,6 +36,9 @@ void Entity::Die(){}
 
 void Entity::SetPosition(float x, float y) {
 	sprite.setPosition(sf::Vector2f(x, y));
+}
+
+void Entity::Setup() {
 }
 
 void Entity::Move(float x, float y) { sprite.move(x, y); velocity = sf::Vector2f(x, y); }
