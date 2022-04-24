@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+#include "Setup.hpp"
 #include "Game.hpp"
 #include "GameWorld.hpp"
 #include "Control.hpp"
@@ -17,6 +18,7 @@
 using namespace Control;
 
 namespace Game {
+	Setup setup;
 	bool ready = false;
 	int frame = 0;
 	int totalFrame = 0;
@@ -35,16 +37,10 @@ namespace Game {
 
 		sf::Event e;
 
-		Enemy bad;
-
-		// set up player animations
-		player.setAnims(Tools::GetAnimsById("player"));
-		bad.setAnims(Tools::GetAnimsById("player"));
-
 		world.AddEntity(&player);
-		world.AddEntity(&bad);
 
 		ready = true;
+		Events::Fire("GameReady");
 
 		// main loop
 		while (window.isOpen()) {

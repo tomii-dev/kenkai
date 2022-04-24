@@ -10,7 +10,6 @@
 GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
 	groundHeight = 500;
-	Events::RegisterEvents();
 }
 
 void GameWorld::WorldPhysics() {
