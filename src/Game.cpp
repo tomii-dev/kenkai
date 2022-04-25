@@ -28,14 +28,6 @@ namespace Game {
 	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
 
-	void SpawnEnemies() {
-		for (int i = 0; i < 30; i++) {
-			Enemy* bad = new Enemy();
-			bad->SetPosition(i * 30, 200);
-			world.AddEntity(bad);
-		}
-	}
-
 	void RunGame() {
 
 		window.setFramerateLimit(144);
@@ -44,8 +36,6 @@ namespace Game {
 		window.setView(view);
 
 		sf::Event e;
-
-		SpawnEnemies();
 
 		world.AddEntity(&player);
 
@@ -71,6 +61,7 @@ namespace Game {
 					break;
 				}
 			}
+			
 			window.clear(sf::Color::Blue);
 			world.WorldPhysics();
 			Tools::LogicUpdate();
@@ -79,7 +70,11 @@ namespace Game {
 			window.display();
 			++frame;
 			++totalFrame;
-			if (frame == Properties::frameRate - 1) frame = 0;
+			if (frame == Properties::frameRate - 1) {
+				frame = 0;
+				Enemy* bad = new Enemy();
+				world.AddEntity(bad);
+			};
 		}
 	}
 }
