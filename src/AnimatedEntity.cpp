@@ -7,7 +7,6 @@
 
 AnimatedEntity::AnimatedEntity() {
 	animFrame = 0;
-	frameGap = floor(Properties::frameRate / 4);
 	up = false;
 	down = false;
 	left = false;
@@ -28,8 +27,9 @@ void AnimatedEntity::ResetValues() {
 	animFrame = 0;
 }
 
-void AnimatedEntity::setAnims(Tools::AnimationInfo _anims){
-	anims = _anims;
+void AnimatedEntity::setAnims(Tools::AnimationInfo anims){
+	this->anims = anims;
+	frameGap = floor(Properties::frameRate / anims.count);
 }
 
 void AnimatedEntity::AnimUpdate(){
