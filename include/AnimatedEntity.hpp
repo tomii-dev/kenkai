@@ -8,12 +8,13 @@
 class AnimatedEntity : public Entity {
 	Tools::AnimationInfo anims;
 	void AnimUpdate() override;
-	void Setup() override;
 	void ResetValues();
-	void PlayAnim();
 	int frameGap;
 	int animFrame;
 	int nextAnimFrame;
+protected:
+	void PlayAnim();
+	void Setup() override;
 public:
 	AnimatedEntity();
 	void setAnims(Tools::AnimationInfo anims);
