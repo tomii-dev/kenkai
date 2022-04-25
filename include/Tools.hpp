@@ -11,10 +11,22 @@ class Tools {
 
 public:
 	struct AnimationInfo {
-		sf::Texture idleAnim[4];
-		sf::Texture leftAnim[4];
-		sf::Texture rightAnim[4];
-		sf::Texture fallAnim[4];
+		int count;
+		sf::Texture *idleAnim;
+		sf::Texture *leftAnim;
+		sf::Texture *rightAnim;
+		sf::Texture *fallAnim;
+		void setup(int count) {
+			this->count = count;
+			idleAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
+			leftAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
+			rightAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
+			fallAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
+		}
+	};
+
+	struct Animation {
+
 	};
 
 	struct PlayerConfig {

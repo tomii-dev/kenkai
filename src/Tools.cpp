@@ -15,7 +15,7 @@ std::list<Tools::Task> Tools::tasks;
 
 Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	AnimationInfo anims;
-
+	anims.setup(4);
 	for (int i = 0; i < 4; i++) {
 		sf::Texture idleTexture;
 		idleTexture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
