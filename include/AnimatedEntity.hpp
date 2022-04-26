@@ -1,21 +1,22 @@
 #pragma once
 
 #include "Entity.hpp"
+#include <map>
 #include "Tools.hpp"
 
 #include "SFML/Graphics.hpp"
 
 class AnimatedEntity : public Entity {
-	Tools::AnimationInfo anims;
+	std::map<std::string, Tools::Animation> anims;
 	void AnimUpdate() override;
 	void ResetValues();
 	int frameGap;
 	int animFrame;
 	int nextAnimFrame;
 protected:
-	void PlayAnim();
+	void PlayAnim(std::string id);
 	void Setup() override;
 public:
 	AnimatedEntity();
-	void setAnims(Tools::AnimationInfo anims);
+	void setAnims(std::map<std::string, Tools::Animation> anims);
 };

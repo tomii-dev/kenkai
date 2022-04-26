@@ -2,16 +2,20 @@
 
 #include <functional>
 #include <list>
+#include <vector>
 
 #include "SFML/Graphics.hpp"
+#include "AnimatedEntity.hpp"
 
 class Tools {
 	static bool waiting;
 	static int waitUntil;
-
 public:
 	struct AnimationInfo {
+		std::string name;
 		int count;
+		std::vector<std::string> frames;
+		/*int count;
 		sf::Texture *idleAnim;
 		sf::Texture *leftAnim;
 		sf::Texture *rightAnim;
@@ -22,12 +26,15 @@ public:
 			leftAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
 			rightAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
 			fallAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
-		}
+		}*/
 	};
 
 	struct Animation {
-
-	};
+		std::string name;
+		int count;
+		std::vector<sf::Texture> frames;
+		Animation(std::string name, int count, std::vector<sf::Texture> frames) :
+			name(name), count(count), frames(frames) {}
 
 	struct PlayerConfig {
 		std::string username;
@@ -43,7 +50,9 @@ public:
 		std::function<void()> endExec;
 	};
 
-	static AnimationInfo GetAnimsById(std::string id);
+	//static AnimationInfo GetAnimsById(std::string id);
+
+	static void SetupAnimsFor(AnimatedEntity const &entity);
 
 	static int getFrames(int ms);
 
@@ -53,6 +62,7 @@ public:
 	static void WaitAndExec(int ms, std::function<void()> func, std::string id);
 
 	static void LogicUpdate();
+	static void DeserializeAnim(std::string path, Animation* anim);
 
 private:
 	static std::list<Task> tasks;

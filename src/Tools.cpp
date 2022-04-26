@@ -3,6 +3,11 @@
 #include <iostream>
 #include <functional>
 #include <queue>
+#include <fstream>
+#include <sstream>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp >
+#include <boost/archive/binary_iarchive.hpp>
 
 #include "SFML/Graphics.hpp"
 #include "Properties.hpp"
@@ -13,7 +18,7 @@ bool Tools::waiting = false;
 int Tools::waitUntil = 0;
 std::list<Tools::Task> Tools::tasks;
 
-Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
+/*Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	AnimationInfo anims;
 	anims.setup(4);
 	for (int i = 0; i < 4; i++) {
@@ -32,6 +37,27 @@ Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
 	}
 
 	return anims;
+}*/
+
+void Tools::SetupAnimsFor(AnimatedEntity const &entity) {
+	std::ostringstream ss;
+	ss << "assets/animations/" << entity.name << "/" << entity.name << ".config";
+	std::map<std::string, AnimationInfo> configMap;
+	std::ifstream ifs(ss.str(), std::ios::binary);
+	boost::archive::binary_iarchive iarch(ifs);
+	iarch >> configMap;
+	std::map<std::string, Animation> tempMap;
+	std::map<std::string, AnimationInfo>::iterator it;
+	for (it = configMap.begin(); it != configMap.end(); it++) {
+		std::vector<sf::Texture> frames;
+		for (std::string i : it->second.frames) {
+			sf::Texture texture;
+			texture.loadFromFile(i);
+			frames.push_back(texture);
+		}
+		Animation anim(it->second.name, it->second.count, frames);
+		tempMap.insert({ it->first.c_str(), anim});
+	}
 }
 
 int Tools::getFrames(int ms) { return floor(ms * ((float)Properties::frameRate / 1000.0)); }
