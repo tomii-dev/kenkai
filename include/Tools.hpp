@@ -35,6 +35,7 @@ public:
 		std::vector<sf::Texture> frames;
 		Animation(std::string name, int count, std::vector<sf::Texture> frames) :
 			name(name), count(count), frames(frames) {}
+	};
 
 	struct PlayerConfig {
 		std::string username;
