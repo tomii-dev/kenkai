@@ -5,47 +5,25 @@
 #include <queue>
 #include <fstream>
 #include <sstream>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/vector.hpp >
-#include <boost/archive/binary_iarchive.hpp>
 
 #include "SFML/Graphics.hpp"
 #include "Properties.hpp"
 #include "Game.hpp"
 #include "Tools.hpp"
+#include "AnimatedEntity.hpp"
 
 bool Tools::waiting = false;
 int Tools::waitUntil = 0;
 std::list<Tools::Task> Tools::tasks;
 
-/*Tools::AnimationInfo Tools::GetAnimsById(std::string id) {
-	AnimationInfo anims;
-	anims.setup(4);
-	for (int i = 0; i < 4; i++) {
-		sf::Texture idleTexture;
-		idleTexture.loadFromFile("assets/animations/" + id + "/idle/" + std::to_string(i + 1) + ".png");
-		anims.idleAnim[i] = idleTexture;
-		sf::Texture leftTexture;
-		leftTexture.loadFromFile("assets/animations/" + id + "/left/" + std::to_string(i + 1) + ".png");
-		anims.leftAnim[i] = leftTexture;
-		sf::Texture rightTexture;
-		rightTexture.loadFromFile("assets/animations/" + id + "/right/" + std::to_string(i + 1) + ".png");
-		anims.rightAnim[i] = rightTexture;
-		sf::Texture fallTexture;
-		fallTexture.loadFromFile("assets/animations/" + id + "/idle/1.png");
-		anims.fallAnim[i] = fallTexture;
-	}
-
-	return anims;
-}*/
-
-void Tools::SetupAnimsFor(AnimatedEntity const &entity) {
+void Tools::SetupAnimsFor(AnimatedEntity* entity) {
 	std::ostringstream ss;
-	ss << "assets/animations/" << entity.name << "/" << entity.name << ".config";
+	ss << "assets/animations/" << entity->name << "/" << entity->name << ".conf";
 	std::map<std::string, AnimationInfo> configMap;
 	std::ifstream ifs(ss.str(), std::ios::binary);
 	boost::archive::binary_iarchive iarch(ifs);
 	iarch >> configMap;
+	ifs.close();
 	std::map<std::string, Animation> tempMap;
 	std::map<std::string, AnimationInfo>::iterator it;
 	for (it = configMap.begin(); it != configMap.end(); it++) {
@@ -58,6 +36,7 @@ void Tools::SetupAnimsFor(AnimatedEntity const &entity) {
 		Animation anim(it->second.name, it->second.count, frames);
 		tempMap.insert({ it->first.c_str(), anim});
 	}
+	entity->setAnims(tempMap);
 }
 
 int Tools::getFrames(int ms) { return floor(ms * ((float)Properties::frameRate / 1000.0)); }

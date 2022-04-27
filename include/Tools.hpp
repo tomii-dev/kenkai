@@ -3,9 +3,14 @@
 #include <functional>
 #include <list>
 #include <vector>
+#include <map>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp >
+#include <boost/archive/binary_iarchive.hpp>
 
 #include "SFML/Graphics.hpp"
-#include "AnimatedEntity.hpp"
+
+class AnimatedEntity;
 
 class Tools {
 	static bool waiting;
@@ -15,18 +20,12 @@ public:
 		std::string name;
 		int count;
 		std::vector<std::string> frames;
-		/*int count;
-		sf::Texture *idleAnim;
-		sf::Texture *leftAnim;
-		sf::Texture *rightAnim;
-		sf::Texture *fallAnim;
-		void setup(int count) {
-			this->count = count;
-			idleAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
-			leftAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
-			rightAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
-			fallAnim = (sf::Texture*)malloc(sizeof(sf::Texture) * count);
-		}*/
+		template<typename Archive>
+		void serialize(Archive& ar, const unsigned int version) {
+			ar& name;
+			ar& count;
+			ar& frames;
+		}
 	};
 
 	struct Animation {
@@ -51,9 +50,7 @@ public:
 		std::function<void()> endExec;
 	};
 
-	//static AnimationInfo GetAnimsById(std::string id);
-
-	static void SetupAnimsFor(AnimatedEntity const &entity);
+	static void SetupAnimsFor(AnimatedEntity* entity);
 
 	static int getFrames(int ms);
 
@@ -63,7 +60,6 @@ public:
 	static void WaitAndExec(int ms, std::function<void()> func, std::string id);
 
 	static void LogicUpdate();
-	static void DeserializeAnim(std::string path, Animation* anim);
 
 private:
 	static std::list<Task> tasks;
