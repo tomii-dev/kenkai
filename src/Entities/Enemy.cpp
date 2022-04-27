@@ -13,11 +13,11 @@ Enemy::Enemy() {
 	weight = 50;
 	health = 100;
 	Events::HookTo("PlayerAttacked", [this]() { OnPlayerAttacked(); });
-	//if (Game::ready) Setup();
+	if (Game::ready) Setup();
 }
 
 void Enemy::Die() {
-	dead = true;
+	Game::world.RemoveEntity(this);
 }
 
 void Enemy::OnPlayerAttacked() {

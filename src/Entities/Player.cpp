@@ -17,6 +17,7 @@ Player::Player(Tools::PlayerConfig config) {
 
 void Player::Attack() {
 	Events::Fire("PlayerAttacked");
+	setAnim("attackLeft");
 }
 
 Weapon Player::getCurrentWeapon() { return currentWeapon; }

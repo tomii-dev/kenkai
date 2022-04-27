@@ -37,6 +37,11 @@ namespace Game {
 
 		sf::Event e;
 
+		for (int i = 0; i < 10; i++) {
+			Enemy* bad = new Enemy();
+			bad->SetPosition(i * 50, 200);
+			world.AddEntity(bad);
+		}
 		world.AddEntity(&player);
 
 		ready = true;
@@ -72,8 +77,6 @@ namespace Game {
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) {
 				frame = 0;
-				Enemy* bad = new Enemy();
-				world.AddEntity(bad);
 			};
 		}
 	}

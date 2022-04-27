@@ -8,16 +8,20 @@
 
 class AnimatedEntity : public Entity {
 	std::map<std::string, Tools::Animation> anims;
-	void AnimUpdate() override;
-	void ResetValues();
-	void setFrameGap(std::string id);
+	std::string animId;
 	int frame;
 	int frameGap;
 	int animFrame;
 	int nextAnimFrame;
+	int override;
+	int overrideAnimCount;
 	std::string lastAnimId;
-protected:
+	void AnimUpdate() override;
+	void ResetValues();
+	void setFrameGap(std::string id);
 	void PlayAnim(std::string id);
+protected:
+	void setAnim(std::string id);
 	void Setup() override;
 public:
 	AnimatedEntity();
