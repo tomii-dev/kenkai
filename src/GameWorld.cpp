@@ -43,6 +43,7 @@ void GameWorld::RenderEntities() {
 }
 
 void GameWorld::PurgeEnemies() {
+	std::cout << "purging" << std::endl;
 	std::vector<Entity*>::iterator vIt = purgeEntities.begin();
 	while (vIt != purgeEntities.end()) {
 		entities.remove(*vIt);

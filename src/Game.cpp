@@ -32,16 +32,8 @@ namespace Game {
 
 		window.setFramerateLimit(144);
 
-		sf::View view(sf::FloatRect(0, 0, 800.f, 600.f));
-		window.setView(view);
-
 		sf::Event e;
 
-		for (int i = 0; i < 10; i++) {
-			Enemy* bad = new Enemy();
-			bad->SetPosition(i * 50, 200);
-			world.AddEntity(bad);
-		}
 		world.AddEntity(&player);
 
 		ready = true;
@@ -76,6 +68,8 @@ namespace Game {
 			++frame;
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) {
+				//Enemy* bad = new Enemy();
+				//world.AddEntity(bad);
 				frame = 0;
 			};
 		}

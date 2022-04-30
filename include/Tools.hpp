@@ -20,11 +20,13 @@ public:
 		std::string name;
 		int count;
 		std::vector<std::string> frames;
+		int duration;
 		template<typename Archive>
 		void serialize(Archive& ar, const unsigned int version) {
 			ar& name;
 			ar& count;
 			ar& frames;
+			ar& duration;
 		}
 	};
 
@@ -32,8 +34,9 @@ public:
 		std::string name;
 		int count;
 		std::vector<sf::Texture> frames;
-		Animation(std::string name, int count, std::vector<sf::Texture> frames) :
-			name(name), count(count), frames(frames) {}
+		int duration;
+		Animation(std::string name, int count, std::vector<sf::Texture> frames, int duration) :
+			name(name), count(count), frames(frames), duration() {}
 	};
 
 	struct PlayerConfig {
