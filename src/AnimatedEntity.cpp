@@ -9,6 +9,7 @@ AnimatedEntity::AnimatedEntity() {
 	frame = 0;
 	animFrame = 0;
 	overrideAnimCount = 0;
+	maxFrame = 0;
 	up = false;
 	down = false;
 	left = false;
@@ -16,11 +17,15 @@ AnimatedEntity::AnimatedEntity() {
 	lastAnimId = "";
 }
 
-void AnimatedEntity::setFrameGap(std::string id) {
+void AnimatedEntity::SetValues(std::string id) {
+	Tools::Animation anim;
 	std::map<std::string, Tools::Animation>::iterator it;
 	for (it = anims.begin(); it != anims.end(); it++)
-		if (it->second.name != id) continue;
-		frameGap = floor(Properties::frameRate / it->second.count);
+		if (it->second.name == id) 
+			anim = it->second;
+	if (anim.duration > 0) maxFrame = Tools::getFrames(anim.duration);
+	else maxFrame = Tools::getFrames(Properties::frameRate);
+	frameGap = floor(maxFrame / anim.count);
 	ResetValues();
 }
 
@@ -46,7 +51,7 @@ void AnimatedEntity::PlayAnim(std::string id) {
 		if (it->second.name == id)
 			sprite.setTexture(it->second.frames[animFrame]);
 	if (override) return;
-	if (frame == Properties::frameRate - 1) ResetValues();
+	if (frame == maxFrame - 1) ResetValues();
 }
 
 void AnimatedEntity::Setup() {
@@ -74,7 +79,7 @@ void AnimatedEntity::AnimUpdate(){
 		else animId = this->animId;
 	}
 	if(animId != lastAnimId)
-		setFrameGap(animId);
+		SetValues(animId);
 	PlayAnim(animId);
 	lastAnimId = animId;
 }

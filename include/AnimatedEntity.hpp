@@ -11,6 +11,7 @@ class AnimatedEntity : public Entity {
 	std::string animId;
 	int frame;
 	int frameGap;
+	int maxFrame;
 	int animFrame;
 	int nextAnimFrame;
 	int override;
@@ -18,7 +19,7 @@ class AnimatedEntity : public Entity {
 	std::string lastAnimId;
 	void AnimUpdate() override;
 	void ResetValues();
-	void setFrameGap(std::string id);
+	void SetValues(std::string id);
 	void PlayAnim(std::string id);
 protected:
 	void setAnim(std::string id);

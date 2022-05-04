@@ -37,6 +37,7 @@ public:
 		int duration;
 		Animation(std::string name, int count, std::vector<sf::Texture> frames, int duration) :
 			name(name), count(count), frames(frames), duration(duration) {}
+		Animation() {}
 	};
 
 	struct PlayerConfig {
