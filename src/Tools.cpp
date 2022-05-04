@@ -34,7 +34,6 @@ void Tools::SetupAnimsFor(AnimatedEntity* entity) {
 			frames.push_back(texture);
 		}
 		Animation anim(it->second.name, it->second.count, frames, it->second.duration);
-		std::cout << anim.name << ": " << anim.duration << std::endl;
 		tempMap.insert({ it->first.c_str(), anim});
 	}
 	entity->setAnims(tempMap);

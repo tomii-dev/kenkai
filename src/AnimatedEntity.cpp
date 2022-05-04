@@ -19,9 +19,8 @@ AnimatedEntity::AnimatedEntity() {
 void AnimatedEntity::setFrameGap(std::string id) {
 	std::map<std::string, Tools::Animation>::iterator it;
 	for (it = anims.begin(); it != anims.end(); it++)
-		if (it->second.name == id) {
-			frameGap = floor(Properties::frameRate / it->second.count);
-		}
+		if (it->second.name != id) continue;
+		frameGap = floor(Properties::frameRate / it->second.count);
 	ResetValues();
 }
 
