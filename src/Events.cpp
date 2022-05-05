@@ -5,7 +5,9 @@ std::list<Events::Event> Events::events;
 std::string Events::_events[] = {
 	"GameReady",
 	"MousePressed",
-	"PlayerAttacked"
+	"PlayerAttacked",
+	"ShiftPressed",
+	"ShiftReleased"
 };
 
 void Events::RegisterEvents() {
