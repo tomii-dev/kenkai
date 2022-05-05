@@ -12,7 +12,10 @@ Player::Player(Tools::PlayerConfig config) {
 	moveSpeed = 2.5;
 	health = 100;
 	currentWeapon.setDamage(10);
+	sprinting = false;
 	Events::HookTo("MousePressed", [this]() {Attack(); });
+	Events::HookTo("ShiftPressed", [this]() {sprinting = true; });
+	Events::HookTo("ShiftReleased", [this]() {sprinting = false; });
 }
 
 void Player::Attack() {
@@ -23,6 +26,12 @@ void Player::Attack() {
 Weapon Player::getCurrentWeapon() { return currentWeapon; }
 
 void Player::UniqueUpdate() {
+	if (sprinting) moveSpeed = 5;
+	else moveSpeed = 2.5;
+}
+
+void Player::AnimUpdate() {
+	AnimatedEntity::AnimUpdate();
 }
 
 void Player::Die() {
