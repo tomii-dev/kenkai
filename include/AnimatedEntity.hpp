@@ -17,11 +17,11 @@ class AnimatedEntity : public Entity {
 	int override;
 	int overrideAnimCount;
 	std::string lastAnimId;
-	void AnimUpdate() override;
 	void ResetValues();
 	void SetValues(std::string id);
 	void PlayAnim(std::string id);
 protected:
+	void AnimUpdate() override;
 	void setAnim(std::string id);
 	void Setup() override;
 public:
