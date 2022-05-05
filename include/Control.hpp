@@ -24,6 +24,11 @@ namespace Control {
 			case sf::Keyboard::Space:
 				if (pressed) Game::player.Jump();
 				break;
+			case sf::Keyboard::LShift:
+				if (pressed) Events::Fire("ShiftPressed");
+				else Events::Fire("ShiftReleased");
+				break;
+
 		}
 	}
 }
