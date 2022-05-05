@@ -31,6 +31,11 @@ void Player::UniqueUpdate() {
 }
 
 void Player::AnimUpdate() {
+	if (velocity.x == 0) setAnim("idle");
+	if (velocity.x == -moveSpeed) setAnim("walkLeft");
+	if (velocity.x == moveSpeed) setAnim("walkRight");
+	if (velocity.x == -5) setAnim("runLeft");
+	if (velocity.x == 5) setAnim("runRight");
 	AnimatedEntity::AnimUpdate();
 }
 

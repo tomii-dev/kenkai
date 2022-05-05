@@ -8,7 +8,6 @@
 AnimatedEntity::AnimatedEntity() {
 	frame = 0;
 	animFrame = 0;
-	overrideAnimCount = 0;
 	maxFrame = 0;
 	up = false;
 	down = false;
@@ -26,31 +25,21 @@ void AnimatedEntity::SetValues(std::string id) {
 	if (anim.duration > 0) maxFrame = Tools::getFrames(anim.duration);
 	else maxFrame = Tools::getFrames(Properties::frameRate);
 	frameGap = floor(maxFrame / anim.count);
-	ResetValues();
+ 	ResetValues();
 }
 
-void AnimatedEntity::setAnim(std::string id) {
-	if (override) return;
-	std::map<std::string, Tools::Animation>::iterator it;
-	for (it = anims.begin(); it != anims.end(); it++)
-		if (it->second.name == id)
-			overrideAnimCount = it->second.count-1;
-	animId = id;
-	override = 1;
-}
+void AnimatedEntity::setAnim(std::string id) { animId = id; }
 
 void AnimatedEntity::PlayAnim(std::string id) {
 	frame++;
 	if (frame == nextAnimFrame) {
 		nextAnimFrame += frameGap;
 		animFrame++;
-		if (override) overrideAnimCount--;
 	}
 	std::map<std::string, Tools::Animation>::iterator it;
 	for (it = anims.begin(); it != anims.end(); it++)
 		if (it->second.name == id)
 			sprite.setTexture(it->second.frames[animFrame]);
-	if (override) return;
 	if (frame == maxFrame - 1) ResetValues();
 }
 
@@ -70,16 +59,7 @@ void AnimatedEntity::setAnims(std::map<std::string, Tools::Animation> anims){
 }
 
 void AnimatedEntity::AnimUpdate(){
-	std::string animId;
-	if (velocity == sf::Vector2f()) animId = "idle";
-	if (velocity.x < 0) animId = "walkLeft";
-	if (velocity.x > 0) animId = "walkRight";
-	if (override) {
-		if (!overrideAnimCount) override = 0;
-		else animId = this->animId;
-	}
-	if(animId != lastAnimId)
-		SetValues(animId);
+	if(animId != lastAnimId) SetValues(animId);
 	PlayAnim(animId);
 	lastAnimId = animId;
 }

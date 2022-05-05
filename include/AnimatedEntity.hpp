@@ -14,8 +14,6 @@ class AnimatedEntity : public Entity {
 	int maxFrame;
 	int animFrame;
 	int nextAnimFrame;
-	int override;
-	int overrideAnimCount;
 	std::string lastAnimId;
 	void ResetValues();
 	void SetValues(std::string id);
