@@ -54,7 +54,8 @@ namespace Game {
 					HandleControl(e.key.code, false);
 					break;
 				case sf::Event::MouseButtonPressed:
-					Events::Fire("MousePressed");
+					if(e.mouseButton.button == sf::Mouse::Left) 
+						Events::Fire("MousePressed");
 					break;
 				}
 			}
