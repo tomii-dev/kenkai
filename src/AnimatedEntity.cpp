@@ -14,6 +14,7 @@ AnimatedEntity::AnimatedEntity() {
 	left = false;
 	right = false;
 	lastAnimId = "";
+	overrideAnimId = "";
 }
 
 void AnimatedEntity::SetValues(std::string id) {
@@ -28,9 +29,16 @@ void AnimatedEntity::SetValues(std::string id) {
  	ResetValues();
 }
 
-void AnimatedEntity::setAnim(std::string id) { animId = id; }
+void AnimatedEntity::setAnim(std::string id, bool playFull) {
+	if (playFull) {
+		override = true;
+		overrideAnimId = id;
+	}
+	else animId = id;
+}
 
 void AnimatedEntity::PlayAnim(std::string id) {
+	if (override) id = overrideAnimId;
 	frame++;
 	if (frame == nextAnimFrame) {
 		nextAnimFrame += frameGap;
@@ -40,7 +48,10 @@ void AnimatedEntity::PlayAnim(std::string id) {
 	for (it = anims.begin(); it != anims.end(); it++)
 		if (it->second.name == id)
 			sprite.setTexture(it->second.frames[animFrame]);
-	if (frame == maxFrame - 1) ResetValues();
+	if (frame == maxFrame - 1) {
+		if (override) override = false;
+		ResetValues();
+	}
 }
 
 void AnimatedEntity::Setup() {
