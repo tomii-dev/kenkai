@@ -64,7 +64,7 @@ namespace Game {
 			world.WorldPhysics();
 			Tools::LogicUpdate();
 			world.Render();
-			camera.Update(player.getPosition(), sf::Vector2f(0, -200));
+			camera.Update(player.getPosition(), sf::Vector2f(0, -200), player.moveSpeed);
 			window.display();
 			++frame;
 			++totalFrame;
