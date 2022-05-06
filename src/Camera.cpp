@@ -24,15 +24,15 @@ void Camera::PanTo(sf::Vector2f pos, int ms, bool stay, int returnAfter) {
 		}, endFunc, "camera");
 }
 
-void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset) {
+void Camera::Update(sf::Vector2f targetPos, sf::Vector2f offset, float speed) {
 	sf::Vector2f viewStart = getCenter() - (getSize() / 2.f);
 	switch (mode) {
 	case DEFAULT_MODE:
 		if (targetPos.x >= 0.75 * getSize().x + viewStart.x) {
-			setCenter(getCenter().x + 2, getCenter().y);
+			setCenter(getCenter().x + speed, getCenter().y);
 		}
 		if (targetPos.x <= 0.20 * getSize().x + viewStart.x) {
-			setCenter(getCenter().x - 2, getCenter().y);
+			setCenter(getCenter().x - speed, getCenter().y);
 		}
 		break;
 	case SLOW_FOLLOW_MODE:
