@@ -20,7 +20,7 @@ Player::Player(Tools::PlayerConfig config) {
 
 void Player::Attack() {
 	Events::Fire("PlayerAttacked");
-	setAnim("attackLeft");
+	setAnim("attackLeft", true);
 }
 
 Weapon Player::getCurrentWeapon() { return currentWeapon; }
