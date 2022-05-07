@@ -69,10 +69,10 @@ namespace Game {
 			++frame;
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) {
-				//Enemy* bad = new Enemy();
-				//world.AddEntity(bad);
+				Enemy* bad = new Enemy();
+				world.AddEntity(bad);
 				frame = 0;
-			};
+			}
 		}
 	}
 }
