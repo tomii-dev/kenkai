@@ -20,7 +20,7 @@ public:
 	void WorldPhysics();
 	void Render();
 	void RenderEntities();
-	void PurgeEnemies();
+	void PurgeEntities();
 	void AddEntity(Entity *entity);
 	void RemoveEntity(Entity *entity);
 };
