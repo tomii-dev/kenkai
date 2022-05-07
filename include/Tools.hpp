@@ -10,6 +10,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#define UI_ELEMENTS "assets/textures/ui/"
+
 class AnimatedEntity;
 
 class Tools {
