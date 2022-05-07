@@ -29,9 +29,10 @@ void GameWorld::Render() {
 	sf::Sprite worldBackground;
 	worldBackground.setTexture(backgroundTex);
 	window.draw(worldBackground);
+	window.draw(worldBackground);
 
 	RenderEntities();
-	if (purgeEntities.size()) PurgeEnemies();
+	if (purgeEntities.size()) PurgeEntities();
 }
 
 void GameWorld::RenderEntities() {
@@ -42,12 +43,11 @@ void GameWorld::RenderEntities() {
 	}
 }
 
-void GameWorld::PurgeEnemies() {
-	std::cout << "purging" << std::endl;
+void GameWorld::PurgeEntities() {
 	std::vector<Entity*>::iterator vIt = purgeEntities.begin();
 	while (vIt != purgeEntities.end()) {
+		(*vIt)->Destroy();
 		entities.remove(*vIt);
-		delete* vIt;
 		vIt = purgeEntities.erase(vIt);
 	}
 }
