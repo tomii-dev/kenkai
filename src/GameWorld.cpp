@@ -6,6 +6,7 @@
 #include "Engine.hpp"
 #include "AnimatedEntity.hpp"
 #include "Events.hpp"
+#include "UIElement.hpp"
 
 GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
@@ -32,6 +33,7 @@ void GameWorld::Render() {
 	window.draw(worldBackground);
 
 	RenderEntities();
+	RenderUI();
 	if (purgeEntities.size()) PurgeEntities();
 }
 
@@ -40,6 +42,14 @@ void GameWorld::RenderEntities() {
 	for (it = entities.begin(); it != entities.end(); it++) {
 		(*it)->Update();
 		(*it)->DrawTo(window);
+	}
+}
+
+void GameWorld::RenderUI() {
+	std::vector<UIElement*>::iterator vIt;
+	for (vIt = uiElements.begin(); vIt != uiElements.end(); vIt++) {
+		(*vIt)->Update();
+		(*vIt)->DrawTo(window);
 	}
 }
 
@@ -58,4 +68,12 @@ void GameWorld::AddEntity(Entity *entity) {
 
 void GameWorld::RemoveEntity(Entity* entity) {
 	purgeEntities.push_back(entity);
+}
+
+void GameWorld::AddUIElement(UIElement* element) {
+	uiElements.push_back(element);
+}
+
+void GameWorld::RemoveUIElement(UIElement* element) {
+
 }
