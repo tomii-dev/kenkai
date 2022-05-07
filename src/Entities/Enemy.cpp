@@ -32,6 +32,7 @@ void Enemy::OnPlayerAttacked() {
 		}, [this]()->void {jumping = false; registerColl = true; }, id);
 	health -= Game::player.getCurrentWeapon().getDamage();
 }
+
 void Enemy::UniqueUpdate() {
 	int playerX = Game::player.getX();
 	sf::Vector2f movement;
@@ -40,6 +41,13 @@ void Enemy::UniqueUpdate() {
 	if (playerX < getX())
 		movement = sf::Vector2f(-moveSpeed, 0);
 	Move(movement);
+}
+
+void Enemy::AnimUpdate() {
+	if (velocity.x == 0) setAnim("idle");
+	if (velocity.x == -moveSpeed) setAnim("walkLeft");
+	if (velocity.x == moveSpeed) setAnim("walkRight");
+	AnimatedEntity::AnimUpdate();
 }
 
 void Enemy::OnPlayerCollision() {
