@@ -36,6 +36,7 @@ public:
 	void Move(float x, float y);
 	void Move(sf::Vector2f vec);
 	void Update();
+	void Destroy();
 	virtual void AnimUpdate();
 	virtual void OnPlayerCollision();
 	virtual void UniqueUpdate();

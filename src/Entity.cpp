@@ -40,6 +40,11 @@ void Entity::UniqueUpdate(){}
 void Entity::OnPlayerCollision() { registerColl = false; }
 void Entity::Die(){}
 
+// should only be called if object was dynamically allocated
+void Entity::Destroy() {
+	delete this;
+}
+
 bool Entity::inXRangeOf(Entity entity, float offset) {
 	float entX = entity.getX();
 	return getX() >= (entX - offset) && getX() <= (entX + offset);
