@@ -7,8 +7,7 @@
 #include "Events.hpp"
 #include "GameWorld.hpp"
 
-Player::Player(Tools::PlayerConfig config) 
-	: cursor("cursor", "cursor.png", 20, 20) {
+Player::Player(Tools::PlayerConfig config){
 	weight = 50;
 	name = "player";
 	username = config.username;
@@ -16,9 +15,6 @@ Player::Player(Tools::PlayerConfig config)
 	health = 100;
 	currentWeapon.setDamage(10);
 	sprinting = false;
-	cursor.setBehaviour([this]()->void {
-		this->cursor.setPosition(getPosition() + sf::Vector2f(50, 0));
-	});
 	Events::HookTo("MousePressed", [this]() {Attack(); });
 	Events::HookTo("ShiftPressed", [this]() {sprinting = true; });
 	Events::HookTo("ShiftReleased", [this]() {sprinting = false; });

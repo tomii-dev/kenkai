@@ -12,6 +12,7 @@
 #include "Entities/Player.hpp"
 #include "Entities/Enemy.hpp"
 #include "AnimatedEntity.hpp"
+#include "UIElements/Cursor.hpp"
 
 #include "SFML/Graphics.hpp"
 
@@ -27,6 +28,7 @@ namespace Game {
 	GameWorld world(window);
 	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
+	Cursor cursor;
 
 	void RunGame() {
 
@@ -35,6 +37,7 @@ namespace Game {
 		sf::Event e;
 
 		world.AddEntity(&player);
+		world.AddUIElement(&cursor);
 
 		ready = true;
 		Events::Fire("GameReady");
@@ -59,7 +62,6 @@ namespace Game {
 					break;
 				}
 			}
-			
 			window.clear(sf::Color::Blue);
 			world.WorldPhysics();
 			Tools::LogicUpdate();
