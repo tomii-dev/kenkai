@@ -7,9 +7,6 @@ UIElement::UIElement() {
 	sizeX, sizeY = 0;
 }
 
-UIElement::UIElement(float sizeX, float sizeY) 
-	: sizeX(sizeX), sizeY(sizeY) {}
-
 void UIElement::DrawTo(sf::RenderWindow& window) {
 	window.draw(sprite);
 }
