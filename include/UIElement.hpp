@@ -7,16 +7,18 @@
 #include "Game.hpp"
 
 class UIElement {
+protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-	std::function<void()> behaviour;
+	float sizeX;
+	float sizeY;
 public:
 	std::string name;
 	UIElement();
-	UIElement(std::string name, std::string path, float sizeX, float sizeY);
+	UIElement(float sizeX, float sizeY);
 	void DrawTo(sf::RenderWindow& window);
-	void setBehaviour(std::function<void()> behaviour);
+	void setTexture(std::string path);
 	void setPosition(sf::Vector2f pos);
 	void setPosition(float x, float y);
-	void Update();
+	virtual void Update();
 };
