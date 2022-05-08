@@ -28,7 +28,7 @@ namespace Game {
 	GameWorld world(window);
 	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
-	Cursor cursor;
+	Cursor cursor(10, 10);
 
 	void RunGame() {
 
