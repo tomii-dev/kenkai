@@ -9,6 +9,7 @@ protected:
 	sf::Texture texture;
 	bool registerColl;
 	int jumpSpeed;
+	sf::Vector2f centerOffset;
 	virtual void Die();
 	virtual void Setup();
 public:
@@ -43,6 +44,7 @@ public:
 	void setTexture(sf::Texture& texture);
 	float getX();
 	float getY();
+	sf::Vector2f getCenter();
 	bool inXRangeOf(Entity entity, float offset);
 
 	void DrawTo(sf::RenderWindow& window);

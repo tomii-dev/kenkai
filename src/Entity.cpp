@@ -20,6 +20,7 @@ Entity::Entity() {
 	inAir = false;
 	registerColl = true;
 	dead = false;
+	centerOffset = sf::Vector2f();
 	Events::HookTo("GameReady", [this]() { Setup(); });
 } 
 
@@ -66,6 +67,10 @@ float Entity::getX() {
 
 float Entity::getY() {
 	return sprite.getPosition().y;
+}
+
+sf::Vector2f Entity::getCenter() {
+	return sprite.getPosition() + sf::Vector2f(sprite.getTexture()->getSize()) / 2.f + centerOffset;
 }
 
 void Entity::Update() {
