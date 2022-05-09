@@ -19,5 +19,5 @@ Cursor::Cursor(float sizeX, float sizeY) {
 }
 
 void Cursor::Update() {
-	sprite.setPosition(Game::player.getPosition() + sf::Vector2f(50, 30));
+	sprite.setPosition(Game::player.getPosition() + sf::Vector2f(70, 30));
 } 
