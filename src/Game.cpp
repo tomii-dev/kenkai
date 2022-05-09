@@ -28,11 +28,23 @@ namespace Game {
 	GameWorld world(window);
 	Camera camera = Camera(window, DEFAULT_MODE);
 	sf::Text msg;
-	Cursor cursor(10, 10);
+	Cursor cursor(15, 15);
+	bool cursorVisible;
+	bool cursorGrabbed;
 
 	void RunGame() {
 
 		window.setFramerateLimit(144);
+		window.setMouseCursorVisible(false);
+		cursorVisible = false;
+		window.setMouseCursorGrabbed(true);
+		cursorGrabbed = true;
+		Events::HookTo("EscPressed", []()->void {
+			window.setMouseCursorVisible(!cursorVisible);
+			cursorVisible = !cursorVisible;
+			window.setMouseCursorGrabbed(!cursorGrabbed);
+			cursorGrabbed = !cursorGrabbed;
+		});
 
 		sf::Event e;
 

@@ -7,7 +7,8 @@ std::string Events::_events[] = {
 	"MousePressed",
 	"PlayerAttacked",
 	"ShiftPressed",
-	"ShiftReleased"
+	"ShiftReleased",
+	"EscPressed"
 };
 
 void Events::RegisterEvents() {
