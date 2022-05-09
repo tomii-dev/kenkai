@@ -14,7 +14,6 @@ class Player : public AnimatedEntity {
 	void Attack();
 	void Setup() override;
 public:
-	UIElement cursor;
 	Player(Tools::PlayerConfig config);
 	void Jump();
 	Weapon getCurrentWeapon();
