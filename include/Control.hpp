@@ -28,7 +28,8 @@ namespace Control {
 				if (pressed) Events::Fire("ShiftPressed");
 				else Events::Fire("ShiftReleased");
 				break;
-
+			case sf::Keyboard::Escape:
+				if (pressed) Events::Fire("EscPressed");
 		}
 	}
 }
