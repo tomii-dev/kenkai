@@ -15,6 +15,7 @@ Player::Player(Tools::PlayerConfig config){
 	health = 100;
 	currentWeapon.setDamage(10);
 	sprinting = false;
+	centerOffset = sf::Vector2f(-8, -3);
 	Events::HookTo("MousePressed", [this]() {Attack(); });
 	Events::HookTo("ShiftPressed", [this]() {sprinting = true; });
 	Events::HookTo("ShiftReleased", [this]() {sprinting = false; });
@@ -22,7 +23,6 @@ Player::Player(Tools::PlayerConfig config){
 
 void Player::Setup() {
 	AnimatedEntity::Setup();
-	Game::world.AddUIElement(&cursor);
 }
 
 void Player::Attack() {
