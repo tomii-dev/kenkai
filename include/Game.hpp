@@ -12,10 +12,10 @@ namespace Game {
 	extern bool ready;
 	extern int frame;
 	extern int totalFrame;
+	extern sf::Vector2f mousePos;
 	extern Player player;
 	extern GameWorld world;
 	extern sf::Text msg;
-	extern Cursor cursor;
 
 	extern sf::RenderWindow window;
 

@@ -72,6 +72,9 @@ namespace Game {
 					if(e.mouseButton.button == sf::Mouse::Left) 
 						Events::Fire("MousePressed");
 					break;
+				case sf::Event::MouseMoved:
+					Events::Fire("MouseMoved");
+					break;
 				}
 			}
 			window.clear(sf::Color::Blue);
@@ -83,8 +86,8 @@ namespace Game {
 			++frame;
 			++totalFrame;
 			if (frame == Properties::frameRate - 1) {
-				Enemy* bad = new Enemy();
-				world.AddEntity(bad);
+				//Enemy* bad = new Enemy();
+				//world.AddEntity(bad);
 				frame = 0;
 			}
 		}
