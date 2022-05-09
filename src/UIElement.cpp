@@ -17,6 +17,7 @@ void UIElement::setPosition(sf::Vector2f pos) {
 
 void UIElement::setTexture(std::string path) {
 	texture.loadFromFile(UI_ELEMENTS + path);
+	texture.setSmooth(true);
 	sprite.setTexture(texture);
 	if (!sizeX) return;
 	sprite.setScale(
