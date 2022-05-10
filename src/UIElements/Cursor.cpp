@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include "Tools.hpp"
 #include "Events.hpp"
+#include "GameWorld.hpp"
 #include "UIElements/Cursor.hpp"
 #include "Entities/Player.hpp"
 #include "SFML/Graphics.hpp"
@@ -21,13 +22,26 @@ Cursor::Cursor(float sizeX, float sizeY) {
 void Cursor::Setup() {
 	name = "cursor";
 	setTexture("cursor.png");
-	Events::HookTo("MouseMoved", [this]()->void { mouseMoved = true; });
 	deg = 0;
+	lastMousePos = sf::Mouse::getPosition();
+	mouseMoveFrame = 0;
+	centerMouse = true;
+	Events::HookTo("MouseMoved", [this]() ->void { mouseMoved = true; });
 }
 
 void Cursor::Update() {
 	sf::Vector2f playerCent = Game::player.getCenter();
-	setPosition(playerCent + sf::Vector2f(50 * sin(deg), -(50 * cos(deg))));
-	deg += 0.05;
-	if (deg == 360) deg = 0;
+	sf::Vector2f mousePos = Tools::getMousePosition();
+	if (mouseMoved) {
+		mouseMoveFrame = Game::totalFrame;
+		sf::Vector2f diff = playerCent - mousePos;
+		deg = atan2(diff.x, diff.y);
+		visible = true;
+		centerMouse = false;
+		mouseMoved = false;
+	}
+	if (centerMouse) Tools::setMousePosition(Game::player.getCenter());
+	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500))
+		centerMouse = true;
+	setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
 } 
