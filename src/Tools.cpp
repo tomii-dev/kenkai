@@ -15,6 +15,7 @@
 bool Tools::waiting = false;
 int Tools::waitUntil = 0;
 std::list<Tools::Task> Tools::tasks;
+bool Tools::allowMouseGrab = true;
 
 void Tools::SetupAnimsFor(AnimatedEntity* entity) {
 	std::ostringstream ss;
@@ -80,4 +81,17 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 
 void Tools::LogicUpdate() {
 	if (waiting) ExecuteFor(NULL, NULL, NULL, "");
+}
+
+sf::Vector2f Tools::getMousePosition() {
+	return Game::window.mapPixelToCoords(sf::Mouse::getPosition(Game::window));
+}
+
+void Tools::setMousePosition(sf::Vector2f pos) {
+	if (!allowMouseGrab) return;
+	sf::Mouse::setPosition(Game::window.mapCoordsToPixel(pos), Game::window);
+}
+
+void Tools::setAllowMouseGrab(bool allow) {
+	allowMouseGrab = allow;
 }

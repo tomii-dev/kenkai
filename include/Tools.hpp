@@ -11,12 +11,15 @@
 #include "SFML/Graphics.hpp"
 
 #define UI_ELEMENTS "assets/textures/ui/"
+#define PI 3.14159265358979323846
 
 class AnimatedEntity;
 
 class Tools {
 	static bool waiting;
 	static int waitUntil;
+	static bool allowMouseGrab;
+	static bool mouseVisible;
 public:
 	struct AnimationInfo {
 		std::string name;
@@ -66,7 +69,10 @@ public:
 	static void WaitAndExec(int ms, std::function<void()> func, std::string id);
 
 	static void LogicUpdate();
-
+	static sf::Vector2f getMousePosition();
+	static void setMousePosition(sf::Vector2f pos);
+	static void setAllowMouseGrab(bool allow);
+	static void setMouseVisible(bool visible);
 private:
 	static std::list<Task> tasks;
 };
