@@ -35,16 +35,6 @@ namespace Game {
 	void RunGame() {
 
 		window.setFramerateLimit(144);
-		window.setMouseCursorVisible(false);
-		cursorVisible = false;
-		window.setMouseCursorGrabbed(true);
-		cursorGrabbed = true;
-		Events::HookTo("EscPressed", []()->void {
-			window.setMouseCursorVisible(!cursorVisible);
-			cursorVisible = !cursorVisible;
-			window.setMouseCursorGrabbed(!cursorGrabbed);
-			cursorGrabbed = !cursorGrabbed;
-		});
 
 		sf::Event e;
 

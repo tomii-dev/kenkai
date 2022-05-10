@@ -17,6 +17,8 @@ class GameWorld {
 	std::vector<UIElement*> uiElements;
 	std::vector<Entity*> purgeEntities;
 	float groundHeight;
+	bool mouseVisible;
+	bool mouseGrabbed;
 public:
 	GameWorld(sf::RenderWindow& _window);
 	void WorldPhysics();
@@ -28,4 +30,5 @@ public:
 	void RemoveEntity(Entity *entity);
 	void AddUIElement(UIElement* element);
 	void RemoveUIElement(UIElement* element);
+	void setMouseVisible(bool visible);
 };
