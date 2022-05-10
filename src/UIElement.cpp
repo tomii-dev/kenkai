@@ -4,10 +4,12 @@
 #include "Tools.hpp"
 
 UIElement::UIElement() {
+	visible = false;
 	sizeX, sizeY = 0;
 }
 
 void UIElement::DrawTo(sf::RenderWindow& window) {
+	if (!visible) return;
 	window.draw(sprite);
 }
 

@@ -12,6 +12,7 @@ protected:
 	sf::Texture texture;
 	float sizeX;
 	float sizeY;
+	bool visible;
 public:
 	std::string name;
 	UIElement();
