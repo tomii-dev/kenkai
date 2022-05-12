@@ -13,12 +13,13 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	groundHeight = 500;
 	mouseVisible = false;
 	mouseGrabbed = true;
+	window.setMouseCursorVisible(false);
+	window.setMouseCursorGrabbed(true);
 	Events::HookTo("EscPressed", [this]()->void {
 		window.setMouseCursorVisible(!mouseVisible);
 		mouseVisible = !mouseVisible;
 		window.setMouseCursorGrabbed(!mouseGrabbed);
 		mouseGrabbed = !mouseGrabbed;
-		Tools::setAllowMouseGrab(mouseGrabbed);
 	});
 }
 
@@ -60,8 +61,6 @@ void GameWorld::RenderUI() {
 		(*vIt)->Update();
 		(*vIt)->DrawTo(window);
 	}
-	window.setMouseCursorVisible(mouseVisible);
-	window.setMouseCursorGrabbed(mouseGrabbed);
 }
 
 void GameWorld::PurgeEntities() {
