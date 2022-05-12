@@ -19,7 +19,6 @@ class Tools {
 	static bool waiting;
 	static int waitUntil;
 	static bool allowMouseGrab;
-	static bool mouseVisible;
 public:
 	struct AnimationInfo {
 		std::string name;
@@ -71,8 +70,6 @@ public:
 	static void LogicUpdate();
 	static sf::Vector2f getMousePosition();
 	static void setMousePosition(sf::Vector2f pos);
-	static void setAllowMouseGrab(bool allow);
-	static void setMouseVisible(bool visible);
 private:
 	static std::list<Task> tasks;
 };
