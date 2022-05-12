@@ -5,6 +5,7 @@
 #include <queue>
 #include <fstream>
 #include <sstream>
+#include <random>
 
 #include "SFML/Graphics.hpp"
 #include "Properties.hpp"
@@ -88,4 +89,11 @@ sf::Vector2f Tools::getMousePosition() {
 
 void Tools::setMousePosition(sf::Vector2f pos) {
 	sf::Mouse::setPosition(Game::window.mapCoordsToPixel(pos), Game::window);
+}
+
+int Tools::RandomInt(int start, int end) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(start, end);
+	return dist(gen);
 }
