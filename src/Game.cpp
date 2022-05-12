@@ -53,7 +53,6 @@ namespace Game {
 					break;
 				case sf::Event::KeyPressed:
 					HandleControl(e.key.code, true);
-					Events::Fire("PlayerMoved");
 					break;
 				case sf::Event::KeyReleased:
 					HandleControl(e.key.code, false);
@@ -80,6 +79,7 @@ namespace Game {
 				//world.AddEntity(bad);
 				frame = 0;
 			}
+			world.GenerateRoom();
 		}
 	}
 }
