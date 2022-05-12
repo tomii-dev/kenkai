@@ -23,6 +23,15 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	});
 }
 
+GameWorld::Room GameWorld::GenerateRoom() {
+	Room room;
+	room.biome = Biome(Tools::RandomInt(0, biomeMAX));
+	room.length = Tools::RandomInt(1, 15);
+	room.type = RoomType(Tools::RandomInt(0, roomTypeMAX));
+	int enemyMax = Tools::FetchData<int>("biomes/0.dat", "enemyMax");
+	return room;
+}
+
 void GameWorld::WorldPhysics() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
@@ -66,7 +75,7 @@ void GameWorld::RenderUI() {
 void GameWorld::PurgeEntities() {
 	std::vector<Entity*>::iterator vIt = purgeEntities.begin();
 	while (vIt != purgeEntities.end()) {
-		(*vIt)->Destroy();
+
 		entities.remove(*vIt);
 		vIt = purgeEntities.erase(vIt);
 	}
