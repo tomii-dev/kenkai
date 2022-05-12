@@ -2,6 +2,7 @@
 #include <math.h>
 
 #include "Game.hpp"
+#include "Properties.hpp"
 #include "Tools.hpp"
 #include "Events.hpp"
 #include "GameWorld.hpp"
@@ -23,8 +24,8 @@ void Cursor::Setup() {
 	name = "cursor";
 	setTexture("cursor.png");
 	deg = 0;
-	lastMousePos = sf::Mouse::getPosition();
 	mouseMoveFrame = 0;
+	mouseMoved = false;
 	centerMouse = true;
 	Events::HookTo("MouseMoved", [this]() ->void { mouseMoved = true; });
 }
@@ -38,10 +39,9 @@ void Cursor::Update() {
 		deg = atan2(diff.x, diff.y);
 		visible = true;
 		centerMouse = false;
-		mouseMoved = false;
 	}
-	if (centerMouse) Tools::setMousePosition(Game::player.getCenter());
-	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500))
-		centerMouse = true;
-	setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
+	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500)) centerMouse = true;
+	if (centerMouse) visible = false;
+	else setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
+	mouseMoved = false;
 } 

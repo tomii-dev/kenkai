@@ -5,7 +5,6 @@
 class Cursor : public UIElement {
 	int mouseMoveFrame;
 	float deg;
-	sf::Vector2i lastMousePos;
 	bool mouseMoved;
 	bool centerMouse;
 	void Setup();
