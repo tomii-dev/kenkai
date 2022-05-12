@@ -19,8 +19,29 @@ class GameWorld {
 	float groundHeight;
 	bool mouseVisible;
 	bool mouseGrabbed;
+	enum Biome { plains, desert, dungeon, forest, jungle, theVoid, 
+		biomeMAX = theVoid };
+	enum RoomType { standard, boss, 
+		roomTypeMAX = boss };
+	struct Room {
+		unsigned int enemyCount;
+		unsigned int length;
+		Biome biome;
+		RoomType type;
+		std::string bossId;
+	};
+	struct Stage {
+		unsigned int num;
+		std::vector<Room> rooms;
+	};
+	struct Sekai {
+		std::vector<Stage> stages;
+	};
 public:
 	GameWorld(sf::RenderWindow& _window);
+	Room GenerateRoom();
+	Stage GenerateStage();
+	Sekai GenerateSekai();
 	void WorldPhysics();
 	void Render();
 	void RenderEntities();
