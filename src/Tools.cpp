@@ -15,7 +15,6 @@
 bool Tools::waiting = false;
 int Tools::waitUntil = 0;
 std::list<Tools::Task> Tools::tasks;
-bool Tools::allowMouseGrab = true;
 
 void Tools::SetupAnimsFor(AnimatedEntity* entity) {
 	std::ostringstream ss;
@@ -88,10 +87,5 @@ sf::Vector2f Tools::getMousePosition() {
 }
 
 void Tools::setMousePosition(sf::Vector2f pos) {
-	if (!allowMouseGrab) return;
 	sf::Mouse::setPosition(Game::window.mapCoordsToPixel(pos), Game::window);
-}
-
-void Tools::setAllowMouseGrab(bool allow) {
-	allowMouseGrab = allow;
 }
