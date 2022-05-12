@@ -27,6 +27,7 @@ void Cursor::Setup() {
 	mouseMoveFrame = 0;
 	mouseMoved = false;
 	centerMouse = true;
+	visible = false;
 	Events::HookTo("MouseMoved", [this]() ->void { mouseMoved = true; });
 }
 
@@ -38,10 +39,9 @@ void Cursor::Update() {
 		sf::Vector2f diff = playerCent - mousePos;
 		deg = atan2(diff.x, diff.y);
 		visible = true;
-		centerMouse = false;
 	}
-	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500)) centerMouse = true;
-	if (centerMouse) visible = false;
+	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500))
+		visible = false;
 	else setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
 	mouseMoved = false;
 } 
