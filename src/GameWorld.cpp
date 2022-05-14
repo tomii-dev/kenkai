@@ -17,7 +17,7 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	window.setMouseCursorGrabbed(true);
 	Events::HookTo("EscPressed", [this]()->void {
 		window.setMouseCursorVisible(!mouseVisible);
-		mouseVisible = !mouseVisible;
+		mouseVisible = !mouseVisible; 
 		window.setMouseCursorGrabbed(!mouseGrabbed);
 		mouseGrabbed = !mouseGrabbed;
 	});
@@ -26,9 +26,9 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 GameWorld::Room GameWorld::GenerateRoom() {
 	Room room;
 	room.biome = Biome(Tools::RandomInt(0, biomeMAX));
-	room.length = Tools::RandomInt(1, 15);
+	room.length = Tools::RandomInt(5, 10);
 	room.type = RoomType(Tools::RandomInt(0, roomTypeMAX));
-	int enemyMax = Tools::FetchData<int>("biomes/0.dat", "enemyMax");
+	room.enemyCount = Tools::RandomInt(room.length, room.length * 5);
 	return room;
 }
 
