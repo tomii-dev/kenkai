@@ -39,7 +39,7 @@ class GameWorld {
 	};
 public:
 	GameWorld(sf::RenderWindow& _window);
-	Room GenerateRoom();
+	Room GenerateRoom(RoomType type);
 	Stage GenerateStage();
 	Sekai GenerateSekai();
 	void WorldPhysics();

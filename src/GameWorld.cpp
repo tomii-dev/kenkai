@@ -23,13 +23,17 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	});
 }
 
-GameWorld::Room GameWorld::GenerateRoom() {
+GameWorld::Room GameWorld::GenerateRoom(RoomType type=standard) {
 	Room room;
 	room.biome = Biome(Tools::RandomInt(0, biomeMAX));
 	room.length = Tools::RandomInt(5, 10);
-	room.type = RoomType(Tools::RandomInt(0, roomTypeMAX));
+	room.type = type;
 	room.enemyCount = Tools::RandomInt(room.length, room.length * 5);
 	return room;
+}
+
+GameWorld::Stage GameWorld::GenerateStage() {
+	Stage stage;
 }
 
 void GameWorld::WorldPhysics() {
