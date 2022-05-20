@@ -5,7 +5,7 @@
 class Entity;
 
 class Engine {
-	static float gravity;
+	static float m_gravity;
 public:
 	static void ApplyGravity(Entity* entity);
 	static void setGravity(float gravity);

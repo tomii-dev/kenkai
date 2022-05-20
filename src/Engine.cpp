@@ -4,14 +4,14 @@
 #include "Entity.hpp"
 #include "Game.hpp"
 
-float Engine::gravity = 0.2;
+float Engine::m_gravity = 0.2;
 
 void Engine::setGravity(float gravity) {
-	gravity = gravity;
+	m_gravity = gravity;
 }
 
 void Engine::ApplyGravity(Entity *entity)
 {
-	int force = entity->weight * gravity;
+	int force = entity->weight * m_gravity;
 	entity->Move(entity->velocity.x, force);
 }
