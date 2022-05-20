@@ -6,7 +6,9 @@ SRCS:= $(wildcard src/*.cpp) \
 	   $(wildcard src/UIElements/*.cpp)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
-INC_DIRS := ./include /opt/homebrew/Cellar/sfml/2.5.1_1/include /opt/homebrew/Cellar/boost/1.78.0_1/include
+
+INC_DIRS := ./include 
+INC_DIRS += /opt/homebrew/Cellar/sfml/2.5.1_1/include /opt/homebrew/Cellar/boost/1.78.0_1/include
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 LIB_DIRS := /opt/homebrew/lib
