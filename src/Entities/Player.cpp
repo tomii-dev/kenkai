@@ -27,13 +27,9 @@ void Player::Setup() {
 }
 
 void Player::Attack() {
-	std::string anim;
-	std::string event;
-	if(Game::cursor.getPosition().x < getPosition().x){
-		anim = "attackLeft";
-		event = "Player";
-	}
-	else setAnim("attackRight", true);
+	std::string anim = (Game::cursor.getPosition().x < getPosition().x) 
+		? "attackLeft" : "attackRight";
+	setAnim(anim, true);
 	Events::Fire("PlayerAttacked");
 }
 
