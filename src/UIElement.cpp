@@ -7,6 +7,9 @@ UIElement::UIElement() {
 	visible = false;
 	sizeX, sizeY = 0;
 }
+sf::Vector2f UIElement::getPosition(){
+	return sprite.getPosition();
+}
 
 void UIElement::DrawTo(sf::RenderWindow& window) {
 	if (!visible) return;

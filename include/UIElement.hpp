@@ -16,6 +16,7 @@ protected:
 public:
 	std::string name;
 	UIElement();
+	sf::Vector2f getPosition();
 	void DrawTo(sf::RenderWindow& window);
 	void setTexture(std::string path);
 	void setPosition(sf::Vector2f pos);
