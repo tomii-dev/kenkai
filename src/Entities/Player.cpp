@@ -6,6 +6,7 @@
 #include "Tools.hpp"
 #include "Events.hpp"
 #include "GameWorld.hpp"
+#include "UIElements/Cursor.hpp"
 
 Player::Player(Tools::PlayerConfig config){
 	weight = 50;
@@ -26,8 +27,14 @@ void Player::Setup() {
 }
 
 void Player::Attack() {
+	std::string anim;
+	std::string event;
+	if(Game::cursor.getPosition().x < getPosition().x){
+		anim = "attackLeft";
+		event = "Player";
+	}
+	else setAnim("attackRight", true);
 	Events::Fire("PlayerAttacked");
-	setAnim("attackLeft", true);
 }
 
 Weapon Player::getCurrentWeapon() { return currentWeapon; }
