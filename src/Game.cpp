@@ -41,6 +41,11 @@ namespace Game {
 		world.AddEntity(&player);
 		world.AddUIElement(&cursor);
 
+		sf::VideoMode res = sf::VideoMode::getDesktopMode();
+		sf::Vector2u windowRes = sf::Vector2u(res.width / 2.4, res.height / 1.8);
+
+		window.setSize(windowRes);
+
 		ready = true;
 		Events::Fire("GameReady");
 
