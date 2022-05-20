@@ -49,7 +49,6 @@ public:
 class Tools {
 	static bool waiting;
 	static int waitUntil;
-	static bool allowMouseGrab;
 public:
 	template <typename T>
 	static T FetchData(std::string path, std::string key) {
