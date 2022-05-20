@@ -5,7 +5,7 @@
 
 namespace Properties {
 	static int frameRate = 144;
-	static sf::Vector2f screenCenter(400, 300);
+	static sf::Vector2f screenCenter;
 }
 
 #endif
