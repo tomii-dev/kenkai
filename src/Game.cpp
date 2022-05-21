@@ -84,7 +84,6 @@ namespace Game {
 				//world.AddEntity(bad);
 				frame = 0;
 			}
-			world.GenerateRoom();
 		}
 	}
 }
