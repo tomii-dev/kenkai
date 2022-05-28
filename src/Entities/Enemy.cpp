@@ -13,28 +13,30 @@ Enemy::Enemy() {
 	weight = 50;
 	health = 100;
 	Events::HookTo("PlayerAttacked", [this]() { OnPlayerAttacked(); });
-	if (Game::ready) Setup();
+	if (Game::getInstance().isReady()) Setup();
 }
 
 void Enemy::Die() {
-	Game::world.RemoveEntity(this);
+	//Game::getInstance().getWorld().RemoveEntity(this);
 }
 
 void Enemy::OnPlayerAttacked() {
-	if (!inXRangeOf(Game::player, 50)) return;
+	Player& player = *Game::getInstance().player;
+	if (!inXRangeOf(player, 50)) return;
 	int x = 5;
-	int playerX = Game::player.getX();
+	int playerX = player.getX();
 	if (playerX > getX()) x = -x;
 	jumping = true;
 	registerColl = false;
 	Tools::ExecuteFor(200, [this, x]() -> void {
 		Move(x, -2.5);
 		}, [this]()->void {jumping = false; registerColl = true; }, id);
-	health -= Game::player.getCurrentWeapon().getDamage();
+	health -= player.getCurrentWeapon().getDamage();
 }
 
 void Enemy::UniqueUpdate() {
-	int playerX = Game::player.getX();
+	Player& player = *Game::getInstance().player;
+	int playerX = player.getX();
 	sf::Vector2f movement;
 	if (playerX > getX()) 
 		movement = sf::Vector2f(moveSpeed, 0);

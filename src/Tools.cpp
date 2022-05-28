@@ -46,7 +46,7 @@ void Tools::WaitAndExec(int ms, std::function<void()> func, std::string id) { Ex
 
 void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()> endFunc, std::string id) {
 	if (ms != NULL) {
-		int inc = Game::totalFrame;
+		int inc = Game::getInstance().getTotalFrame();
 		int endFrame = floor(ms * ((float)Properties::frameRate / 1000.0));
 		if (!tasks.empty()) {
 			std::list<Task>::iterator it;
@@ -69,7 +69,7 @@ void Tools::ExecuteFor(int ms, std::function<void()> func, std::function<void()>
 	std::list<Task>::iterator it;
 	for (it = tasks.begin(); it != tasks.end();) {
 		(*it).exec();
-		if ((*it).endFrame <= Game::totalFrame) {
+		if ((*it).endFrame <= Game::getInstance().getTotalFrame()) {
 			if((*it).endExec != NULL) 
 				(*it).endExec();  
 			it = tasks.erase(it);
@@ -84,11 +84,13 @@ void Tools::LogicUpdate() {
 }
 
 sf::Vector2f Tools::getMousePosition() {
-	return Game::window.mapPixelToCoords(sf::Mouse::getPosition(Game::window));
+	const sf::RenderWindow& window = Game::getInstance().getWindow();
+	return window.mapPixelToCoords(sf::Mouse::getPosition(window));
 }
 
 void Tools::setMousePosition(sf::Vector2f pos) {
-	sf::Mouse::setPosition(Game::window.mapCoordsToPixel(pos), Game::window);
+	const sf::RenderWindow& window = Game::getInstance().getWindow();
+	sf::Mouse::setPosition(window.mapCoordsToPixel(pos), window);
 }
 
 int Tools::RandomInt(int start, int end) {

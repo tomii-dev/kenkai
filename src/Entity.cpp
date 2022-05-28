@@ -75,7 +75,7 @@ sf::Vector2f Entity::getCenter() {
 
 void Entity::Update() {
 
-	if (!Game::ready) return;
+	if (!Game::getInstance().isReady()) return;
 
 	sf::Vector2f movement;
 
@@ -93,7 +93,8 @@ void Entity::Update() {
 
 	if (!registerColl) return;
 
-	if (Collision::PixelPerfectTest(sprite, Game::player.getSprite())) OnPlayerCollision();
+	if (Collision::PixelPerfectTest(sprite, Game::getInstance().player->getSprite()))
+		OnPlayerCollision();
 }
 
 void Entity::DrawTo(sf::RenderWindow& window) {

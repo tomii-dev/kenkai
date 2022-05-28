@@ -8,21 +8,22 @@
 namespace Control {
 
 	void HandleControl(sf::Keyboard::Key key, bool pressed) {
+		Player& player = *Game::getInstance().player;
 		switch (key) {
 			case sf::Keyboard::W:
-				Game::player.up = pressed;
+				player.up = pressed;
 				break;
 			case sf::Keyboard::S:
-				Game::player.down = pressed;
+				player.down = pressed;
 				break;
 			case sf::Keyboard::A:
-				Game::player.left = pressed;
+				player.left = pressed;
 				break;
 			case sf::Keyboard::D:
-				Game::player.right = pressed;
+				player.right = pressed;
 				break;
 			case sf::Keyboard::Space:
-				if (pressed) Game::player.Jump();
+				if (pressed) player.Jump();
 				break;
 			case sf::Keyboard::LShift:
 				if (pressed) Events::Fire("ShiftPressed");

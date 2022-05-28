@@ -34,6 +34,9 @@ class GameWorld {
 		unsigned int num;
 		std::vector<Room> rooms;
 	};
+	struct BossStage : Stage{
+		
+	};
 	struct Sekai {
 		std::vector<Stage> stages;
 	};

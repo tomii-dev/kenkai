@@ -4,7 +4,6 @@
 #include <functional>
 
 #include "SFML/Graphics.hpp"
-#include "Game.hpp"
 
 class UIElement {
 protected:

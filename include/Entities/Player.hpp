@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Entity.hpp"
 #include "AnimatedEntity.hpp"
 #include "Weapon.hpp"
-#include "UIElement.hpp"
 
 class Player : public AnimatedEntity {
 	std::string username;

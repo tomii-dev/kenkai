@@ -1,8 +1,8 @@
 #pragma once
 
 #include <map>
-#include "Entity.hpp"
 #include "Tools.hpp"
+#include "Entity.hpp"
 
 #include "SFML/Graphics.hpp"
 

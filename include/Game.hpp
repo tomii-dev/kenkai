@@ -1,24 +1,29 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include "GameWorld.hpp"
+#include "Entity.hpp"
+#include "AnimatedEntity.hpp"
+#include "UIElements/Cursor.hpp"
 #include "Camera.hpp"
 
 class Player;
-class Entity;
-class GameWorld;
-class Cursor;
 
-namespace Game {
-	extern bool ready;
-	extern int frame;
-	extern int totalFrame;
-	extern sf::Vector2f mousePos;
-	extern Player player;
-	extern GameWorld world;
-	extern sf::Text msg;
-	extern Cursor cursor;
-
-	extern sf::RenderWindow window;
-
+class Game{
+	static Game* s_instance;
+	bool m_ready;
+	int m_frame;
+	int m_totalFrame;
+	sf::RenderWindow m_window;
+	Camera m_camera;
+	GameWorld m_world;
+	Cursor m_cursor;
+public:
+	Game();
+	static Game& getInstance();
 	void RunGame();
-}
+	sf::RenderWindow& getWindow();
+	int getFrame();
+	int getTotalFrame();
+	bool isReady();
+	Player* player;
+};

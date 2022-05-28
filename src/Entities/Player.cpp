@@ -27,9 +27,9 @@ void Player::Setup() {
 }
 
 void Player::Attack() {
-	std::string anim = (Game::cursor.getPosition().x < getPosition().x) 
-		? "attackLeft" : "attackRight";
-	setAnim(anim, true);
+	// std::string anim = (Game::cursor.getPosition().x < getPosition().x) 
+	// 	? "attackLeft" : "attackRight";
+	// setAnim(anim, true);
 	Events::Fire("PlayerAttacked");
 }
 
@@ -49,15 +49,7 @@ void Player::AnimUpdate() {
 	AnimatedEntity::AnimUpdate();
 }
 
-void Player::Die() {
-	sf::Font font;
-	font.loadFromFile("assets/fonts/dosis.ttf");
-	Game::msg.setString("bruh");
-	Game::msg.setFont(font);
-	Game::msg.setCharacterSize(50);
-	Game::msg.setPosition(400, 300);
-	std::cout << "HE DEAD" << std::endl;
-}
+void Player::Die(){}
 
 void Player::Jump() {
 	if (!canJump || inAir) return;

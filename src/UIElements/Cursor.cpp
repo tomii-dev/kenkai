@@ -32,15 +32,16 @@ void Cursor::Setup() {
 }
 
 void Cursor::Update() {
-	sf::Vector2f playerCent = Game::player.getCenter();
+	int totalFrame = Game::getInstance().getTotalFrame();
+	sf::Vector2f playerCent = Game::getInstance().player->getCenter();
 	sf::Vector2f mousePos = Tools::getMousePosition();
 	if (mouseMoved) {
-		mouseMoveFrame = Game::totalFrame;
+		mouseMoveFrame = totalFrame;
 		sf::Vector2f diff = playerCent - mousePos;
 		deg = atan2(diff.x, diff.y);
 		visible = true;
 	}
-	if (Game::totalFrame == mouseMoveFrame + Tools::getFrames(500))
+	if (totalFrame == mouseMoveFrame + Tools::getFrames(500))
 		visible = false;
 	else setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
 	mouseMoved = false;

@@ -34,6 +34,19 @@ GameWorld::Room GameWorld::GenerateRoom(RoomType type=standard) {
 
 GameWorld::Stage GameWorld::GenerateStage() {
 	Stage stage;
+	for(int i = 0; i < 4; i++)
+		stage.rooms.push_back(GenerateRoom());
+	stage.rooms.push_back(GenerateRoom(boss));
+	return stage;
+}
+
+GameWorld::Sekai GameWorld::GenerateSekai(){
+	Sekai sekai;
+	for(int i = 0; i < 4; i++)
+		sekai.stages.push_back(GenerateStage());
+	BossStage bossStage;
+	sekai.stages.push_back(bossStage);
+	return sekai;
 }
 
 void GameWorld::WorldPhysics() {
@@ -63,6 +76,7 @@ void GameWorld::Render() {
 void GameWorld::RenderEntities() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
+		std::cout << (*it)->name << std::endl;
 		(*it)->Update();
 		(*it)->DrawTo(window);
 	}
