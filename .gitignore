@@ -4,4 +4,5 @@ Kenkai.vcxproj.user
 x64/
 packages.config
 **/.DS_Store
-./vscode
+.vscode
+build/
