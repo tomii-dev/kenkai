@@ -28,7 +28,8 @@ Game::Game()
 	m_window	(sf::VideoMode(800, 600), "kenkai", sf::Style::Close),
 	m_world		(GameWorld(m_window)),
 	m_camera	(m_window, DEFAULT_MODE),
-	player		(nullptr)
+	player		(nullptr),
+	m_cursor	(nullptr)
 {
 	s_instance = this;
 }
@@ -45,6 +46,7 @@ void Game::RunGame() {
 
 	player = new Player(Tools::PlayerConfig("balls"));
 	m_world.AddEntity(player);
+	//m_world.AddUIElement(&m_cursor);
 
 	sf::VideoMode res = sf::VideoMode::getDesktopMode();
 	sf::Vector2u windowRes = sf::Vector2u(res.width / 2.4, res.height / 1.8);

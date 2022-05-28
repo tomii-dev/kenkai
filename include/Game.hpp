@@ -16,7 +16,7 @@ class Game{
 	sf::RenderWindow m_window;
 	Camera m_camera;
 	GameWorld m_world;
-	Cursor m_cursor;
+	Cursor* m_cursor;
 public:
 	Game();
 	static Game& getInstance();
