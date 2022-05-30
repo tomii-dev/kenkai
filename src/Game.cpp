@@ -29,7 +29,7 @@ Game::Game()
 	m_world		(GameWorld(m_window)),
 	m_camera	(m_window, DEFAULT_MODE),
 	player		(nullptr),
-	m_cursor	(nullptr)
+	m_cursor	(15, 15)
 {
 	s_instance = this;
 }
@@ -46,7 +46,7 @@ void Game::RunGame() {
 
 	player = new Player(Tools::PlayerConfig("balls"));
 	m_world.AddEntity(player);
-	//m_world.AddUIElement(&m_cursor);
+	m_world.AddUIElement(&m_cursor);
 
 	sf::VideoMode res = sf::VideoMode::getDesktopMode();
 	sf::Vector2u windowRes = sf::Vector2u(res.width / 2.4, res.height / 1.8);
@@ -89,6 +89,10 @@ void Game::RunGame() {
 		if(m_frame == Properties::frameRate - 1) 
 			m_frame = 0;
 	}
+}
+
+GameState Game::getState(){
+	return m_state;  y
 }
 
 sf::RenderWindow& Game::getWindow(){
