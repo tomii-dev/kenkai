@@ -61,7 +61,7 @@ void Game::RunGame() {
 		while (m_window.pollEvent(e)) {
 			switch (e.type) {
 			case sf::Event::Closed:
-				m_window.close(); 
+				m_window.close();
 				break;
 			case sf::Event::KeyPressed:
 				HandleControl(e.key.code, true);
@@ -92,7 +92,7 @@ void Game::RunGame() {
 }
 
 GameState Game::getState(){
-	return m_state;  y
+	return m_state; 
 }
 
 sf::RenderWindow& Game::getWindow(){

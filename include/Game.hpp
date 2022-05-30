@@ -5,7 +5,6 @@
 #include "AnimatedEntity.hpp"
 #include "UIElements/Cursor.hpp"
 #include "Camera.hpp"
-#include "State.hpp"
 
 class Player;
 
