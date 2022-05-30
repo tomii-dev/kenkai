@@ -8,6 +8,8 @@
 class Entity;
 class UIElement;
 
+enum WorldState { HOME, RUN };
+
 class GameWorld {
 	sf::RenderWindow& window;
 	sf::Texture backgroundTex;
@@ -40,6 +42,9 @@ class GameWorld {
 	struct Sekai {
 		std::vector<Stage> stages;
 	};
+	Room m_currentRoom;
+	Stage m_currentStage;
+	Sekai m_currentSekai;
 public:
 	GameWorld(sf::RenderWindow& _window);
 	Room GenerateRoom(RoomType type);
