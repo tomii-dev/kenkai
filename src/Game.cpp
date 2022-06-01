@@ -13,6 +13,8 @@
 #include "Entities/Enemy.hpp"
 #include "AnimatedEntity.hpp"
 #include "UIElements/Cursor.hpp"
+#include "Menu.hpp"
+#include "Menus/MainMenu.hpp"
 
 #include "SFML/Graphics.hpp"
 
@@ -29,9 +31,15 @@ Game::Game()
 	m_world		(GameWorld(m_window)),
 	m_camera	(m_window, DEFAULT_MODE),
 	player		(nullptr),
-	m_cursor	(15, 15)
+	m_cursor	(15, 15),
+	m_currentMenu(nullptr)
 {
 	s_instance = this;
+}
+
+void Game::ChangeMenu(Menu* menu){
+	delete m_currentMenu;
+	m_currentMenu = menu;
 }
 
 Game& Game::getInstance(){
@@ -52,6 +60,9 @@ void Game::RunGame() {
 	sf::Vector2u windowRes = sf::Vector2u(res.width / 2.4, res.height / 1.8);
 
 	m_window.setSize(windowRes);
+
+	m_state = MENU;
+	m_currentMenu = new MainMenu(m_window);
 
 	m_ready = true;
 	Events::Fire("GameReady");
@@ -79,15 +90,23 @@ void Game::RunGame() {
 			}
 		}
 		m_window.clear(sf::Color::Blue);
-		m_world.WorldPhysics();
-		Tools::LogicUpdate();
-		m_world.Render();
-		m_camera.Update(player->getPosition(), sf::Vector2f(0, -200), player->moveSpeed);
+		switch(m_state){
+		case MENU:
+			m_currentMenu->Render();
+			break;
+		case PLAYING:
+			m_world.WorldPhysics();
+			Tools::LogicUpdate();
+			m_world.Render();
+			m_camera.Update(player->getPosition(), sf::Vector2f(0, -200), player->moveSpeed);
+			m_window.display();
+			++m_frame;
+			++m_totalFrame;
+			if(m_frame == Properties::frameRate - 1) 
+				m_frame = 0;
+			break;
+		}
 		m_window.display();
-		++m_frame;
-		++m_totalFrame;
-		if(m_frame == Properties::frameRate - 1) 
-			m_frame = 0;
 	}
 }
 

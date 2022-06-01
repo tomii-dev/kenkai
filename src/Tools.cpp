@@ -99,3 +99,9 @@ int Tools::RandomInt(int start, int end) {
 	std::uniform_int_distribution<> dist(start, end);
 	return dist(gen);
 }
+
+bool Tools::InRange(sf::Vector2f pos1, sf::Vector2f pos2, float offset){
+	bool xInRange = pos1.x >= (pos2.x - offset) && pos1.x <= (pos2.x + offset);
+	bool yInRange = pos1.y >= (pos2.y - offset) && pos1.y <= (pos2.y + offset);
+	return xInRange && yInRange;
+}

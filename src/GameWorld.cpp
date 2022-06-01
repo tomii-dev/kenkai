@@ -49,6 +49,13 @@ GameWorld::Sekai GameWorld::GenerateSekai(){
 	return sekai;
 }
 
+void GameWorld::LoadSekai(Sekai& sekai){
+	m_currentSekai = sekai;
+	m_currentStage = sekai.stages[0];
+	m_currentRoom = m_currentStage.rooms[0];
+	m_state = RUN;
+}
+
 void GameWorld::WorldPhysics() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {

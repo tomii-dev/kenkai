@@ -3,7 +3,8 @@ CC := g++
 BUILD_DIR ?= ./build
 SRCS:= $(wildcard src/*.cpp) \
 	   $(wildcard src/Entities/*.cpp) \
-	   $(wildcard src/UIElements/*.cpp)
+	   $(wildcard src/UIElements/*.cpp) \
+	   $(wildcard src/Menus/*.cpp)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
 

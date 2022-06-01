@@ -21,7 +21,6 @@ Cursor::Cursor(float sizeX, float sizeY) {
 }
 
 void Cursor::Setup() {
-	name = "cursor";
 	setTexture("cursor.png");
 	deg = 0;
 	mouseMoveFrame = 0;

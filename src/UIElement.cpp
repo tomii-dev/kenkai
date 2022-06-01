@@ -3,10 +3,12 @@
 #include "UIElement.hpp"
 #include "Tools.hpp"
 
-UIElement::UIElement() {
-	visible = false;
-	sizeX, sizeY = 0;
-}
+UIElement::UIElement()
+	: visible(true),
+	sizeX	   (0),
+	sizeY      (0)
+{}
+
 sf::Vector2f UIElement::getPosition(){
 	return sprite.getPosition();
 }

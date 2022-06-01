@@ -5,10 +5,11 @@
 #include "AnimatedEntity.hpp"
 #include "UIElements/Cursor.hpp"
 #include "Camera.hpp"
+#include "Menu.hpp"
 
 class Player;
 
-enum GameState { MENU, PAUSED, PLAYING };
+enum GameState { MENU, PLAYING };
 
 class Game{
 	static Game* s_instance;
@@ -20,6 +21,8 @@ class Game{
 	Camera m_camera;
 	GameWorld m_world;
 	Cursor m_cursor;
+	Menu* m_currentMenu;
+	void ChangeMenu(Menu* menu);
 public:
 	Game();
 	static Game& getInstance();

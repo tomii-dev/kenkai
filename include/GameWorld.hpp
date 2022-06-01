@@ -21,6 +21,7 @@ class GameWorld {
 	float groundHeight;
 	bool mouseVisible;
 	bool mouseGrabbed;
+	WorldState m_state;
 	enum Biome { plains, desert, dungeon, forest, jungle, theVoid, 
 		biomeMAX = theVoid };
 	enum RoomType { standard, boss, 
@@ -50,6 +51,7 @@ public:
 	Room GenerateRoom(RoomType type);
 	Stage GenerateStage();
 	Sekai GenerateSekai();
+	void LoadSekai(Sekai& sekai);
 	void WorldPhysics();
 	void Render();
 	void RenderEntities();
