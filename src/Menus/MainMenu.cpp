@@ -4,6 +4,6 @@
 MainMenu::MainMenu(sf::RenderWindow& window)
     : Menu(window)
 {
-    AddElement(new Button());
+    AddElement(new Button(300.f, 119.f));
     
 }
