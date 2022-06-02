@@ -2,8 +2,11 @@
 #include "Menu.hpp"
 
 Menu::Menu(sf::RenderWindow& window)
-    : m_window(window)
-{}
+    : m_window(window),
+    m_cursor  (20, 20)
+{
+    AddElement(&m_cursor);
+}
 
 Menu::~Menu(){
     std::vector<UIElement*>::iterator it;
@@ -13,15 +16,13 @@ Menu::~Menu(){
     }
 }
 
-void Menu::AddElement(UIElement element){
-    m_elements.push_back(&element);
-}
-
 void Menu::AddElement(UIElement* element){
     m_elements.push_back(element);
 }
 
 void Menu::Render(){
-    for(UIElement* e : m_elements)
+    for (UIElement* e : m_elements) {
+        e->Update();
         e->DrawTo(m_window);
+    }
 }
