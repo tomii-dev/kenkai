@@ -1,5 +1,6 @@
 #include "UIElements/Button.hpp"
 #include "Tools.hpp"
+#include "Game.hpp"
 #include "Properties.hpp"
 #include <iostream>
 
@@ -7,37 +8,29 @@ Button::Button(){
     Setup();
 }
 
-Button::Button(const std::string& text, ButtonSize size)
-    : m_text(text), m_size(size)
+Button::Button(const std::string& text, float sizeX, float sizeY)
+    : m_text(text)
 {
+    m_sizeX = sizeX;
+    m_sizeY = sizeY;
     Setup();
 }
 
-Button::Button(ButtonSize size) : m_size(size){
+Button::Button(float sizeX, float sizeY){
+    m_sizeX = sizeX;
+    m_sizeY = sizeY;
     Setup();
 }
 
 void Button::Setup(){
-    switch(m_size){
-    case small:
-        sizeX, sizeY = 50, 20;
-        break;
-    case medium:
-        sizeX, sizeY = 70, 40;
-        break;
-    case big:
-        sizeX, sizeY = 100, 70;
-        break;
-    default:
-        break;
-    }
     setTexture("button.png");
-    setPosition(Properties::screenCenter);
-    name = "button";
+    sf::Vector2f cent = sf::Vector2f(Game::getInstance().getWindow().getSize().x / 2.f, Game::getInstance().getWindow().getSize().y / 2.f);
+    setPosition(cent);
 }
 
 void Button::Update(){
     sf::Vector2f mousePos = Tools::getMousePosition();
-    if(Tools::InRange(mousePos, sprite.getPosition(), 50))
-        std::cout << "woop" << std::endl;
+    if (Tools::InRange(mousePos, getCenter(), 100))
+        setTexture("button_darkened.png");
+    else setTexture("button.png");
 }
