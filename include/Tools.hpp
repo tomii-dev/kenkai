@@ -109,7 +109,7 @@ public:
 	static sf::Vector2f getMousePosition();
 	static void setMousePosition(sf::Vector2f pos);
 	static int RandomInt(int start, int end);
-	static bool InRange(sf::Vector2f pos1, sf::Vector2f pos2, float offset);
+	static bool InRange(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f offset);
 private:
 	static std::list<Task> tasks;
 };

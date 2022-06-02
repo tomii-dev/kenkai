@@ -15,7 +15,7 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	mouseGrabbed = true;
 	window.setMouseCursorVisible(false);
 	window.setMouseCursorGrabbed(true);
-	Events::HookTo("EscPressed", [this]()->void {
+	Events::HookTo(EventId::EscPressed, [this]()->void {
 		window.setMouseCursorVisible(!mouseVisible);
 		mouseVisible = !mouseVisible; 
 		window.setMouseCursorGrabbed(!mouseGrabbed);

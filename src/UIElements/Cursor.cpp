@@ -28,7 +28,7 @@ void Cursor::Setup() {
 	mouseMoved = false;
 	centerMouse = true;
 	visible = false;
-	Events::HookTo("MouseMoved", [this]() ->void { mouseMoved = true; });
+	Events::HookTo(MouseMoved, [this]() ->void { mouseMoved = true; });
 }
 
 void Cursor::Update() {

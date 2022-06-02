@@ -66,7 +66,7 @@ void Game::RunGame() {
 	m_currentMenu = new MainMenu(m_window);
 
 	m_ready = true;
-	Events::Fire("GameReady");
+	Events::Fire(GameReady);
 
 	// main loop
 	while (m_window.isOpen()) {
@@ -83,10 +83,10 @@ void Game::RunGame() {
 				break;
 			case sf::Event::MouseButtonPressed:
 				if(e.mouseButton.button == sf::Mouse::Left) 
-					Events::Fire("MousePressed");
+					Events::Fire(MousePressed);
 				break;
 			case sf::Event::MouseMoved:
-				Events::Fire("MouseMoved");
+				Events::Fire(MouseMoved);
 				break;
 			}
 		}

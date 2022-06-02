@@ -17,9 +17,9 @@ Player::Player(Tools::PlayerConfig config){
 	currentWeapon.setDamage(10);
 	sprinting = false;
 	centerOffset = sf::Vector2f(-8, -3);
-	Events::HookTo("MousePressed", [this]() {Attack(); });
-	Events::HookTo("ShiftPressed", [this]() {sprinting = true; });
-	Events::HookTo("ShiftReleased", [this]() {sprinting = false; });
+	Events::HookTo(MousePressed, [this]() {Attack(); });
+	Events::HookTo(ShiftReleased, [this]() {sprinting = true; });
+	Events::HookTo(ShiftReleased, [this]() {sprinting = false; });
 }
 
 void Player::Setup() {
@@ -30,7 +30,7 @@ void Player::Attack() {
 	// std::string anim = (Game::cursor.getPosition().x < getPosition().x) 
 	// 	? "attackLeft" : "attackRight";
 	// setAnim(anim, true);
-	Events::Fire("PlayerAttacked");
+	Events::Fire(PlayerAttacked);
 }
 
 Weapon Player::getCurrentWeapon() { return currentWeapon; }

@@ -4,9 +4,21 @@
 #include <list>
 #include <functional>
 
+enum EventId{
+	BEGIN,
+	GameReady, 
+	MousePressed, 
+	PlayerAttacked,
+	ShiftPressed,
+	ShiftReleased,
+	EscPressed,
+	MouseMoved,
+	END
+};
+
 class Events {
 	struct Event {
-		std::string id;
+		EventId id;
 		std::list<std::function<void()>> hookedFuncs;
 		void Hook(std::function<void()> f) {
 			hookedFuncs.push_back(f);
@@ -17,10 +29,9 @@ class Events {
 				(*it)();
 		}
 	};
-	static std::string _events[];
 	static std::list<Event> events;
 public:
 	static void RegisterEvents();
-	static void HookTo(std::string id, std::function<void()> f);
-	static void Fire(std::string id);
+	static void HookTo(EventId id, std::function<void()> f);
+	static void Fire(EventId id);
 };

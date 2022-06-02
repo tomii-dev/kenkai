@@ -100,8 +100,8 @@ int Tools::RandomInt(int start, int end) {
 	return dist(gen);
 }
 
-bool Tools::InRange(sf::Vector2f pos1, sf::Vector2f pos2, float offset){
-	bool xInRange = pos1.x >= (pos2.x - offset) && pos1.x <= (pos2.x + offset);
-	bool yInRange = pos1.y >= (pos2.y - offset) && pos1.y <= (pos2.y + offset);
+bool Tools::InRange(sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f offset){
+	bool xInRange = pos1.x >= (pos2.x - offset.x) && pos1.x <= (pos2.x + offset.x);
+	bool yInRange = pos1.y >= (pos2.y - offset.y) && pos1.y <= (pos2.y + offset.y);
 	return xInRange && yInRange;
 }

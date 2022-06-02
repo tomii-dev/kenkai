@@ -2,32 +2,23 @@
 #include "Events.hpp"
 
 std::list<Events::Event> Events::events;
-std::string Events::_events[] = {
-	"GameReady",
-	"MousePressed",
-	"PlayerAttacked",
-	"ShiftPressed",
-	"ShiftReleased",
-	"EscPressed",
-	"MouseMoved"
-};
 
 void Events::RegisterEvents() {
-	for (int i = 0; i < sizeof(_events) / sizeof(_events[0]); i++) {
+	for (int i = BEGIN+1; i != END; i++) {
 		Event event;
-		event.id = _events[i];
+		event.id = (EventId)i;
 		events.push_back(event);
 	}
 }
 
-void Events::HookTo(std::string id, std::function<void()> f) {
+void Events::HookTo(EventId id, std::function<void()> f) {
 	std::list<Event>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
 		if ((*it).id == id)
 			(*it).Hook(f);
 }
 
-void Events::Fire(std::string id){
+void Events::Fire(EventId id){
 	std::list<Event>::iterator it;
 	for (it = events.begin(); it != events.end(); it++)
 		if ((*it).id == id) 

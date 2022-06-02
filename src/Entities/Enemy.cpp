@@ -12,7 +12,7 @@ Enemy::Enemy() {
 	jumpSpeed = 5;
 	weight = 50;
 	health = 100;
-	Events::HookTo("PlayerAttacked", [this]() { OnPlayerAttacked(); });
+	Events::HookTo(PlayerAttacked, [this]() { OnPlayerAttacked(); });
 	if (Game::getInstance().isReady()) Setup();
 }
 

@@ -21,7 +21,7 @@ Entity::Entity() {
 	registerColl = true;
 	dead = false;
 	centerOffset = sf::Vector2f();
-	Events::HookTo("GameReady", [this]() { Setup(); });
+	Events::HookTo(GameReady, [this]() { Setup(); });
 } 
 
 sf::Sprite Entity::getSprite() {

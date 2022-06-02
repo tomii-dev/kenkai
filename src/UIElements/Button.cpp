@@ -2,6 +2,7 @@
 #include "Tools.hpp"
 #include "Game.hpp"
 #include "Properties.hpp"
+#include "Events.hpp"
 #include <iostream>
 
 Button::Button(){
@@ -26,11 +27,15 @@ void Button::Setup(){
     setTexture("button.png");
     sf::Vector2f cent = sf::Vector2f(Game::getInstance().getWindow().getSize().x / 2.f, Game::getInstance().getWindow().getSize().y / 2.f);
     setPosition(cent);
+    Events::HookTo(MousePressed, [this](){ m_mousePressed = true; });
 }
 
 void Button::Update(){
     sf::Vector2f mousePos = Tools::getMousePosition();
-    if (Tools::InRange(mousePos, getCenter(), 100))
+    if (Tools::InRange(mousePos, getCenter(), sf::Vector2f(m_sizeX, m_sizeY))){
         setTexture("button_darkened.png");
+        if(m_mousePressed)
+            std::cout << "clicked!";
+    }
     else setTexture("button.png");
 }

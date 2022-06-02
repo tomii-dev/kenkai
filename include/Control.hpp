@@ -26,11 +26,11 @@ namespace Control {
 				if (pressed) player.Jump();
 				break;
 			case sf::Keyboard::LShift:
-				if (pressed) Events::Fire("ShiftPressed");
-				else Events::Fire("ShiftReleased");
+				if (pressed) Events::Fire(ShiftPressed);
+				else Events::Fire(ShiftReleased);
 				break;
 			case sf::Keyboard::Escape:
-				if (pressed) Events::Fire("EscPressed");
+				if (pressed) Events::Fire(EscPressed);
 		}
 	}
 }

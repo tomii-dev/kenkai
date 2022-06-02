@@ -3,6 +3,7 @@
 
 class Button : public UIElement{
     std::string m_text;
+    bool m_mousePressed;
     void Setup();
 public:
     Button();
