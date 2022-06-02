@@ -9,13 +9,15 @@ class UIElement {
 protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-	float sizeX;
-	float sizeY;
+	float m_sizeX;
+	float m_sizeY;
 	bool visible;
 public:
 	std::string name;
 	UIElement();
+	UIElement(float sizeX, float sizeY);
 	sf::Vector2f getPosition();
+	sf::Vector2f getCenter();
 	void DrawTo(sf::RenderWindow& window);
 	void setTexture(std::string path);
 	void setPosition(sf::Vector2f pos);

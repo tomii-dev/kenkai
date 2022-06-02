@@ -3,14 +3,18 @@
 #include "UIElement.hpp"
 #include "Tools.hpp"
 
-UIElement::UIElement()
+UIElement::UIElement() 
 	: visible(true),
-	sizeX	   (0),
-	sizeY      (0)
+	m_sizeX  (0),
+	m_sizeY  (0)
 {}
 
 sf::Vector2f UIElement::getPosition(){
 	return sprite.getPosition();
+}
+
+sf::Vector2f UIElement::getCenter() {
+	return sf::Vector2f(getPosition().x + m_sizeX / 2, getPosition().y + m_sizeY/ 2);
 }
 
 void UIElement::DrawTo(sf::RenderWindow& window) {
@@ -19,18 +23,21 @@ void UIElement::DrawTo(sf::RenderWindow& window) {
 }
 
 void UIElement::setPosition(sf::Vector2f pos) {
-	sprite.setPosition(pos);
+	sf::Vector2f newPos(pos.x - (m_sizeX/ 2), pos.y - (m_sizeY / 2));
+	sprite.setPosition(newPos);
 }
 
 void UIElement::setTexture(std::string path) {
 	texture.loadFromFile(UI_ELEMENTS + path);
 	texture.setSmooth(true);
 	sprite.setTexture(texture);
-	if (!sizeX) return;
+	if (!m_sizeX) return;
 	sprite.setScale(
-		sizeX / texture.getSize().x,
-		sizeY / texture.getSize().y
+		m_sizeX / texture.getSize().x,
+		m_sizeY / texture.getSize().y
 	);
+	m_sizeX = sprite.getTexture()->getSize().x * sprite.getScale().x;
+	m_sizeY = sprite.getTexture()->getSize().y * sprite.getScale().y;
 }
 
 void UIElement::setPosition(float x, float y) {
