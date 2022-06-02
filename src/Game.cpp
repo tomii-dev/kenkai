@@ -60,6 +60,7 @@ void Game::RunGame() {
 	sf::Vector2u windowRes = sf::Vector2u(res.width / 2.4, res.height / 1.8);
 
 	m_window.setSize(windowRes);
+	Properties::screenCenter = sf::Vector2f(windowRes / 2u);
 
 	m_state = MENU;
 	m_currentMenu = new MainMenu(m_window);
@@ -99,7 +100,6 @@ void Game::RunGame() {
 			Tools::LogicUpdate();
 			m_world.Render();
 			m_camera.Update(player->getPosition(), sf::Vector2f(0, -200), player->moveSpeed);
-			m_window.display();
 			++m_frame;
 			++m_totalFrame;
 			if(m_frame == Properties::frameRate - 1) 
