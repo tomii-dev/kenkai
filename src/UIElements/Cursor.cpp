@@ -14,9 +14,10 @@ Cursor::Cursor(){
 	Setup();
 }
 
-Cursor::Cursor(float sizeX, float sizeY) {
-	this->sizeX = sizeX;
-	this->sizeY = sizeY;
+Cursor::Cursor(float sizeX, float sizeY)
+{
+	m_sizeX = sizeX;
+	m_sizeY = sizeY;
 	Setup();
 }
 
@@ -31,17 +32,25 @@ void Cursor::Setup() {
 }
 
 void Cursor::Update() {
-	int totalFrame = Game::getInstance().getTotalFrame();
-	sf::Vector2f playerCent = Game::getInstance().player->getCenter();
-	sf::Vector2f mousePos = Tools::getMousePosition();
-	if (mouseMoved) {
-		mouseMoveFrame = totalFrame;
-		sf::Vector2f diff = playerCent - mousePos;
-		deg = atan2(diff.x, diff.y);
+	switch (Game::getInstance().getState()) {
+	case MENU:
 		visible = true;
+		setPosition(Tools::getMousePosition());
+		break;
+	case PLAYING:
+		int totalFrame = Game::getInstance().getTotalFrame();
+		sf::Vector2f playerCent = Game::getInstance().player->getCenter();
+		sf::Vector2f mousePos = Tools::getMousePosition();
+		if (mouseMoved) {
+			mouseMoveFrame = totalFrame;
+			sf::Vector2f diff = playerCent - mousePos;
+			deg = atan2(diff.x, diff.y);
+			visible = true;
+		}
+		if (totalFrame == mouseMoveFrame + Tools::getFrames(500))
+			visible = false;
+		else setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
+		mouseMoved = false;
+		break;
 	}
-	if (totalFrame == mouseMoveFrame + Tools::getFrames(500))
-		visible = false;
-	else setPosition(playerCent - sf::Vector2f(50 * sin(deg), (50 * cos(deg))));
-	mouseMoved = false;
 } 
