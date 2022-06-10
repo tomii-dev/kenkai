@@ -22,7 +22,6 @@ class Game{
 	GameWorld m_world;
 	Cursor m_cursor;
 	Menu* m_currentMenu;
-	void ChangeMenu(Menu* menu);
 public:
 	Game();
 	static Game& getInstance();
@@ -31,6 +30,7 @@ public:
 	int getFrame();
 	int getTotalFrame();
 	GameState getState();
+	void ChangeMenu(Menu* menu);
 	bool isReady();
 	Player* player;
 };
