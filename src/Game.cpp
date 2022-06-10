@@ -14,7 +14,6 @@
 #include "AnimatedEntity.hpp"
 #include "UIElements/Cursor.hpp"
 #include "Menu.hpp"
-#include "Menus/MainMenu.hpp"
 
 #include "SFML/Graphics.hpp"
 
@@ -62,8 +61,8 @@ void Game::RunGame() {
 	m_window.setSize(windowRes);
 	Properties::screenCenter = sf::Vector2f(windowRes / 2u);
 
-	m_state = MENU;
-	m_currentMenu = new MainMenu(m_window);
+	m_state = PLAYING;
+	//m_currentMenu = new Menu(m_window, "main");
 
 	m_ready = true;
 	Events::Fire(GameReady);
