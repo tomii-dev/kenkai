@@ -7,7 +7,7 @@ class Cursor : public UIElement {
 	float deg;
 	bool mouseMoved;
 	bool centerMouse;
-	void Setup();
+	void Setup() override;
 public:
 	Cursor();
 	Cursor(float sizeX, float sizeY);
