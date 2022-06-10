@@ -15,7 +15,7 @@ GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
 	mouseGrabbed = true;
 	window.setMouseCursorVisible(false);
 	window.setMouseCursorGrabbed(true);
-	Events::HookTo(EventId::EscPressed, [this]()->void {
+	Events::HookTo(EscPressed, [this]()->void {
 		window.setMouseCursorVisible(!mouseVisible);
 		mouseVisible = !mouseVisible; 
 		window.setMouseCursorGrabbed(!mouseGrabbed);
@@ -92,7 +92,7 @@ void GameWorld::RenderUI() {
 	std::vector<UIElement*>::iterator vIt;
 	for (vIt = uiElements.begin(); vIt != uiElements.end(); vIt++) {
 		(*vIt)->Update();
-		(*vIt)->DrawTo(window);
+		(*vIt)->DrawTo(&window);
 	}
 }
 
