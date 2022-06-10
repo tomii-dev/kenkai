@@ -9,17 +9,26 @@ UIElement::UIElement()
 	m_sizeY  (0)
 {}
 
+void UIElement::Setup(){
+	setPosition(m_position);
+	setTexture(name + ".png");
+}
+
 sf::Vector2f UIElement::getPosition(){
 	return sprite.getPosition();
+}
+
+ElementType UIElement::getType(){
+	return m_type;
 }
 
 sf::Vector2f UIElement::getCenter() {
 	return sf::Vector2f(getPosition().x + m_sizeX / 2, getPosition().y + m_sizeY/ 2);
 }
 
-void UIElement::DrawTo(sf::RenderWindow& window) {
+void UIElement::DrawTo(sf::RenderWindow* window) {
 	if (!visible) return;
-	window.draw(sprite);
+	window->draw(sprite);
 }
 
 void UIElement::setPosition(sf::Vector2f pos) {
