@@ -10,25 +10,26 @@
 #include "Entities/Player.hpp"
 #include "SFML/Graphics.hpp"
 
-Cursor::Cursor(){
+Cursor::Cursor() {
 	Setup();
 }
 
-Cursor::Cursor(float sizeX, float sizeY)
-{
+Cursor::Cursor(float sizeX, float sizeY){
 	m_sizeX = sizeX;
 	m_sizeY = sizeY;
 	Setup();
 }
 
 void Cursor::Setup() {
-	setTexture("cursor.png");
+	name = "cursor";
+	m_type = ElementType::Cursor;
 	deg = 0;
 	mouseMoveFrame = 0;
 	mouseMoved = false;
 	centerMouse = true;
 	visible = false;
 	Events::HookTo(MouseMoved, [this]() ->void { mouseMoved = true; });
+	UIElement::Setup();
 }
 
 void Cursor::Update() {
