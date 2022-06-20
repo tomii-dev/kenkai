@@ -1,28 +1,26 @@
 #include "UIElements/Button.hpp"
 #include "Tools.hpp"
-#include "Game.hpp"
 #include "Properties.hpp"
 #include "Events.hpp"
+#include "Assets.hpp"
 #include <iostream>
 
 Button::Button(){
     Setup();
 }
 
-Button::Button(const std::string& text, sf::Vector2f size, sf::Vector2f position, std::function<void()> f)
-    : m_text(text)
+Button::Button(const std::string& text, sf::Vector2f size, sf::Vector2f position, EventId event)
+    : UIElement     (size.x, size.y, position),
+      m_action      (event),
+      m_text        (text, Assets::dosis)
 {
-    m_sizeX = position.x;
-    m_sizeY = position.y;
-    m_action = f;
     Setup();
 }
 
 Button::Button(const std::string& text, sf::Vector2f size, sf::Vector2f position)
-    : m_text(text)
+    : UIElement (size.x, size.y, position),
+    m_text      (text, Assets::dosis)
 {
-    m_sizeX = position.x;
-    m_sizeY = position.y;
     Setup();
 }
 
@@ -32,10 +30,7 @@ void Button::Setup(){
     m_mousePressed = false;
     Events::HookTo(MousePressed, [this](){ m_mousePressed = true; });
     UIElement::Setup();
-}
-
-void Button::setAction(std::function<void()> f){
-    m_action = f;
+    m_text.setPosition(getCenter());
 }
 
 void Button::Update(){
@@ -43,9 +38,16 @@ void Button::Update(){
     if (Tools::InRange(mousePos, getCenter(), sf::Vector2f(m_sizeX, m_sizeY))){
         setTexture("button_darkened.png");
         if(m_mousePressed){
-            m_action();
+            Events::Fire(m_action);
             m_mousePressed = false;
         }
     }
     else setTexture("button.png");
+}
+
+void Button::DrawTo(sf::RenderWindow* window){
+    if(!visible)
+        return;
+    window->draw(sprite);
+    window->draw(m_text);
 }

@@ -1,18 +1,19 @@
 #pragma once
 
 #include "UIElement.hpp"
+#include "Events.hpp"
 #include <string>
 #include <functional>
 
 class Button : public UIElement{
-    std::string m_text;
+    sf::Text m_text;
     bool m_mousePressed;
-    std::function<void()> m_action;
+    EventId m_action;
     void Setup() override;
 public:
     Button();
     Button(const std::string& text, sf::Vector2f size, sf::Vector2f position);
-    Button(const std::string& text, sf::Vector2f size, sf::Vector2f position, std::function<void()> f);
+    Button(const std::string& text, sf::Vector2f size, sf::Vector2f position, EventId event);
     void Update() override;
-    void setAction(std::function<void()> f);
+    void DrawTo(sf::RenderWindow* window) override;
 };
