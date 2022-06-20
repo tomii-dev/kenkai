@@ -13,6 +13,7 @@ enum EventId{
 	ShiftReleased,
 	EscPressed,
 	MouseMoved,
+	StartPressed,
 	END
 };
 
