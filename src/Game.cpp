@@ -14,39 +14,38 @@
 #include "AnimatedEntity.hpp"
 #include "UIElements/Cursor.hpp"
 #include "Menu.hpp"
-
 #include "SFML/Graphics.hpp"
+#include "Assets.hpp"
 
 using namespace Control;
 
 Setup setup;
-Game* Game::s_instance = nullptr;
+Game *Game::s_instance = nullptr;
 
-Game::Game() 
-	: m_ready	(false),
-	m_frame		(0),
-	m_totalFrame(0),
-	m_window	(sf::VideoMode(800, 600), "kenkai", sf::Style::Close),
-	m_world		(GameWorld(m_window)),
-	m_camera	(m_window, DEFAULT_MODE),
-	player		(nullptr),
-	m_cursor	(15, 15),
-	m_currentMenu(nullptr)
+Game::Game()
+	: m_ready		(false),
+	  m_frame		(0),
+	  m_totalFrame	(0),
+	  m_window		(sf::VideoMode(800, 600), "kenkai", sf::Style::Close),
+	  m_world		(GameWorld(m_window)),
+	  m_camera		(m_window, DEFAULT_MODE),
+	  player		(nullptr),
+	  m_cursor		(15, 15),
+	  m_currentMenu	(nullptr)
 {
 	s_instance = this;
 }
 
-void Game::ChangeMenu(Menu* menu){
+void Game::ChangeMenu(Menu *menu){
 	delete m_currentMenu;
 	m_currentMenu = menu;
 }
 
-Game& Game::getInstance(){
+Game &Game::getInstance(){
 	return *s_instance;
 }
 
-void Game::RunGame() {
-
+void Game::RunGame(){
 	m_window.setFramerateLimit(144);
 
 	sf::Event e;
@@ -61,16 +60,16 @@ void Game::RunGame() {
 	m_window.setSize(windowRes);
 	Properties::screenCenter = sf::Vector2f(windowRes / 2u);
 
-	m_state = PLAYING;
-	//m_currentMenu = new Menu(m_window, "main");
+	m_state = MENU;
+	m_currentMenu = new Menu(&m_window, MenuId::Main);
 
 	m_ready = true;
 	Events::Fire(GameReady);
 
 	// main loop
-	while (m_window.isOpen()) {
-		while (m_window.pollEvent(e)) {
-			switch (e.type) {
+	while (m_window.isOpen()){
+		while (m_window.pollEvent(e)){
+			switch (e.type){
 			case sf::Event::Closed:
 				m_window.close();
 				break;
@@ -81,7 +80,7 @@ void Game::RunGame() {
 				HandleControl(e.key.code, false);
 				break;
 			case sf::Event::MouseButtonPressed:
-				if(e.mouseButton.button == sf::Mouse::Left) 
+				if (e.mouseButton.button == sf::Mouse::Left)
 					Events::Fire(MousePressed);
 				break;
 			case sf::Event::MouseMoved:
@@ -90,7 +89,7 @@ void Game::RunGame() {
 			}
 		}
 		m_window.clear(sf::Color::Blue);
-		switch(m_state){
+		switch (m_state){
 		case MENU:
 			m_currentMenu->Render();
 			break;
@@ -101,7 +100,7 @@ void Game::RunGame() {
 			m_camera.Update(player->getPosition(), sf::Vector2f(0, -200), player->moveSpeed);
 			++m_frame;
 			++m_totalFrame;
-			if(m_frame == Properties::frameRate - 1) 
+			if (m_frame == Properties::frameRate - 1)
 				m_frame = 0;
 			break;
 		}
@@ -110,10 +109,14 @@ void Game::RunGame() {
 }
 
 GameState Game::getState(){
-	return m_state; 
+	return m_state;
 }
 
-sf::RenderWindow& Game::getWindow(){
+void Game::setState(GameState state){
+	m_state = state;
+}
+
+sf::RenderWindow &Game::getWindow(){
 	return m_window;
 }
 
@@ -127,12 +130,4 @@ int Game::getTotalFrame(){
 
 bool Game::isReady(){
 	return m_ready;
-}
-
-int main() {
-
-	Game game;
-	game.RunGame();
-
-	return 0;
 }
