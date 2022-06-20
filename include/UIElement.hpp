@@ -5,6 +5,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#define VEC0 sf::Vector2f()
+
 enum class ElementType{
 	Button,
 	Cursor
@@ -23,11 +25,10 @@ protected:
 	virtual void Setup();
 	friend class MenuBuilder;
 public:
-	UIElement();
-	UIElement(float sizeX, float sizeY);
+	UIElement(float sizeX=0, float sizeY=0, sf::Vector2f position=VEC0);
 	sf::Vector2f getPosition();
 	sf::Vector2f getCenter();
-	void DrawTo(sf::RenderWindow* window);
+	virtual void DrawTo(sf::RenderWindow* window);
 	void setTexture(std::string path);
 	void setPosition(sf::Vector2f pos);
 	void setPosition(float x, float y);

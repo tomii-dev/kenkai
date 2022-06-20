@@ -3,10 +3,11 @@
 #include "UIElement.hpp"
 #include "Tools.hpp"
 
-UIElement::UIElement() 
+UIElement::UIElement(float sizeX, float sizeY, sf::Vector2f pos) 
 	: visible(true),
-	m_sizeX  (0),
-	m_sizeY  (0)
+	m_sizeX  	(sizeX),
+	m_sizeY  	(sizeY),
+	m_position	(pos)
 {}
 
 void UIElement::Setup(){
