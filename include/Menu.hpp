@@ -16,8 +16,12 @@
 #define MENU_PATH "assets/data/menus/"
 
 using namespace boost;
-typedef variant<float, std::string> ArgValue;
+typedef variant<float, std::string, int> ArgValue;
 typedef std::map<std::string, ArgValue> UIElementArgs;
+
+enum class MenuId{
+    Main,
+};
 
 struct MenuConfig{
     std::vector<int> elements;
@@ -31,15 +35,13 @@ struct MenuConfig{
 
 class Menu{
     sf::RenderWindow* m_window;
-    std::vector<UIElement> m_elements;
-    Cursor m_cursor;
-    void load(const std::string& id);
-    Menu(sf::RenderWindow* window, const std::vector<UIElement> elements);
-    friend class MenuBuilder;
+    std::vector<UIElement*> m_elements;
+    Cursor* m_cursor;
+    void load(MenuId id);
+    Menu(sf::RenderWindow* window, const std::vector<UIElement*> elements);
 public:
     Menu();
-    Menu(sf::RenderWindow* window, const std::string& id);
+    Menu(sf::RenderWindow* window, MenuId id);
     ~Menu();
     void Render();
-    void AddElement(UIElement element);
 };
