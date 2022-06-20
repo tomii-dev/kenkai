@@ -1,6 +1,7 @@
 TARGET_EXEC = kenkai
 CC := g++
 BUILD_DIR ?= ./build
+LIB_DIR := $(BUILD_DIR)/lib
 SRCS:= $(wildcard src/*.cpp) \
 	   $(wildcard src/Entities/*.cpp) \
 	   $(wildcard src/UIElements/*.cpp) \
@@ -25,9 +26,13 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(MKDIR_P) $(dir $@)
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
-.PHONY: clean
+.PHONY: clean lib
 
 clean:
 	$(RM) -r $(BUILD_DIR)
+
+lib:
+	$(MKDIR_P) $(LIB_DIR)
+	ar -crs $(LIB_DIR)/kenkai.a $(OBJS)
 
 MKDIR_P ?= mkdir -p
