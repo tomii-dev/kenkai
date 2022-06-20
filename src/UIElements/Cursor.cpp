@@ -14,9 +14,9 @@ Cursor::Cursor() {
 	Setup();
 }
 
-Cursor::Cursor(float sizeX, float sizeY){
-	m_sizeX = sizeX;
-	m_sizeY = sizeY;
+Cursor::Cursor(float sizeX, float sizeY)
+	: UIElement(sizeX, sizeY)
+{
 	Setup();
 }
 
