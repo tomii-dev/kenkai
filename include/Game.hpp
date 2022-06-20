@@ -30,6 +30,7 @@ public:
 	int getFrame();
 	int getTotalFrame();
 	GameState getState();
+	void setState(GameState state);
 	void ChangeMenu(Menu* menu);
 	bool isReady();
 	Player* player;
