@@ -8,17 +8,17 @@
 #include "Events.hpp"
 #include "UIElement.hpp"
 
-GameWorld::GameWorld(sf::RenderWindow& _window) : window(_window) {
+GameWorld::GameWorld(sf::RenderWindow& window) : m_window(window) {
 	backgroundTex.loadFromFile("assets/textures/environment/background.png");
 	groundHeight = 500;
 	mouseVisible = false;
 	mouseGrabbed = true;
-	window.setMouseCursorVisible(false);
-	window.setMouseCursorGrabbed(true);
+	m_window.setMouseCursorVisible(false);
+	m_window.setMouseCursorGrabbed(true);
 	Events::HookTo(EscPressed, [this]()->void {
-		window.setMouseCursorVisible(!mouseVisible);
+		m_window.setMouseCursorVisible(!mouseVisible);
 		mouseVisible = !mouseVisible; 
-		window.setMouseCursorGrabbed(!mouseGrabbed);
+		m_window.setMouseCursorGrabbed(!mouseGrabbed);
 		mouseGrabbed = !mouseGrabbed;
 	});
 }
@@ -72,8 +72,8 @@ void GameWorld::WorldPhysics() {
 void GameWorld::Render() {
 	sf::Sprite worldBackground;
 	worldBackground.setTexture(backgroundTex);
-	window.draw(worldBackground);
-	window.draw(worldBackground);
+	m_window.draw(worldBackground);
+	m_window.draw(worldBackground);
 
 	RenderEntities();
 	RenderUI();
@@ -84,7 +84,7 @@ void GameWorld::RenderEntities() {
 	std::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); it++) {
 		(*it)->Update();
-		(*it)->DrawTo(window);
+		(*it)->DrawTo(m_window);
 	}
 }
 
@@ -92,7 +92,7 @@ void GameWorld::RenderUI() {
 	std::vector<UIElement*>::iterator vIt;
 	for (vIt = uiElements.begin(); vIt != uiElements.end(); vIt++) {
 		(*vIt)->Update();
-		(*vIt)->DrawTo(&window);
+		(*vIt)->DrawTo(&m_window);
 	}
 }
 

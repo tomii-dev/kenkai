@@ -38,8 +38,8 @@ void Button::Update(){
     if (Tools::InRange(mousePos, getCenter(), sf::Vector2f(m_sizeX, m_sizeY))){
         setTexture("button_darkened.png");
         if(m_mousePressed){
-            Events::Fire(m_action);
             m_mousePressed = false;
+            Events::Fire(m_action);
         }
     }
     else setTexture("button.png");

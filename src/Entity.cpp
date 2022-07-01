@@ -75,7 +75,8 @@ sf::Vector2f Entity::getCenter() {
 
 void Entity::Update() {
 
-	if (!Game::getInstance().isReady()) return;
+	if (!Game::getInstance().isReady()) 
+		return;
 
 	sf::Vector2f movement;
 

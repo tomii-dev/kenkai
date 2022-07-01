@@ -6,7 +6,7 @@ std::list<Events::Event> Events::events;
 void Events::RegisterEvents() {
 	for (int i = BEGIN+1; i != END; i++) {
 		Event event;
-		event.id = (EventId)i;
+		event.id = EventId(i);
 		events.push_back(event);
 	}
 }

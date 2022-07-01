@@ -11,7 +11,7 @@ class UIElement;
 enum WorldState { HOME, RUN };
 
 class GameWorld {
-	sf::RenderWindow& window;
+	sf::RenderWindow& m_window;
 	sf::Texture backgroundTex;
 	sf::Texture groundTex;
 	sf::Sprite ground;

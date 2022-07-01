@@ -21,7 +21,12 @@ Menu::Menu(sf::RenderWindow* window, MenuId id)
 }
 
 Menu::~Menu(){
-
+    std::cout << "destructor called!";
+    std::vector<UIElement*>::iterator it;
+    for(it = m_elements.begin(); it != m_elements.end();){
+        delete *it;
+        it = m_elements.erase(it);
+    }
 }
 
 void Menu::load(MenuId id){

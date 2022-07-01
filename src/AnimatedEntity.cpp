@@ -5,17 +5,13 @@
 #include "Properties.hpp"
 #include "AnimatedEntity.hpp"
 
-AnimatedEntity::AnimatedEntity() {
-	frame = 0;
-	animFrame = 0;
-	maxFrame = 0;
-	up = false;
-	down = false;
-	left = false;
-	right = false;
-	lastAnimId = "";
-	overrideAnimId = "";
-}
+AnimatedEntity::AnimatedEntity()
+	: frame				(0),
+	  animFrame			(0),
+	  maxFrame			(0),
+	  lastAnimId		(""),
+	  overrideAnimId	("")
+{}
 
 void AnimatedEntity::SetValues(std::string id) {
 	Tools::Animation anim;

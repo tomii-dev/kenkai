@@ -27,7 +27,7 @@ Game::Game()
 	  m_frame		(0),
 	  m_totalFrame	(0),
 	  m_window		(sf::VideoMode(800, 600), "kenkai", sf::Style::Close),
-	  m_world		(GameWorld(m_window)),
+	  m_world		(m_window),
 	  m_camera		(m_window, DEFAULT_MODE),
 	  player		(nullptr),
 	  m_cursor		(15, 15),

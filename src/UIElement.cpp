@@ -4,7 +4,7 @@
 #include "Tools.hpp"
 
 UIElement::UIElement(float sizeX, float sizeY, sf::Vector2f pos) 
-	: visible(true),
+	: visible	(true),
 	m_sizeX  	(sizeX),
 	m_sizeY  	(sizeY),
 	m_position	(pos)

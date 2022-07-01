@@ -3,15 +3,13 @@
 #include "Game.hpp"
 
 #include <iostream>
+#include <functional>
 
 class Setup {
 public:
 	Setup() {
 		Assets::initAssets();
 		Events::RegisterEvents();
-		// hook events
-		Events::HookTo(StartPressed, [](){
-			Game::getInstance().setState(PLAYING);
-		});
+		Events::HookTo(EventId::StartPressed, [](){ Game::getInstance().setState(PLAYING); });
 	}
 };
