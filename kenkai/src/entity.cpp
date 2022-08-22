@@ -6,42 +6,31 @@
 #include "types.hpp"
 #include "game.hpp"
 
-Entity::Entity(const char* name, World* world) 
-    : Object    (name, world),
-      m_canJump (true)
+Entity::Entity(const char* name, World* world, float moveSpeed, float jumpSpeed, float jumpHeight) 
+    : Object        (name, world),
+      m_moveSpeed   (moveSpeed),
+      m_jumpSpeed   (jumpSpeed),
+      m_jumpHeight  (jumpHeight)
 {}
 
-void Entity::update()
-{
-    // update state
-    if(m_sprite.getPosition().y < m_world->getGroundLevel())
-        m_state = ENTITY_INAIR;
-    else
-        m_state = ENTITY_ONGROUND;
-
-    if(m_velocity.x == 1)
-        m_state |= ENTITY_MOVINGRIGHT;
-    else
-        m_state |= ENTITY_MOVINGLEFT;
-    
-    Object::update();
-    
-    if(m_state == ENTITY_JUMPING)
+void Entity::update(int deltaTime)
+{    
+    if (getState() & ENTITY_JUMPING)
         m_velocity.y = -1;
-    else m_velocity.y = 0;
+    else 
+        m_velocity.y = 0;
 
-    m_sprite.move(m_velocity);
+    m_velocity *= Vec2(m_moveSpeed, m_jumpSpeed);
+
+    Object::update(deltaTime);
 }
 
-void Entity::jump()
+void Entity::jump(int deltaTime)
 {
-    if(!m_canJump)
+    const State state = getState();
+    if(state & ENTITY_JUMPING || state & ENTITY_INAIR)
         return;
-    m_canJump = false;
-    addTask(100, [this](){ m_state = ENTITY_JUMPING; }, [this](){ this->m_canJump = true; });
-}
 
-EntityState Entity::getState()
-{
-    return m_state;
+    const int duration = (m_jumpHeight / m_jumpSpeed) * deltaTime;
+    addTask(duration, [this]() { setState(ENTITY_JUMPING); });
 }
