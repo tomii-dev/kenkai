@@ -4,20 +4,20 @@
 
 Player::Player(const char* name, World* world) : Entity("player", world) 
 {
-    setTexture("saiki_gay.jpg");
+    setTexture("player.png");
 }
 
-void Player::update()
+void Player::update(int deltaTime)
 {   
     // change velocity depending on controls
-    if(control::getButtonState(BUTTON_MOVE_LEFT))
+    if (control::getButtonState(BUTTON_MOVE_LEFT))
         m_velocity.x = -1;
     else if(control::getButtonState(BUTTON_MOVE_RIGHT))
         m_velocity.x = 1;
     else m_velocity.x = 0;
 
     if(control::getButtonState(BUTTON_JUMP))
-        jump();
+        jump(deltaTime);
 
-    Entity::update();
+    Entity::update(deltaTime);
 }

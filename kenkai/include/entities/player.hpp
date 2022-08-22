@@ -14,5 +14,5 @@ public:
     // exists to comply with the addEntity method in World
     Player(const char* name, World* world);
 
-    void update() override;
+    void update(int deltaTime) override;
 };
