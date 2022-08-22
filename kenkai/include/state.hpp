@@ -1,15 +1,21 @@
 #pragma once
 
-enum EntityState
+enum State
 {
-    ENTITY_ONGROUND     = 0x01,
-    ENTITY_INAIR        = 0x02,
-    ENTITY_MOVINGLEFT   = 0x04,
-    ENTITY_MOVINGRIGHT  = 0x08,
-    ENTITY_JUMPING      = 0x10
+    OBJECT_ONGROUND     = 0x01,
+    OBJECT_INAIR        = 0x02,
+    OBJECT_MOVINGLEFT   = 0x04,
+    OBJECT_MOVINGRIGHT  = 0x08,
+
+    ENTITY_ONGROUND     = OBJECT_ONGROUND,
+    ENTITY_INAIR        = OBJECT_INAIR,
+    ENTITY_MOVINGLEFT   = OBJECT_MOVINGLEFT,
+    ENTITY_MOVINGRIGHT  = OBJECT_MOVINGRIGHT,
+    ENTITY_JUMPING      = 0x10,
+
 };
 
-inline EntityState operator |=(EntityState& left, EntityState right)
+inline State operator |=(State& left, State right)
 {
-    return left = EntityState(left | right);
+    return left = State(left | right);
 }
