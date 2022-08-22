@@ -6,7 +6,7 @@ ControlTable g_controlTable(BUTTON_COUNT);
 
 ButtonState control::getButtonState(Button btn)
 {
-    return g_controlTable[btn];
+    return g_controlTable[btn - 1];
 }
 
 Button control::btnFromSfmlKey(sf::Keyboard::Key key)
@@ -19,10 +19,12 @@ Button control::btnFromSfmlKey(sf::Keyboard::Key key)
         return BUTTON_MOVE_RIGHT;
     case sf::Keyboard::Space:
         return BUTTON_JUMP;
+    default:
+        return BUTTON_NONE;
     }
 }
 
 void control::updateTable(Button btn, ButtonState state)
 {
-    g_controlTable[btn] = state;
+    g_controlTable[btn - 1] = state;
 }

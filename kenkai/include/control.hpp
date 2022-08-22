@@ -9,6 +9,8 @@ enum ButtonState { BUTTON_UP, BUTTON_DOWN };
 
 enum Button
 {
+    BUTTON_NONE,
+
     BUTTON_MOVE_LEFT,
     BUTTON_MOVE_RIGHT,
     BUTTON_JUMP
