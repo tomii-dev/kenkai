@@ -1,3 +1,10 @@
 .vscode/
 build/
 deps/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+x64/
+kenkai/x64
+**.png
