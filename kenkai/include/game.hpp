@@ -16,12 +16,13 @@ private:
     static Game* s_instance;
     sf::RenderWindow m_window;
     World m_world;
-    unsigned int m_frame;
+    sf::Clock m_clock;
+    int m_deltaTime;
     void update();
     void render();
     void handleEvents();
 public:
     Game();
     int run();
-    static unsigned int getFrame();
+    static int getTime();
 };

@@ -10,15 +10,14 @@
 Game* Game::s_instance = nullptr;
 
 Game::Game() 
-    : m_window  (sf::VideoMode(800, 600), "kenkai"),
-      m_frame   (0)
+    : m_window  (sf::VideoMode(800, 600), "kenkai")
 {
     s_instance = this;
 }
 
 void Game::update()
 {
-    m_world.update();
+    m_world.update(m_deltaTime);
 }
 
 void Game::render()
@@ -43,13 +42,15 @@ void Game::handleEvents()
         case sf::Event::KeyPressed:
         {
             const Button btn(control::btnFromSfmlKey(e.key.code));
-            control::updateTable(btn, BUTTON_DOWN);
+            if(btn)
+                control::updateTable(btn, BUTTON_DOWN);
             break;
         }
         case sf::Event::KeyReleased:
         {
             const Button btn(control::btnFromSfmlKey(e.key.code));
-            control::updateTable(btn, BUTTON_UP);
+            if(btn)
+                control::updateTable(btn, BUTTON_UP);
             break;
         }
         }
@@ -58,20 +59,26 @@ void Game::handleEvents()
 
 int Game::run()
 {
+    m_window.setFramerateLimit(144);
     m_world.addEntity<Player>();
+
+    // clock to calculate delta time
+    sf::Clock deltaClock;
+
     while(m_window.isOpen())
     {
         handleEvents();
         update();
         render();
-        
-        m_frame++;
+
+        // set delta time
+        m_deltaTime = deltaClock.restart().asMilliseconds();
     }
 
     return 0;
 }
 
-unsigned int Game::getFrame()
+int Game::getTime()
 {
-    return s_instance->m_frame;
+    return s_instance->m_clock.getElapsedTime().asMilliseconds();
 }
