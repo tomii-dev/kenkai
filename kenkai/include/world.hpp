@@ -26,7 +26,7 @@ public:
         m_entities.push_back(entity);
         return entity;
     }
-    void update();
+    void update(float deltaTime);
     void render(sf::RenderWindow& window);
     float getGroundLevel();
 };
