@@ -1,4 +1,5 @@
 deps/
 .vscode/
+build/
 
 **/.DS_Store
