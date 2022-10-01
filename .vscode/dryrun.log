@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/tomii/Documents/projects/kenkai'
-mkdir -p build
-g++ -std=c++14  -Wall -g kenkai/src/control.cpp kenkai/src/entity.cpp kenkai/src/event.cpp kenkai/src/game.cpp kenkai/src/main.cpp kenkai/src/object.cpp kenkai/src/world.cpp kenkai/src/entities/player.cpp -I./kenkai/include -I./deps/include -L./deps/lib -lsfml-graphics.2.5.1 -lsfml-window.2.5.1 -lsfml-system.2.5.1 -o ./build/kenkai
-make: Leaving directory `/Users/tomii/Documents/projects/kenkai'
- 
