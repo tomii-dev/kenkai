@@ -9,7 +9,7 @@ class Game
 {
 public:
     static Game& make();
-    static inline Game& get() { return *s_instance.get(); }
+    static inline Game& get() { assert(s_instance); return *s_instance.get(); }
 
     Game(const Game&) = delete;
     Game(Game&&) = delete;
