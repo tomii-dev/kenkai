@@ -7,7 +7,7 @@
 
 void Animator::update(const sf::Time& delta)
 {
-    m_elapsed = m_elapsed + delta;
+    m_elapsed += delta;
     if(m_elapsed.asMilliseconds() >= m_animation.duration)
         m_elapsed = sf::Time();
 
