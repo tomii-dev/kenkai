@@ -17,9 +17,8 @@ int Game::run()
 {
     while(m_window.isOpen())
     {
-        m_window.clear(sf::Color::White);
         update();
-        m_window.display();
+        render();
     }
 
     return 0;
@@ -32,5 +31,6 @@ void Game::update()
 
 void Game::render()
 {
-
+    m_window.clear(sf::Color::White);
+    m_window.display();
 }
