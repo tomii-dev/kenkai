@@ -17,6 +17,7 @@ public:
 
     inline void render(sf::RenderWindow& window) { window.draw(m_sprite); }
 
+    inline const Vec2& position() { return m_position; }
     inline const int32_t& weight() { return m_weight; }
     inline const State& state() { return m_state; }
 
@@ -32,6 +33,7 @@ private:
     State m_state;
     sf::Sprite m_sprite;
     int32_t m_weight;
+    Vec2 m_position;
     Vec2 m_velocity;
 
     using Components = std::vector<std::unique_ptr<Component>>;
