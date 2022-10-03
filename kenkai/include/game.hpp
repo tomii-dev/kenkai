@@ -22,6 +22,7 @@ public:
 private:
     Game();
 
+    void pollEvents();
     void update();
     void render();
 

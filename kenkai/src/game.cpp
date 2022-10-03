@@ -17,11 +17,25 @@ int Game::run()
 {
     while(m_window.isOpen())
     {
+        pollEvents();
         update();
         render();
     }
 
     return 0;
+}
+
+void Game::pollEvents()
+{
+    sf::Event event;
+    while(m_window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+        case sf::Event::Closed:
+            m_window.close();
+        }
+    }
 }
 
 void Game::update()
