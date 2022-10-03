@@ -3,3 +3,11 @@ deps/
 build/
 
 **/.DS_Store
+kenkai/.vs/
+kenkai/x64/
+
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+
