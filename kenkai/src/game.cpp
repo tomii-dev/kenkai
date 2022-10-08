@@ -1,8 +1,12 @@
 #include "game.hpp"
 
+#include "entity.hpp"
+
 std::unique_ptr<Game> Game::s_instance;
 
-Game::Game() : m_window(sf::VideoMode(800, 600), "kenkai")
+Game::Game() 
+    : m_window(sf::VideoMode(1920, 1080), "kenkai")
+    , m_world(m_window)
 {}
 
 /* static */ Game& Game::make()
