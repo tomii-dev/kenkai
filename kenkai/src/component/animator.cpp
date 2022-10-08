@@ -1,6 +1,6 @@
 #include "component/animator.hpp"
 
-#include "object.hpp"
+#include "object/object.hpp"
 
 #include <math.h>
 #include <SFML/Graphics.hpp>
@@ -27,5 +27,5 @@ void Animator::update(const sf::Time& delta)
 
 bool Animator::load(const std::string& path)
 {
-    
+    return true;
 }
