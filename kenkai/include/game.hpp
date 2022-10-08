@@ -1,6 +1,7 @@
 #pragma once
 
 #include "util/taskmanager.hpp"
+#include "world/world.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -32,5 +33,6 @@ private:
     sf::RenderWindow m_window;
     sf::Clock m_clock;
 
+    World m_world;
     TaskManager m_taskMgr;
 };
