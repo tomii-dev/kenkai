@@ -2,11 +2,7 @@
 
 void FileWriter::beginSection(const std::string& id)
 {
-    if (m_section > -1)
-        m_buf << SECT_END;
-
     m_buf << SECT_ID << id << SECT_START;
-    m_section++;
 }
 
 void FileWriter::addStrField(const std::string& id, const std::string& data)

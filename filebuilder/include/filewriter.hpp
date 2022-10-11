@@ -49,7 +49,5 @@ private:
     std::ofstream m_ofs;
     std::stringstream m_buf;
 
-    int16_t m_section = -1;
-
     friend class FileReader;
 };
