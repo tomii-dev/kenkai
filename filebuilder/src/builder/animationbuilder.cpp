@@ -6,9 +6,7 @@ void AnimationBuilder::addFrame(PixelData pxData, size_t size, uint32_t duration
 }
 
 /* static */ AnimationBuilder::PixelData AnimationBuilder::pxlDataFromFile(const std::string& path)
-{
-
-}
+{}
 
 void AnimationBuilder::build()
 {
@@ -18,9 +16,10 @@ void AnimationBuilder::build()
     size_t ind = 0;
     for (const FrameData& frame : m_frames)
     {
-        m_writer.beginSection("f" + ind);
+        m_writer.beginSection("f" + std::to_string(ind));
         m_writer.addUIntField("dur", frame.duration);
         m_writer.addArrField("px", std::vector<unsigned char>(frame.pxData, frame.pxData + frame.size));
+        ind++;
     }
 
     m_writer.write();
