@@ -1,5 +1,6 @@
 #include "filereader.hpp"
 
+#include <iostream>
 #include <fstream>
 #include <algorithm>
 
@@ -25,6 +26,7 @@ FileReader::FileReader(const std::string& path)
         STATE_SECT_START,   // Sector has begun
         STATE_FIELD_ID,     // Reading field id
         STATE_FIELD_TYPE,   // Reading field type
+        STATE_ARR_TYPE,     // Reading array type
         STATE_FIELD         // Reading field data
     } readerState;
 
@@ -35,73 +37,119 @@ FileReader::FileReader(const std::string& path)
     // if the field is of an array type, we need to store
     // the type of the data it holds, these are also given by
     // a char (see fileinterface.hpp)
-    char arrType;
+    char arrType = ' ';
 
-    // because our file is read as a char array, fields
-    // that contain arrays of strings need to have each char
-    // between array breaks added to a string that is then
-    // added to an array, so we need to store a string buffer to append the chars to
-    std::string strBuf;
+    // store the current index we are writing to in the array
+    // helpful for str arrays
+    int32_t ind = 0;
 
     for (int i = 0; i < length; i++)
     {
         switch (input[i])
         {
         case SECT_ID:
-            readerState = STATE_SECT_ID;
-            break;
-        default: 
         {
-            if (readerState == STATE_SECT_ID)
+            if (currentSection.id.size())
             {
-                currentSection.id += input[i];
-                break;
+                m_sections.push_back(currentSection);
+                currentSection = Section();
             }
-            if (readerState == STATE_FIELD_ID)
+            readerState = STATE_SECT_ID;
+            continue;
+        }
+        case SECT_START:
+            readerState = STATE_SECT_START;
+            continue;
+        case FIELD_ID:
+        {
+            if (currentField.id.size())
             {
-                currentField.id += input[i];
-                break;
+                currentSection.fields.push_back(currentField);
+                currentField = Field();
             }
-            if (readerState == STATE_FIELD_TYPE)
+            readerState = STATE_FIELD_ID;
+            continue;
+        }
+        case FIELD_TYPE:
+            readerState = STATE_FIELD_TYPE;
+            continue;
+        case ARR_BREAK:
+            ind++;
+            continue;
+        }
+        
+        switch (readerState)
+        {
+        case STATE_SECT_ID:
+            currentSection.id += input[i];
+            continue;
+        case STATE_FIELD_ID:
+            currentField.id += input[i];
+            continue;
+        case STATE_FIELD_TYPE:
+        {
+            fieldType = input[i];
+            if (fieldType == FIELD_ARR)
             {
-                fieldType = input[i];
-                break;
+                ind = 0;
+                readerState = STATE_ARR_TYPE;
+                continue;
             }
+            readerState = STATE_FIELD;
+            continue;
+        }
+        case STATE_ARR_TYPE:
+        {
+            arrType = input[i];
+            readerState = STATE_FIELD;
+            continue;
+        }
+        }
 
-            // state is STATE_FIELD, we are reading data
-            // nested switch....... um
-            switch (fieldType)
+        // state is STATE_FIELD, we are reading data
+        switch (fieldType)
+        {
+        case FIELD_STR:
+        {
+            std::string& str = std::get<std::string>(currentField.data);
+            str += input[i];
+            break;
+        }
+        case FIELD_INT:
+            currentField.data = (int)input[i];
+            break;
+        case FIELD_UINT:
+            currentField.data = (uint32_t)input[i];
+            break;
+        case FIELD_ARR:
+        {
+            if (arrType == ARR_STR)
             {
-            case FIELD_STR:
-                std::string& str = std::get<std::string>(currentField.data);
-                str += input[i];
-                break;
-            case FIELD_INT:
-                currentField.data = (int)input[i];
-                break;
-            case FIELD_UINT:
-                currentField.data = (uint32_t)input[i];
-                break;
-            case FIELD_ARR:
-            {
-                if (arrType = ARR_STR)
-                {
-                    Arr<std::string>& arr = std::get<Arr<std::string>>(currentField.data);
-                    arr.
-                }
-            }
-            }
+                Arr<std::string>& arr = std::get<Arr<std::string>>(currentField.data);
 
+                if (arr.size() - 1 < ind)
+                    arr.push_back(std::string());
+
+                arr.back() += input[i];
+
+            }
+            if (arrType == ARR_INT)
+            {
+                Arr<int>& arr = std::get<Arr<int>>(currentField.data);
+                arr.push_back((int)input[i]);
+            }
+            if (arrType == ARR_UINT)
+            {
+                Arr<uint32_t> arr = std::get<Arr<uint32_t>>(currentField.data);
+                arr.push_back((uint32_t)input[i]);
+            }
+            if (arrType == ARR_UCHAR)
+            {
+                Arr<unsigned char>& arr = std::get<Arr<unsigned char>>(currentField.data);
+                arr.push_back((unsigned char)input[i]);
+            }
+            break;
         }
         }
     }
-}
-
-const FileReader::FieldData& FileReader::getField(const std::string& sectionId, const std::string& id)
-{
-    const Section& section = *std::find_if(m_sections.begin(), m_sections.end(),
-        [sectionId](const Section& s) { return s.id == sectionId; });
-
-    return std::find_if(section.fields.begin(), section.fields.end(),
-        [id](const Field& field) { return field.id == id; })->data;
 }
