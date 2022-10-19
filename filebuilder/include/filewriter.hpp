@@ -32,7 +32,7 @@ public:
 
         static_assert(isStr || isInt || isUInt || isUChar);
 
-        m_buf << FIELD_ID << FIELD_TYPE << FIELD_ARR;
+        m_buf << FIELD_ID << id << FIELD_TYPE << FIELD_ARR;
 
         if (isStr) m_buf << ARR_STR;
         if (isInt) m_buf << ARR_INT;
@@ -40,7 +40,16 @@ public:
         if (isUInt) m_buf << ARR_UINT;
 
         for (const ArrType& item : arr)
-            m_buf << item << ARR_BREAK;
+        {
+            m_buf << (char)item;
+
+            // uchars don't need arr separators as they are one
+            // character, this is helpful for img data, reduces file size
+            if (!isUChar)
+                m_buf << ARR_BREAK;
+        }
+
+        m_buf << FIELD_END;
     }
     
     void write();
@@ -49,5 +58,8 @@ private:
     std::ofstream m_ofs;
     std::stringstream m_buf;
 
-    friend class FileReader;
+    uint32_t m_section = 0;
+
+    void writeInt(int num);
+    void writeUInt(uint32_t num);
 };
