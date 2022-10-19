@@ -6,16 +6,16 @@
 
 FileReader::FileReader(const std::string& path)
 {
-    std::ifstream ifs(path);
+    std::ifstream ifs(path, std::ios::in | std::ios::binary);
     if (ifs.fail())
         return;
 
     ifs.seekg(0, ifs.end);
-    int length = ifs.tellg();
+    m_length = ifs.tellg();
     ifs.seekg(0, ifs.beg);
-
-    char* input = new char[length];
-    ifs.read(input, length);
+     
+    m_input = new char[m_length];
+    ifs.read(m_input, m_length);
 
     Section currentSection;
     Field currentField;
@@ -23,7 +23,6 @@ FileReader::FileReader(const std::string& path)
     enum ReaderState 
     { 
         STATE_SECT_ID,      // Currently reading section id
-        STATE_SECT_START,   // Sector has begun
         STATE_FIELD_ID,     // Reading field id
         STATE_FIELD_TYPE,   // Reading field type
         STATE_ARR_TYPE,     // Reading array type
@@ -41,54 +40,63 @@ FileReader::FileReader(const std::string& path)
 
     // store the current index we are writing to in the array
     // helpful for str arrays
-    int32_t ind = 0;
+    uint32_t ind = 0;
 
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < m_length; i++)
     {
-        switch (input[i])
+        char a = m_input[i];
+
+        SeparatorType sep;
+        if (isSeparator(i, sep))
         {
-        case SECT_ID:
-        {
-            if (currentSection.id.size())
+            switch (sep)
+            {
+            case SPTR_SECT_ID:
+                readerState = STATE_SECT_ID;
+                break;
+            case SPTR_SECT_START:
+                break;
+            case SPTR_SECT_END:
             {
                 m_sections.push_back(currentSection);
                 currentSection = Section();
+                break;
             }
-            readerState = STATE_SECT_ID;
-            continue;
-        }
-        case SECT_START:
-            readerState = STATE_SECT_START;
-            continue;
-        case FIELD_ID:
-        {
-            if (currentField.id.size())
+            case SPTR_FIELD_ID:
+            {
+                readerState = STATE_FIELD_ID;
+                break;
+            }
+            case SPTR_FIELD_TYPE:
+                readerState = STATE_FIELD_TYPE;
+                break;
+            case SPTR_FIELD_END:
             {
                 currentSection.fields.push_back(currentField);
                 currentField = Field();
+                break;
             }
-            readerState = STATE_FIELD_ID;
-            continue;
-        }
-        case FIELD_TYPE:
-            readerState = STATE_FIELD_TYPE;
-            continue;
-        case ARR_BREAK:
-            ind++;
+            case SPTR_ARR_BREAK:
+                ind++;
+                break;
+            }
+
+            // skip past separator
+            i += SEP_SIZE -  1;
             continue;
         }
         
         switch (readerState)
         {
         case STATE_SECT_ID:
-            currentSection.id += input[i];
+            currentSection.id += m_input[i];
             continue;
         case STATE_FIELD_ID:
-            currentField.id += input[i];
+            currentField.id += m_input[i];
             continue;
         case STATE_FIELD_TYPE:
         {
-            fieldType = input[i];
+            fieldType = m_input[i];
             if (fieldType == FIELD_ARR)
             {
                 ind = 0;
@@ -100,7 +108,7 @@ FileReader::FileReader(const std::string& path)
         }
         case STATE_ARR_TYPE:
         {
-            arrType = input[i];
+            arrType = m_input[i];
             readerState = STATE_FIELD;
             continue;
         }
@@ -112,44 +120,72 @@ FileReader::FileReader(const std::string& path)
         case FIELD_STR:
         {
             std::string& str = std::get<std::string>(currentField.data);
-            str += input[i];
+            str += m_input[i];
             break;
         }
         case FIELD_INT:
-            currentField.data = (int)input[i];
+            currentField.data = (int)m_input[i];
             break;
         case FIELD_UINT:
-            currentField.data = (uint32_t)input[i];
+            currentField.data = (uint32_t)m_input[i];
             break;
         case FIELD_ARR:
         {
             if (arrType == ARR_STR)
             {
+                if (!currentField.data.index())
+                    currentField.data = Arr<std::string>();
+
                 Arr<std::string>& arr = std::get<Arr<std::string>>(currentField.data);
 
                 if (arr.size() - 1 < ind)
                     arr.push_back(std::string());
 
-                arr.back() += input[i];
+                arr.back() += m_input[i];
 
             }
             if (arrType == ARR_INT)
             {
+                if (!currentField.data.index())
+                    currentField.data = Arr<int>();
+
                 Arr<int>& arr = std::get<Arr<int>>(currentField.data);
-                arr.push_back((int)input[i]);
+                arr.push_back((int)m_input[i]);
             }
             if (arrType == ARR_UINT)
             {
+                if (!currentField.data.index())
+                    currentField.data = Arr<uint32_t>();
+
                 Arr<uint32_t> arr = std::get<Arr<uint32_t>>(currentField.data);
-                arr.push_back((uint32_t)input[i]);
+                arr.push_back((uint32_t)m_input[i]);
             }
             if (arrType == ARR_UCHAR)
             {
+                if (!currentField.data.index())
+                    currentField.data = Arr<unsigned char>();
+
                 Arr<unsigned char>& arr = std::get<Arr<unsigned char>>(currentField.data);
-                arr.push_back((unsigned char)input[i]);
+                arr.push_back((unsigned char)m_input[i]);
             }
             break;
         }
         }
     }
+}
+
+bool FileReader::isSeparator(int ind, SeparatorType& out)
+{
+    if (m_input[ind] != '?')
+        return false;
+
+    std::string sep;
+    for (int i = 0; i < SEP_SIZE; i++)
+        sep += m_input[ind + i];
+
+    if (m_separators.find(sep) == m_separators.end())
+        return false;
+
+    out = m_separators.at(sep);
+    return true;
 }
