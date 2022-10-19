@@ -1,12 +1,23 @@
 #include "builder/animationbuilder.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
+
 void AnimationBuilder::addFrame(PixelData pxData, size_t size, uint32_t duration)
 {
     m_frames.push_back({ pxData, size, duration });
 }
 
-/* static */ AnimationBuilder::PixelData AnimationBuilder::pxlDataFromFile(const std::string& path)
-{}
+AnimationBuilder::ImagePixelData AnimationBuilder::pxlDataFromFile(const std::string& path)
+{
+    int width, height, channels;
+    PixelData img = stbi_load(path.c_str(), &width, &height, &channels, 0);
+
+    const size_t size = width * height * channels;
+
+    m_imgs.push_back(std::unique_ptr<unsigned char>(img));
+    return { m_imgs.back().get(), size };
+}
 
 void AnimationBuilder::build()
 {
