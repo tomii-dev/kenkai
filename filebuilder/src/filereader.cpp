@@ -44,8 +44,6 @@ FileReader::FileReader(const std::string& path)
 
     for (int i = 0; i < m_length; i++)
     {
-        char a = m_input[i];
-
         SeparatorType sep;
         if (isSeparator(i, sep))
         {
