@@ -16,7 +16,7 @@ public:
     template<typename T>
     using Arr = std::vector<T>;
 
-    using FieldData = std::variant<std::string, uint32_t, int,
+    using FieldData = std::variant<std::monostate, std::string, uint32_t, int,
         Arr<std::string>, Arr<int>, Arr<uint32_t>, Arr<unsigned char>>;
 
     template <typename FieldType>
@@ -29,6 +29,9 @@ public:
             [id](const Field& field) { return field.id == id; })->data);
     }
 private:
+    size_t m_length;
+    char* m_input;
+
     struct Field
     {
         std::string id;
@@ -42,4 +45,8 @@ private:
     };
 
     Arr<Section> m_sections;
+
+    // check if current char in input starts separator
+    // if so, write separator type to ref param
+    bool isSeparator(int ind, SeparatorType& sep);
 };
