@@ -125,7 +125,9 @@ FileReader::FileReader(const std::string& path)
             currentField.data = (int)m_input[i];
             break;
         case FIELD_UINT:
-            currentField.data = (uint32_t)m_input[i];
+            if (!currentField.data.index())
+                currentField.data = 0u;
+            std::get<uint32_t>(currentField.data) += (uint32_t)m_input[i];
             break;
         case FIELD_ARR:
         {
