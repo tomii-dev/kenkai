@@ -28,7 +28,7 @@ public:
         const bool isStr = std::is_same<ArrType, std::string>::value;
         const bool isInt = std::is_same<ArrType, int>::value;
         const bool isUInt = std::is_same<ArrType, uint32_t>::value;
-        const bool isUChar = std::is_same<ArrType, unsigned char>::value;
+        const bool isUChar = std::is_same<ArrType, uint8_t>::value;
 
         static_assert(isStr || isInt || isUInt || isUChar);
 
@@ -41,7 +41,7 @@ public:
 
         for (const ArrType& item : arr)
         {
-            m_buf << (char)item;
+            m_buf << item;
 
             // uchars don't need arr separators as they are one
             // character, this is helpful for img data, reduces file size
