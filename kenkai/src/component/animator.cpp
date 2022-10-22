@@ -3,7 +3,6 @@
 #include "object/object.hpp"
 #include "../../filebuilder/include/filereader.hpp"
 
-#include <stb/stb_image_write.h>
 #include <math.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
