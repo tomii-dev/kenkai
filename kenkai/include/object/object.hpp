@@ -3,6 +3,8 @@
 #include "types.hpp"
 #include "component/component.hpp"
 
+#include <functional>
+
 class Object
 {
 public:
@@ -17,22 +19,30 @@ public:
 
     inline void render(sf::RenderWindow& window) { window.draw(m_sprite); }
 
+    inline void setPosition(const Vec2& pos) { m_sprite.setPosition(pos); }
+    inline virtual void move(int x, int y) { m_sprite.move(x, -y); }
+    inline void setVelocity(int x, int y) { m_velocity = Vec2(x, y); }
+    inline void setVelocityX(int x) { m_velocity.x = x; }
+    inline void setVelocityY(int y) { m_velocity.y = -y; }
+
     inline const Vec2& position() { return m_position; }
-    inline const int32_t& weight() { return m_weight; }
+    inline const uint32_t& weight() { return m_weight; }
     inline const State& state() { return m_state; }
 
-    template<typename ComponentType>
-    ComponentType* addComponent()
+    template<typename ComponentType, typename... Args>
+    ComponentType* addComponent(Args... args)
     {
         static_assert(std::is_base_of<Component, ComponentType>::value);
 
-        m_components.push_back(std::make_unique<ComponentType>());
-        return m_components.back().get();
+        m_components.push_back(std::make_unique<ComponentType>(this, args...));
+        return dynamic_cast<ComponentType*>(m_components.back().get());
     }
+protected:
+    void addTask(std::function<void()> f, uint32_t ms);
 private:
     State m_state;
     sf::Sprite m_sprite;
-    int32_t m_weight;
+    uint32_t m_weight;
     Vec2 m_position;
     Vec2 m_velocity;
 
