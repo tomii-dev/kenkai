@@ -2,6 +2,7 @@
 
 #include "util/taskmanager.hpp"
 #include "world/world.hpp"
+#include "control.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -19,13 +20,15 @@ public:
     Game& operator=(const Game&) = delete;
     Game& operator=(Game&&) = delete;
 
+    inline TaskManager& taskManager() { return m_taskMgr; }
+
     int run();
 
 private:
     Game();
 
     void pollEvents();
-    void update();
+    void update(const sf::Time& delta);
     void render();
 
     static std::unique_ptr<Game> s_instance;
@@ -35,4 +38,5 @@ private:
 
     World m_world;
     TaskManager m_taskMgr;
+    Control m_control;
 };
