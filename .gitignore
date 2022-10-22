@@ -11,6 +11,10 @@ build/
 **.vcxproj.filters
 **.vcxproj.user
 
+**/CMakeFiles/
+**.cmake
+**/CMakeCache.txt
+
 **.jpg
 **.ken
 
