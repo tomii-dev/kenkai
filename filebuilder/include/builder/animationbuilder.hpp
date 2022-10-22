@@ -12,12 +12,14 @@ public:
     inline AnimationBuilder(const std::string& path) : m_writer(path)
     {}
 
-    using PixelData = unsigned char*;
+    using PixelData = uint8_t*;
 
-    void addFrame(PixelData pxData, size_t size, uint32_t duration);
+    void addFrame(uint32_t width, uint32_t height, PixelData pxData, size_t size, uint32_t duration);
 
     struct ImagePixelData
     {
+        int width;
+        int height;
         PixelData data;
         size_t size;
     };
@@ -28,6 +30,8 @@ public:
 private:
     struct FrameData
     {
+        uint32_t width;
+        uint32_t height;
         PixelData pxData;
         size_t size;
         uint32_t duration; // in ms
@@ -38,5 +42,5 @@ private:
 
     // AnimationBuilder needs to own all dynamically allocated img arrays given by 
     // pxlDataFromFile so it can clean them up on destruction
-    std::vector<std::unique_ptr<unsigned char>> m_imgs;
+    std::vector<std::unique_ptr<uint8_t>> m_imgs;
 };
