@@ -3,7 +3,7 @@
 void Entity::update(const sf::Time& delta)
 {
     if (m_jumping)
-        setVelocityY(.2);
+        setVelocityY(1);
 
     Object::update(delta);
 }
