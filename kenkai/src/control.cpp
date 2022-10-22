@@ -3,6 +3,8 @@
 #include "object/object.hpp"
 #include "object/entity/entity.hpp"
 
+#include <iostream>
+
 void Control::sendSfmlKey(const sf::Keyboard::Key& key, bool pressed)
 {
     if (!m_keyControls.count(key))
@@ -17,7 +19,7 @@ void Control::doInput(const Input& input, bool pressed)
     {
     case INPUT_JUMP:
     {
-        if (Entity* ent = static_cast<Entity*>(m_object))
+        if (Entity* ent = dynamic_cast<Entity*>(m_object))
             ent->jump();
         break;
     }
