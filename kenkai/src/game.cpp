@@ -1,6 +1,7 @@
 #include "game.hpp"
 
-#include "entity.hpp"
+#include "component/animator.hpp"
+#include "object/entity/player.hpp"
 
 std::unique_ptr<Game> Game::s_instance;
 
@@ -19,10 +20,15 @@ Game::Game()
 
 int Game::run()
 {
+    Player* player = m_world.addObject<Player>();
+    m_control.setObject(player);
+
+    sf::Clock deltaClock;
+
     while(m_window.isOpen())
     {
         pollEvents();
-        update();
+        update(deltaClock.restart());
         render();
     }
 
@@ -38,17 +44,26 @@ void Game::pollEvents()
         {
         case sf::Event::Closed:
             m_window.close();
+            break;
+        case sf::Event::KeyPressed:
+            m_control.sendSfmlKey(event.key.code, true);
+            break;
+        case sf::Event::KeyReleased:
+            m_control.sendSfmlKey(event.key.code, false);
         }
     }
 }
 
-void Game::update()
+void Game::update(const sf::Time& delta)
 {
     m_taskMgr.update(m_clock.getElapsedTime());
+    m_control.update();
+    m_world.update(delta);
 }
 
 void Game::render()
 {
     m_window.clear(sf::Color::White);
+    m_world.render();
     m_window.display();
 }
