@@ -17,16 +17,24 @@ public:
     using Arr = std::vector<T>;
 
     using FieldData = std::variant<std::monostate, std::string, uint32_t, int,
-        Arr<std::string>, Arr<int>, Arr<uint32_t>, Arr<unsigned char>>;
+        Arr<std::string>, Arr<int>, Arr<uint32_t>, Arr<uint8_t>>;
 
     template <typename FieldType>
     const FieldType& getField(const std::string& sectionId, const std::string& id)
     {
-        const Section& section = *std::find_if(m_sections.begin(), m_sections.end(),
+        const Arr<Section>::iterator secIt = std::find_if(m_sections.begin(), m_sections.end(),
             [sectionId](const Section& s) { return s.id == sectionId; });
 
-        return std::get<FieldType>(std::find_if(section.fields.begin(), section.fields.end(),
-            [id](const Field& field) { return field.id == id; })->data);
+        if (secIt == m_sections.end())
+            return FieldType();
+        
+        const Arr<Field>::iterator fieldIt = std::find_if(secIt->fields.begin(), secIt->fields.end(),
+            [id](const Field& field) { return field.id == id; });
+
+        if (fieldIt == secIt->fields.end())
+            return FieldType();
+
+        return std::get<FieldType>(fieldIt->data);
     }
 private:
     size_t m_length;
