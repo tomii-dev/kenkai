@@ -13,8 +13,10 @@ public:
     {}
 
     using PixelData = uint8_t*;
+    
+    void* addAnimation(const std::string& id);
 
-    void addFrame(uint32_t width, uint32_t height, PixelData pxData, size_t size, uint32_t duration);
+    void addFrame(void* anim, uint32_t width, uint32_t height, PixelData pxData, size_t size, uint32_t duration);
 
     struct ImagePixelData
     {
@@ -37,8 +39,16 @@ private:
         uint32_t duration; // in ms
     };
 
+    struct Animation
+    {
+        std::string id;
+        std::vector<FrameData> frames;
+
+        inline Animation(const std::string& _id) : id(_id) {}
+    };
+
+    std::vector<std::unique_ptr<Animation>> m_animations;
     FileWriter m_writer;
-    std::vector<FrameData> m_frames;
 
     // AnimationBuilder needs to own all dynamically allocated img arrays given by 
     // pxlDataFromFile so it can clean them up on destruction
