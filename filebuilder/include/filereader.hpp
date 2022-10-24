@@ -19,6 +19,8 @@ public:
     using FieldData = std::variant<std::monostate, std::string, uint32_t, int,
         Arr<std::string>, Arr<int>, Arr<uint32_t>, Arr<uint8_t>>;
 
+    const Arr<std::string> sections() const;
+
     template <typename FieldType>
     const FieldType& getField(const std::string& sectionId, const std::string& id)
     {
@@ -37,9 +39,6 @@ public:
         return std::get<FieldType>(fieldIt->data);
     }
 private:
-    size_t m_length;
-    char* m_input;
-
     struct Field
     {
         std::string id;
@@ -51,6 +50,9 @@ private:
         std::string id;
         Arr<Field> fields;
     };
+
+    size_t m_length;
+    char* m_input;
 
     Arr<Section> m_sections;
 

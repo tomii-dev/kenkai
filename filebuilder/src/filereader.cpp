@@ -174,6 +174,15 @@ FileReader::FileReader(const std::string& path)
     }
 }
 
+const std::vector<std::string> FileReader::sections() const {
+    Arr<std::string> strs;
+
+    for (const Section& s : m_sections)
+        strs.push_back(s.id);
+
+    return strs;
+}
+
 bool FileReader::isSeparator(int ind, SeparatorType& out)
 {
     if (m_input[ind] != '?')
