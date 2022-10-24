@@ -7,6 +7,7 @@ class Player : public Entity
 {
 public:
     Player();
+
+    void update(const sf::Time& delta) override;
 private:
-    Animator* m_animator;
 };

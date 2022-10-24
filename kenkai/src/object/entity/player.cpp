@@ -3,7 +3,12 @@
 #include "component/animator.hpp"
 
 Player::Player()
-    : m_animator(addComponent<Animator>())
 {
-    m_animator->load("player.kenk");
+    m_animator->load("player.ken");
+    m_moveSpeed = 100;
+}
+
+void Player::update(const sf::Time& delta)
+{
+    Entity::update(delta);
 }
