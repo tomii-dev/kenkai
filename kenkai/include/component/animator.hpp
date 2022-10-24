@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <map>
 
 class Animator : public Component
 {
@@ -12,6 +13,8 @@ public:
 
     void update(const sf::Time& delta) override;
     bool load(const std::string& path);
+
+    inline void setAnimation(const std::string& id) { m_anim = &m_animations[id]; }
 private:
     struct Frame
     {
@@ -23,7 +26,11 @@ private:
     {
         std::vector<Frame> frames;
         uint32_t duration;
-    } m_animation;
+    };
+
+    std::map<std::string, Animation> m_animations;
+
+    Animation* m_anim;
     
     sf::Time m_elapsed;
     uint32_t m_currentFrame;
