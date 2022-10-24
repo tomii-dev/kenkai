@@ -8,7 +8,7 @@
     for(const auto& component : m_components)
         component->update(delta);
     
-    m_sprite.move(m_velocity);
+    m_sprite.move(m_velocity * delta.asSeconds());
     m_velocity = Vec2();
 }
 

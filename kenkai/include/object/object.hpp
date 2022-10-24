@@ -38,13 +38,14 @@ public:
         return dynamic_cast<ComponentType*>(m_components.back().get());
     }
 protected:
+    Vec2 m_velocity;
+
     void addTask(std::function<void()> f, uint32_t ms);
 private:
     State m_state;
     sf::Sprite m_sprite;
     uint32_t m_weight;
     Vec2 m_position;
-    Vec2 m_velocity;
 
     using Components = std::vector<std::unique_ptr<Component>>;
     Components m_components;
