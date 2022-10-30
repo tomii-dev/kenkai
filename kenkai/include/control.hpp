@@ -9,6 +9,7 @@ class Control
 {
 public:
     void sendSfmlKey(const sf::Keyboard::Key& key, bool pressed);
+    void mouseClick();
     void update();
     inline void setObject(Object* obj) { m_object = obj; }
 
@@ -18,7 +19,8 @@ private:
         INPUT_LEFT,
         INPUT_RIGHT,
         INPUT_DOWN,
-        INPUT_JUMP
+        INPUT_JUMP,
+        INPUT_ATTACK
     };
     
     // the object being controlled
@@ -27,7 +29,7 @@ private:
     std::map<Input, bool> m_inputs;
 
     // TODO: allow for customisation
-    std::map < sf::Keyboard::Key, Input> m_keyControls = {
+    std::map<sf::Keyboard::Key, Input> m_keyControls = {
         {sf::Keyboard::A, INPUT_LEFT},
         {sf::Keyboard::D, INPUT_RIGHT},
         {sf::Keyboard::S, INPUT_DOWN},
