@@ -22,6 +22,10 @@ int Game::run()
 {
     Player* player = m_world.addObject<Player>();
     m_control.setObject(player);
+    player->setPosition(100, 0);
+
+    Entity* test = m_world.addObject<Entity>();
+    test->setPosition(200, 0);
 
     sf::Clock deltaClock;
 
@@ -50,6 +54,9 @@ void Game::pollEvents()
             break;
         case sf::Event::KeyReleased:
             m_control.sendSfmlKey(event.key.code, false);
+            break;
+        case sf::Event::MouseButtonPressed:
+            m_control.mouseClick();
         }
     }
 }
