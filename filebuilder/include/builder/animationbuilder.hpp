@@ -1,40 +1,30 @@
 #pragma once
 
-#include "filewriter.hpp"
+#include "builder.hpp"
+
+#include "image.hpp"
 
 #include <string>
 #include <vector>
 #include <memory>
 
-class AnimationBuilder
+class AnimationBuilder : public Builder
 {
 public:
-    inline AnimationBuilder(const std::string& path) : m_writer(path)
+    inline AnimationBuilder(const std::string& path) : Builder(path)
     {}
 
-    using PixelData = uint8_t*;
-    
     void* addAnimation(const std::string& id);
 
-    void addFrame(void* anim, uint32_t width, uint32_t height, PixelData pxData, size_t size, uint32_t duration);
+    void addFrame(void* anim, uint32_t width, uint32_t height, img::PixelData pxData, size_t size, uint32_t duration);
 
-    struct ImagePixelData
-    {
-        int width;
-        int height;
-        PixelData data;
-        size_t size;
-    };
-
-    ImagePixelData pxlDataFromFile(const std::string& path);
-
-    void build();
+    void build() override;
 private:
     struct FrameData
     {
         uint32_t width;
         uint32_t height;
-        PixelData pxData;
+        img::PixelData pxData;
         size_t size;
         uint32_t duration; // in ms
     };
@@ -48,9 +38,4 @@ private:
     };
 
     std::vector<std::unique_ptr<Animation>> m_animations;
-    FileWriter m_writer;
-
-    // AnimationBuilder needs to own all dynamically allocated img arrays given by 
-    // pxlDataFromFile so it can clean them up on destruction
-    std::vector<std::unique_ptr<uint8_t>> m_imgs;
 };

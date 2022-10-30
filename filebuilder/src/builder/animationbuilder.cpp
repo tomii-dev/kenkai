@@ -1,7 +1,6 @@
 #include "builder/animationbuilder.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
+#include <assert.h>
 
 void* AnimationBuilder::addAnimation(const std::string& id)
 {
@@ -9,23 +8,12 @@ void* AnimationBuilder::addAnimation(const std::string& id)
     return m_animations.back().get();
 }
 
-void AnimationBuilder::addFrame(void* animation, uint32_t width, uint32_t height, PixelData pxData, size_t size, uint32_t duration)
+void AnimationBuilder::addFrame(void* animation, uint32_t width, uint32_t height, img::PixelData pxData, size_t size, uint32_t duration)
 {
     Animation* anim = (Animation*)animation;
     assert(anim);
 
     anim->frames.push_back({ width, height, pxData, size, duration });
-}
-
-AnimationBuilder::ImagePixelData AnimationBuilder::pxlDataFromFile(const std::string& path)
-{
-    int width, height, channels;
-    PixelData img = stbi_load(path.c_str(), &width, &height, &channels, 4);
-
-    const size_t size = width * height * 4;
-
-    m_imgs.push_back(std::unique_ptr<uint8_t>(img));
-    return { width, height, m_imgs.back().get(), size };
 }
 
 void AnimationBuilder::build()
@@ -50,5 +38,5 @@ void AnimationBuilder::build()
         }
     }
 
-    m_writer.write();
+    Builder::build();
 }
