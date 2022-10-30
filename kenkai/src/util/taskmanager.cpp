@@ -2,13 +2,12 @@
 
 void TaskManager::update(sf::Time elapsed)
 {
-    std::vector<Task>::iterator it;
-    for(it = m_tasks.begin(); it != m_tasks.end();)
+    for(auto it = m_tasks.begin(); it != m_tasks.end();)
     {
         if(elapsed >= it->end)
         {
             it->callback();
-            m_tasks.erase(it);
+            it = m_tasks.erase(it);
         }
         else it++;
     }
