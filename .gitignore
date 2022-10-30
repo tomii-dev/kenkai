@@ -18,3 +18,4 @@ build/
 **.jpg
 **.ken
 
+filebuilder/include/stb/
