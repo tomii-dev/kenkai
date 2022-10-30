@@ -1,6 +1,7 @@
 #include "component/animator.hpp"
 
 #include "object/object.hpp"
+#include "util/image.hpp"
 #include "../../filebuilder/include/filereader.hpp"
 
 #include <math.h>
@@ -19,17 +20,22 @@ void Animator::update(const sf::Time& delta)
     m_elapsed += delta;
 
     if (!m_anim)
-        return;
+        changeAnim(m_defaultAnim);
 
-    const Frame& frame = m_anim->frames[m_currentFrame];
+    const Frame& frame = m_anim->at(m_currentFrame);
 
     if (m_elapsed.asMilliseconds() >= frame.duration)
     {
         m_lastFrame = m_currentFrame;
 
-        if (m_currentFrame == m_anim->frames.size() - 1)
+        if (m_currentFrame == m_anim->size() - 1)
         {
             m_currentFrame = 0;
+            if (m_playOnce)
+            {
+                m_anim = nullptr;
+                m_playOnce = false;
+            }
         }
         else
             m_currentFrame++;
@@ -70,11 +76,51 @@ bool Animator::load(const std::string& path)
             sf::Image img;
             img.create(width, height, pxData.data());
 
-            anim.frames.push_back({ img, duration });
+            anim.push_back({ img, duration });
         }
 
         m_animations.insert({ sect.substr(5), anim });
     }
 
     return true;
+}
+
+void Animator::setAnimation(const std::string& id)
+{
+    // animation is playing
+    if (m_playOnce)
+        return;
+
+    if(!changeAnim(id))
+        return;
+}
+
+void Animator::setDefaultAnimation(const std::string& id)
+{
+    if (!m_animations.count(id))
+        return;
+
+    m_defaultAnim = id;
+}
+
+void Animator::playAnimation(const std::string& id)
+{
+    if (!changeAnim(id))
+        return;
+
+    m_playOnce = true;
+}
+
+bool Animator::changeAnim(const std::string& id)
+{
+    if (&m_animations[id] == m_anim)
+        return false;
+
+    // TODO: some sort of graceful error handling
+    if (!m_animations.count(id))
+        return false;
+
+    m_anim = &m_animations[id];
+    m_currentFrame = 0;
+    m_lastFrame = -1;
 }

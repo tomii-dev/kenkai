@@ -14,7 +14,9 @@ public:
     void update(const sf::Time& delta) override;
     bool load(const std::string& path);
 
-    inline void setAnimation(const std::string& id) { m_anim = &m_animations[id]; }
+    void setAnimation(const std::string& id);
+    void setDefaultAnimation(const std::string& id);
+    void playAnimation(const std::string& id);
 private:
     struct Frame
     {
@@ -22,19 +24,19 @@ private:
         const uint32_t duration;
     };
 
-    struct Animation
-    {
-        std::vector<Frame> frames;
-        uint32_t duration;
-    };
-
+    using Animation = std::vector<Frame>;
     std::map<std::string, Animation> m_animations;
 
     Animation* m_anim;
+    std::string m_defaultAnim;
+
+    bool m_playOnce = false;
     
     sf::Time m_elapsed;
     uint32_t m_currentFrame;
     int32_t m_lastFrame;
 
     sf::Texture m_tex;
+
+    bool changeAnim(const std::string& id);
 };
