@@ -4,8 +4,8 @@
 
 Player::Player()
 {
-    m_animator->load("player.ken");
     m_moveSpeed = 100;
+    m_jumpForce = 300;
 }
 
 void Player::update(const sf::Time& delta)
